@@ -8,7 +8,7 @@
 
 <div class="section banner_section who_we_help">
   	<div class="container">
-  		<h4>Create Product this is</h4>
+  		<h4>Create Product</h4>
   	</div>
   </div>
   
