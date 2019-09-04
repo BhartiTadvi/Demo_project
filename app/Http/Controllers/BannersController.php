@@ -19,9 +19,6 @@ class BannersController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 2;
-
-
-
         if (!empty($keyword)) {
             $banners = Banner::where('name', 'LIKE', "%$keyword%")
                 ->orWhere('image', 'LIKE', "%$keyword%")
@@ -66,7 +63,7 @@ class BannersController extends Controller
 
         Banner::create($requestData);
 
-        return redirect('banners')->with('flash_message', 'Banner added!');
+        return redirect('banners')->with('success', 'New banner added successfully');
     }
 
     /**
@@ -107,6 +104,9 @@ class BannersController extends Controller
      */
     public function update(Request $request, $id)
     {
+         $request->validate([
+            'name'=>'required', 
+             ]);
         
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
@@ -117,7 +117,7 @@ class BannersController extends Controller
         $banner = Banner::findOrFail($id);
         $banner->update($requestData);
 
-        return redirect('banners')->with('flash_message', 'Banner updated!');
+        return redirect('banners')->with('success', 'Banner updated successfully');
     }
 
     /**
@@ -131,6 +131,6 @@ class BannersController extends Controller
     {
         Banner::destroy($id);
 
-        return redirect('banners')->with('flash_message', 'Banner deleted!');
+        return redirect('banners')->with('success', 'Banner deleted successfully');
     }
 }

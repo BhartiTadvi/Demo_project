@@ -28,7 +28,7 @@ class Product_demoController extends Controller
 
                 ->latest()->paginate($perPage);
         } else {
-            $products = Product::with('product_image')->latest()->paginate($perPage);
+            $products = Product_demo::with('product_image')->latest()->paginate($perPage);
             
         }
 

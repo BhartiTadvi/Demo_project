@@ -101,7 +101,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i>products</a></li>
+            <li><a href="{{route('product_demo.index')}}"><i class="fa fa-circle-o"></i>products</a></li>
            </ul>
         </li>
        

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 
 @section('content')
@@ -6,8 +6,7 @@
     <div class="col-lg-12 margin-tb">
 
         <div class="pull-left">
-            <a class="btn btn-primary" href="{{ route('Users.index') }}" style="margin-left: 11px;
-    margin-top: 11px;"> Back</a>
+            
         </div><br/>
         <div class="pull-left" style="margin-left:10px">
             <h2> Show User</h2>
@@ -15,8 +14,6 @@
         
     </div>
 </div>
-
-
 <div class="container">
         <div class="row">
            
@@ -24,11 +21,10 @@
                 <div class="box">
             <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group" style="margin: 57px;
-">
+            <div class="form-group" style="margin: 57px;">
             <strong>Name:</strong>
             {{ $user->name }}
-        </div>
+            </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group" style="margin-top: -39px;
@@ -48,6 +44,8 @@
             @endif
         </div>
     </div>
+    <a class="btn btn-warning" href="{{ route('Users.index') }}" style="margin-left: 22px;
+    margin-top: 6px;"> Back</a>
 </div>
 </div>
 </div>

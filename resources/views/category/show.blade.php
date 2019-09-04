@@ -22,7 +22,7 @@
           <div class="box">
             <div class="box-header">
              </div>
-             <a href="{{ url('/category') }}" title="Back"><button class="btn btn-warning btn-sm" style="margin-left: 13px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+            
                         
               <div class="box-header"><strong>Category Name -</strong>
                     {{ $categories->name }}</div>
@@ -68,9 +68,12 @@
                             </table>
 
                         </div>
+                         <a href="{{ url('/category') }}" title="Back"><button class="btn btn-warning btn-sm" style="margin-left: 13px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
 
             <!-- /.box-body -->
           </div>
+
+
           <!-- /.box -->
            
         <!-- /.modal -->

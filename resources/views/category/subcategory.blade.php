@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
     <div class="container">
@@ -18,11 +18,11 @@
                             </ul>
                         @endif
 
-             <form method="POST" action="{{url('/subcategory/store')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+             <form method="POST" action="{{url('/subcategory/store')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
                                         {{ csrf_field() }}
                  <div class="col-xs-12 col-sm-12 col-md-12 {{ $errors->has('category') ? 'has-error' : ''}}">
                     <label for="category" class="control-label">{{ 'Category' }}</label>
-                    <select class="form-control" name="category_name">
+                    <select class="form-control" name="category_name" data-parsley-required="true">
                     @foreach($categories as $category)
                        <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
@@ -34,7 +34,7 @@
                          <div class="form-group">
 
                             <label style="margin-left:17px" for="name" class="control-label">{{ 'SubCategory' }}</label>
-                            <input class="form-control" name="subcategory_name" type="text" id="name" value="{{ isset($subcategory->name) ? $subcategory->name : ''}}" style="    width: 799px;margin-left: 15px; }" >
+                            <input class="form-control" name="subcategory_name" type="text" id="name" value="{{ isset($subcategory->name) ? $subcategory->name : ''}}" style="    width: 799px;margin-left: 15px;" data-parsley-required="true" >
                             {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                         </div>
                     </div>

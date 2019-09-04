@@ -1,26 +1,18 @@
-@extends('layouts.app')
-
-
+@extends('layouts.master')
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left" style="margin-left: 15px;">
             <h2> Show Role</h2>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('Roles.index') }}"> Back</a>
-        </div>
     </div>
 </div>
 
 <div class="container">
         <div class="row">
-           
-            <div class="col-md-11">
+             <div class="col-md-11">
                 <div class="box">
-                    
                     <div class="box-body">
-
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group" style="margin-left: 15px;">
@@ -37,6 +29,7 @@
                 @endforeach
             @endif
         </div>
+        <a class="btn btn-warning" href="{{ route('Roles.index') }}"> Back</a>
     </div>
 </div>
 </div>
@@ -45,4 +38,3 @@
 </div>
 </div>
 @endsection
-resource

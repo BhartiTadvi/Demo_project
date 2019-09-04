@@ -61,7 +61,7 @@ class SubcategoryController extends Controller
        $result = $subcategory->save();
        //dd($subcategory);
         if($result){
-             return redirect('category')->with('flash_message', 'Subcategory added!');
+             return redirect('category')->with('success', 'Subcategory added successfully!');
                  }
     
     
@@ -72,7 +72,7 @@ class SubcategoryController extends Controller
         //
         Category::destroy($id);
 
-        return redirect('category')->with('flash_message', 'Subcategory deleted!');
+        return redirect('category')->with('success', 'Subcategory deleted successfully!');
     
     }
 }

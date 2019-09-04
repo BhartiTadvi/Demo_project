@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-
+@extends('layouts.master')
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
@@ -12,15 +10,12 @@
         </div>
     </div>
 </div>
-
-
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
     </div>
 @endif
-
-  <section class="content">
+<section class="content">
      <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -43,18 +38,15 @@
         <td>{{ ++$i }}</td>
         <td>{{ $role->name }}</td>
         <td> 
-          <a class="btn btn-info" href="{{ route('Roles.show',$role->id) }}">Show</a>
-            
-        <a class="btn btn-success" href="{{ route('Roles.edit',$role->id) }}">Edit</a>
-           
+          <a class="btn btn-info" href="{{ route('Roles.show',$role->id) }}">Show
+          </a>
+           <a class="btn btn-success" href="{{ route('Roles.edit',$role->id) }}">Edit</a>
             @can('role-delete')
                 {!! Form::open(['method' => 'DELETE','route' => ['Roles.destroy', $role->id],'style'=>'display:inline']) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                 {!! Form::close() !!}
             @endcan
-
-            
-        </td>
+       </td>
     </tr>
     @endforeach
 </table>
@@ -62,11 +54,4 @@
 </div>
 </div>
 </div>
-
-</section>
-
-
-
-
-
 @endsection

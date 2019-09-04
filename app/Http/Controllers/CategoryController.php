@@ -23,7 +23,6 @@ class CategoryController extends Controller
         $perPage =2;
 
     if (!empty($keyword)) {
-
             $category = Category::where('name', 'LIKE', "%$keyword%")
 
                 ->latest()->paginate($perPage);
@@ -31,15 +30,10 @@ class CategoryController extends Controller
          $category = Category::latest()->paginate($perPage);
 
          $categories = Category::where('parent_id',0)->get();
-             
-
-              //dd($categories);
+         //dd($categories);
      }
        
         return view('category.index', compact('category','categories'));
-
-
-       
     }
 
     /**
@@ -68,13 +62,9 @@ class CategoryController extends Controller
             ]);
         $category = new Category();
         $category->name = $request->category_name;
-        
-        
-        
-        
         $result = $category->save();
         if($result){
-             return redirect('category')->with('flash_message', 'Category added!');
+             return redirect('category')->with('success', 'Category added successfully');
                  }
     }
 
@@ -89,7 +79,7 @@ class CategoryController extends Controller
     {
      
      $categories = category::with('children')->findOrFail($id);
-     dd($categories);
+    // dd($categories);
 
 
         return view('category.show', compact('categories'));
@@ -124,11 +114,10 @@ class CategoryController extends Controller
        $category->name = $request->category_name;
        $category->status = $request->status;
        //dd($category);
-      
-       if($category->save())
+         if($category->save())
         {
          
-         return redirect('category')->with('flash_message', 'Category updated!');
+         return redirect('category')->with('success', 'Category updated successfully');
         }
     }
 
@@ -143,30 +132,6 @@ class CategoryController extends Controller
     {
         Category::destroy($id);
 
-        return redirect('category')->with('flash_message', 'Category deleted!');
+        return redirect('category')->with('success', 'Category deleted successfully');
     }
-
-
-
-     public function formAction()
-    {
-    $results = Category::get('status');
-    if (Category::get('activate'))
-    {
-        $this->activateClient($results);
-    } elseif (Category::get('Deactivate'))
-    {
-        $this->deactivateClient($results);
-    }
-
-    return redirect('category.index');
-    }
-    
-
-
-   
-     
-
-
-
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 
 @section('content')
@@ -12,61 +12,35 @@
         </div>
     </div>
 </div>
-
-
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
-    </div>
-@endif
-
-
 <div class="container">
         <div class="row">
-            
-
             <div class="col-md-9">
                 <div class="box">
                     <div class="box-body">
-                        <br />
-                        <br />
-
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-
-                       
 {!! Form::open(array('route' => 'Roles.store','method'=>'POST')) !!}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Name:</strong>
+            <strong>Name:<span class="check-error">*</span></strong>
             {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+            {!! $errors->first('name', '<span class="error-message">:message</span>') !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Permission:</strong>
+            <strong>Permission:<span class="check-error">*</span></strong>
             <br/>
             @foreach($permission as $value)
                 <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
                 {{ $value->name }}</label>
             <br/>
             @endforeach
+            {!! $errors->first('permission', '<span class="error-message">:message</span>') !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a class="btn btn-primary" href="{{ route('Roles.index') }}"> Back</a>
+        <a class="btn btn-warning" href="{{ route('Roles.index') }}"> Back</a>
     </div>
 </div>
 {!! Form::close() !!}

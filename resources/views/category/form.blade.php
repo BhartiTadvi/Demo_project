@@ -4,7 +4,7 @@
  <div class="form-group">
 
     <label style="margin-left:29px" for="name" class="control-label">{{ 'Main Category' }}</label>
-    <input class="form-control" name="category_name" type="text" id="name" value="{{ isset($category->name) ? $category->name : ''}}" style="" >
+    <input class="form-control" name="category_name" type="text" id="name" value="{{ isset($category->name) ? $category->name : ''}}" data-parsley-required="true" >
     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
 </div>

@@ -16,6 +16,10 @@ Route::get('/', function () {
 Route::get('/table', function () {
     return view('category.table');
     });
+Route::get('/validation', function () {
+    return view('Users.validation');
+    });
+
 
     
 
