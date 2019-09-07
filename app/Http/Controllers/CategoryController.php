@@ -6,6 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Category;
+use Response;
+
 use DB;
 
 use Illuminate\Http\Request;
@@ -20,7 +22,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage =2;
+        $perPage =5;
 
     if (!empty($keyword)) {
             $category = Category::where('name', 'LIKE', "%$keyword%")
@@ -134,4 +136,20 @@ class CategoryController extends Controller
 
         return redirect('category')->with('success', 'Category deleted successfully');
     }
+
+   public function getSubCategory(Request $request){
+
+      $category =$request->category_id;
+      $subcategories= Category::where('parent_id', '=', $category)
+                    ->get();
+                    // dd($subcategories);
+        return Response::json($subcategories);
+
+    
+   // dd($request->all());
+
+
+   }
+
+
 }

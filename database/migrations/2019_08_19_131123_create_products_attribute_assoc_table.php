@@ -15,10 +15,11 @@ class CreateProductsAttributeAssocTable extends Migration
     {
         Schema::create('products_attribute_assoc', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
-            $table->integer('Height');
-            $table->integer('width');
             $table->string('color');
+             $table->integer('quantity');
+            $table->timestamps();
+             
+
 
 
         });

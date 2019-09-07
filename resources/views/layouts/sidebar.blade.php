@@ -82,7 +82,7 @@
          <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
-            <span>Category</span>
+            <span>Category management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -95,13 +95,25 @@
          <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
-            <span>Product</span>
+            <span>Product management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('product_demo.index')}}"><i class="fa fa-circle-o"></i>products</a></li>
+            <li><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i>products</a></li>
+           </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Coupon management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('coupon.index')}}"><i class="fa fa-circle-o"></i>coupons</a></li>
            </ul>
         </li>
        

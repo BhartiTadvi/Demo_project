@@ -30,9 +30,7 @@ class SubcategoryController extends Controller
                    
     {
         
-    $categories = Category::with('children')->where('parent_id',0)->get();
-
-
+        $categories = Category::with('children')->where('parent_id',0)->get();
         return view('category.subcategory',compact('categories',$categories));
         
     }

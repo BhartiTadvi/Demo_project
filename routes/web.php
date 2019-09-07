@@ -13,17 +13,33 @@
 Route::get('/', function () {
     return view('login');
     });
-Route::get('/table', function () {
-    return view('category.table');
-    });
-Route::get('/validation', function () {
-    return view('Users.validation');
-    });
+
+ Route::get('/shopper','Frontend\FrontendController@index')->name('shopper');
+
+  Route::get('/registeruser','Frontend\RegistrationController@create')->name('registeruser');
+
+ Route::post('/register/store','Frontend\RegistrationController@store')->name('user.store');
+
+Route::post('/userlogin','Frontend\LoginController@login')->name('userlogin');
+ 
+
+ Route::get('/loginuser','Frontend\LoginController@create')->name('loginuser');
+
+ Route::get('/contactus','Frontend\FrontendController@contact')->name('contactus');
 
 
-    
+
+
+
+
+
 
 Route::get('/product_image', 'ProductImageController@create')->name('product_image');
+Route::get('/product_attribute', 'Product_attributeController@create')->name('product_attribute');
+Route::post('/attribute/store','Product_attributeController@store')->name('store_attribute');
+
+
+
 
 Route::post('/image/store','ProductImageController@store')->name('store_image');
 
@@ -43,11 +59,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('Users','UserController');
     
 });
+
 Route::resource('admin/posts', 'Admin\\PostsController');
 Route::resource('banners', 'BannersController');
 Route::resource('category', 'CategoryController');
+Route::resource('posttable', 'PosttableController');
 Route::resource('products', 'ProductsController');
 
-Route::resource('product_demo', 'Product_demoController');
-Route::resource('posttable', 'PosttableController');
-Route::resource('banners_management', 'Banners_managementController');
+Route::resource('product_image', 'Product_imageController');
+
+Route::get('/get/subcategories','CategoryController@getSubCategory')->name('getSubCategory');
+// Route::get('/get/{id}','CategoryController@getSubCategory');
+Route::resource('admin/posts', 'Admin\\PostsController');
+Route::resource('coupon/coupon', 'Coupon\\CouponController');

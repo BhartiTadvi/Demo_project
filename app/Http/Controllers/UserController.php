@@ -14,11 +14,12 @@ use Hash;
          //$user->assignRole($role);
 class UserController extends Controller
 {
+    
 
         public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('Users.index',compact('data'))
+          $data = User::orderBy('id','DESC')->paginate(5);
+          return view('Users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -31,8 +32,9 @@ class UserController extends Controller
     
     public function store(Request $request)
     {
+       
         $this->validate($request, [
-            // 'name' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
              'confirm-password' => 'required|same:password',
@@ -45,13 +47,11 @@ class UserController extends Controller
         //$image = $request->file('image');
         $input['image'] = $request->file('image')
                             ->store('uploads', 'public');
-        
-
-    }
+        }
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-        return redirect()->route('Users.create')
+        return redirect()->route('Users.index')
                         ->with('success','User created successfully');
     }
   

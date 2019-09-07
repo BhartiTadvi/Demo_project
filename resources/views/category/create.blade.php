@@ -34,13 +34,3 @@
     </div>
 @endsection
 
-@section('script')
-<script type="text/javascript">
-    
-    $(document).ready(function(){
-     
-     $("#create_category").parsley();
-     });
-    
-</script>
-@endsection

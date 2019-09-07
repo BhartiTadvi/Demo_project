@@ -3,11 +3,12 @@
 @section('content')
     <div class="container">
         <div class="row">
-           
+            @include('admin.sidebar')
+
             <div class="col-md-9">
                 <div class="card">
-                    <div class="box-header">Posts</div>
-                    <div class="box">
+                    <div class="card-header">Posts</div>
+                    <div class="card-body">
                         <a href="{{ url('/admin/posts/create') }}" class="btn btn-success btn-sm" title="Add New Post">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
@@ -25,7 +26,7 @@
 
                         <br/>
                         <br/>
-                        <div class="box-body">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>

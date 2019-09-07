@@ -14,10 +14,11 @@ class CreatePosttablesTable extends Migration
     {
         Schema::create('posttables', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('productname')->nullable();
             $table->integer('price')->nullable();
             $table->string('description')->nullable();
+            $table->timestamps();
+            
             });
     }
 
