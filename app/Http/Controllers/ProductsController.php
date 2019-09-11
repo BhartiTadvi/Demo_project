@@ -64,17 +64,13 @@ class ProductsController extends Controller
     {
         
         $requestData = $request->all();
-
-         //dd($requestData);
         $product=Product::create($requestData);
-        
         $files = $request->file('image');
-        
+
         foreach($files as $file)
         {
         $filename = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
-        
         $imgName = str_random(10).'.'.$extension;
         //dd($imgName);
             $file->move(public_path('/uploads'), $imgName);
@@ -84,12 +80,8 @@ class ProductsController extends Controller
             $imgObj->save();       
         }
 
-
          $product->categories()->attach($request->subcategory);
-
-
-
-        return redirect('products')->with('flash_message', 'Product added!');
+        return redirect('products')->with('success', 'Product added!');
     }
 
     /**
@@ -103,7 +95,6 @@ class ProductsController extends Controller
     {
         $product = Product::with('productImage','productCategories','productCategories.category')->findOrFail($id);
         //dd($product);
-
         return view('products.show', compact('product'));
     }
 
@@ -119,10 +110,6 @@ class ProductsController extends Controller
         $product = Product::with('productCategories','productCategories.category'
             ,'categories','productImage','parentCategory')->findOrFail($id);
          $categories = Category::with('children')->get();
-
-       
-         //dd($product);
-
         return view('products.edit', compact('product','categories'));
     }
 
@@ -136,70 +123,36 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        // $requestData = $request->all();
-        // //dd($requestData);
         $products = Product::findOrFail($id);
-
         $products->productname = $request->productname;
         $products->price = $request->price;
         $products->description = $request->description;
-       // $products->categories->id = $request->subcategory_id;
-        
-        //dd($products);
-
-      // $product_path =Product_image::delete(public_path() . '/uploads', $productimages->image);
-      //dd($product_image);
 
      if($request->hasFile('image')){
-       
        $imageName=Product_image::select('image')->where('product_id',$id)->get();
-       //dd($imageName);
-
        foreach ($imageName as $img) {
-
         unlink(public_path('/uploads').'/'.$img->image);
-
-        // dd(public_path('/uploads').'/'.$img->image);
-           # code...
        }
       
-      $productimages= Product_image::where('product_id',$id)->delete();
-
-
+        $productimages= Product_image::where('product_id',$id)->delete();
         $files = $request->file('image');
           
-           
-          foreach($files as $file)
+        foreach($files as $file)
          {
         $filename = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
         $imgName = str_random(10).$extension;
             $file->move(public_path('/uploads'), $imgName);
-            
             $imgObj = new Product_image;
             $imgObj->product_id = $products->id;
             $imgObj->image = $imgName;
             $imgObj->save(); 
-
-
          }
          
     }
-
-        
-
-     
        $products->save();
-
-       // dd($products,$request->all());
-       // dd($request->all());
-        $products->categories()->sync([$request->subcategory_id]);
-        // dd($products);
-        
-        
-
-        return redirect('products')->with('message', 'Product updated!');
+       $products->categories()->sync([$request->subcategory_id]);
+        return redirect('products')->with('success', 'Product updated!');
     }
 
     /**
@@ -211,8 +164,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        Product::destroy($id);
-
-        return redirect('products')->with('message', 'Product deleted!');
+        $product = Product::find($id)->delete();
+        return redirect('products')->with('success', 'Product deleted!');
     }
 }

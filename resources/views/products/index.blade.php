@@ -24,15 +24,16 @@
               </span>
              </form>
              @if ($message = Session::get('success'))
-          <div class="alert alert-success">
+           <div class="alert alert-success">
             <p>{{ $message }}</p>
-          </div>
+           </div>
           @endif
               <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Productname</th><th>Price</th><th>Description</th><th>Category_name</th><th>Actions</th>
+                                        <th>#</th><th>Productname</th><th>Price</th><th>Description</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,7 +44,7 @@
                                         <td>{{ $item->productname }}</td><td>{{ $item->price }}</td>
                                         <td>{{ $item->description }}
                                         </td>
-                                        <td>{{ $item->productCategories->category->name }} </td>
+                                       
                                         <td>
                                             <a href="{{ url('/products/' . $item->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/products/' . $item->id . '/edit') }}" title="Edit Product"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

@@ -10,13 +10,7 @@
                     <div class="box-header">Create New Subcategory</div>
                     <div class="box-body">
                         
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+                        
 
              <form method="POST" action="{{url('/subcategory/store')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
                                         {{ csrf_field() }}

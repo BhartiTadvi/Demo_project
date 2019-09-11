@@ -51,14 +51,23 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Title</th><th>Code</th><th>Type</th><th>Actions</th>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Code</th>
+                                        <th>Type</th>
+                                        <th>Discount</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($coupon as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->title }}</td><td>{{ $item->code }}</td><td>{{ $item->type }}</td>
+                                        <td>{{ $item->title }}</td>
+                                        <td>{{ $item->code }}</td>
+                                        <td>{{ $item->type }}</td>
+                                        <td>{{ $item->discount }}</td>
+
                                         <td>
                                             <a href="{{ url('/coupon/coupon/' . $item->id) }}" title="View Coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/coupon/coupon/' . $item->id . '/edit') }}" title="Edit Coupon"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

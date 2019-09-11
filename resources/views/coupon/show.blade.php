@@ -14,7 +14,22 @@
                                     <tr>
                                         <th>ID</th><td>{{ $coupon->id }}</td>
                                     </tr>
-                                    <tr><th> Title </th><td> {{ $coupon->title }} </td></tr><tr><th> Code </th><td> {{ $coupon->code }} </td></tr><tr><th> Type </th><td> {{ $coupon->type }} </td></tr>
+                                    <tr>
+                                        <th> Title </th>
+                                        <td> {{ $coupon->title }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Code </th>
+                                        <td> {{ $coupon->code }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Type </th>
+                                        <td> {{ $coupon->type }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Type </th>
+                                        <td> {{ $coupon->type }} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                               <a href="{{ url('/coupon/coupon') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>

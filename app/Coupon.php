@@ -25,7 +25,7 @@ class Coupon extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'code', 'type', 'discount'];
+    protected $fillable = ['title', 'code','discount','quantity','type'];
 
     
 }

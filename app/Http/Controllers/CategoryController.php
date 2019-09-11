@@ -110,7 +110,12 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, $id)
-    {
+    {  
+        $request->validate([
+            'category_name'=>'required', 
+            ]);
+       
+
        $category = Category::findOrFail($id);
         
        $category->name = $request->category_name;

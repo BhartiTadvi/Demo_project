@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Banner;
+use App\Category;
+use App\Product;
+
+
+
 
 class FrontendController extends Controller
 {
@@ -16,20 +22,43 @@ class FrontendController extends Controller
     public function index()
     {
         //
-        return view('frontend.home');
+         $sliders = Banner::get();
+
+         $categories = Category::where('parent_id','=', 0)->get();
+         $subcategories = category::with('children')->get();
+           $products = Product::with('productCategories','productCategories.category'
+            ,'categories','productImage','parentCategory')->get();
+
+        // dd($subcategories);
+         
+
+        return view('frontend.home',compact('sliders','categories','subcategories','products'));
     }
+
+     public function showProduct($id)
+    {
+         $sliders = Banner::get();
+         $categories = Category::where('parent_id','=', 0)->get();
+         $subcategories = category::with('children')->get();
+       
+         $products = Product::whereHas('productCategories',function($q) use($id)
+         {
+            $q->where('category_id',$id);
+         })->with('productImage')->get();
+        
+       return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products]);
+    }
+
+
+   
+     
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    { 
-        
-         
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -55,12 +84,7 @@ class FrontendController extends Controller
 
     }
 
-    public function show($id)
-    {
-        //
-        
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      *

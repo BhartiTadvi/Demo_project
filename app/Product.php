@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Product extends Model
 {
+     use SoftDeletes;
+
+
     /**
      * The database table used by the model.
      *
@@ -24,8 +29,9 @@ class Product extends Model
      * Attributes that should be mass-assignable.
      *
      * @var array
+
      */
-    protected $fillable = ['productname', 'price', 'description'];
+    protected $fillable = ['productname', 'price', 'description','deleted_at'];
 
    public function categories() 
     {   

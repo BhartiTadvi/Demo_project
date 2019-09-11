@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateCouponsTable extends Migration
+class CreateCouponCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +13,19 @@ class CreateCouponsTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupons', function (Blueprint $table) {
+        Schema::create('coupon_codes', function (Blueprint $table) {
             $table->increments('id');
-            
             $table->string('title')->nullable();
             $table->string('code')->nullable();
             $table->string('type')->nullable();
             $table->integer('discount')->nullable();
-            $table->timestamps();
-            });
-    }
 
+            $table->timestamps();
+        });
+    }
+       
+    
+  
     /**
      * Reverse the migrations.
      *
@@ -30,6 +33,6 @@ class CreateCouponsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('coupons');
+        Schema::dropIfExists('coupon_codes');
     }
 }

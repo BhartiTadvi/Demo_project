@@ -28,10 +28,10 @@
 
 <body>
 
-@include('frontend.header')
+@include('frontend.layouts.header')
     
     @yield('content')
-@include('frontend.footer')
+@include('frontend.layouts.footer')
 
 
 
@@ -43,7 +43,7 @@
     <script src="{{asset('js/main.js')}}"></script>
     <script src="https://parsleyjs.org/dist/parsley.min.js"></script>
 
-        @yield('script')
+       
 
 </body>
 </html>

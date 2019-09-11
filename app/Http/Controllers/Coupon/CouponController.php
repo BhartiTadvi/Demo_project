@@ -52,12 +52,18 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'title'=>'required', 
+            'code'=>'required||unique:coupons,code', 
+            'discount'=>'required',
+            'quantity'=>'required', 
+            'type'=>'required'
+             ]);
         $requestData = $request->all();
         
         Coupon::create($requestData);
 
-        return redirect('coupon/coupon')->with('flash_message', 'Coupon added!');
+        return redirect('coupon/coupon')->with('success', 'Coupon added!');
     }
 
     /**
@@ -98,13 +104,18 @@ class CouponController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+         $request->validate([
+            'title'=>'required', 
+            'code'=>'required', 
+            'type'=>'required', 
+            'discount'=>'required', 
+             ]);
         $requestData = $request->all();
         
         $coupon = Coupon::findOrFail($id);
         $coupon->update($requestData);
 
-        return redirect('coupon/coupon')->with('flash_message', 'Coupon updated!');
+        return redirect('coupon/coupon')->with('success', 'Coupon updated!');
     }
 
     /**
@@ -118,6 +129,6 @@ class CouponController extends Controller
     {
         Coupon::destroy($id);
 
-        return redirect('coupon/coupon')->with('flash_message', 'Coupon deleted!');
+        return redirect('coupon/coupon')->with('success', 'Coupon deleted!');
     }
 }

@@ -1,4 +1,5 @@
-@extends('frontend.master')
+@extends('frontend.layouts.master')
+
 
 @section('content')
 	<section id="form"><!--form-->
@@ -14,13 +15,14 @@
 						{!! Form::text('e-mail', null, array('placeholder' => 'Email Address', 'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter Name ')) !!}
 		       		    {!! $errors->first('e-mail',  '<p class="help-block"style="color:red;">:message</p>') !!}
 
-		       		    {!! Form::password('password1', ['class' => 'form-control','placeholder'=>"Password", ""]) !!}
+		       		    {!! Form::password('password1', ['class' => 'form-control','placeholder'=>"Password", "",'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter Password ']) !!}
 			       	    {!! $errors->first('password1', '<p class="help-block"style="color:red;">:message</p>') !!}
 
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in
-							</span>
+							</span><br/>
+							<a href="{{ route('password.request')}}">Forgot password</a>
 							<button type="submit" class="btn btn-default">Login</button>
 						{!! Form::close() !!}
 
@@ -42,7 +44,7 @@
 					{!! Form::email('email', '', ['placeholder'=>"Email Address", 'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter email ',""]) !!}
 			        {!! $errors->first('email', '<p class="help-block"style="color:red;">:message</p>') !!}
 			        
-			        {!! Form::password('password', ['class' => 'form-control','placeholder'=>"Password", ""]) !!}
+			        {!! Form::password('password', ['class' => 'form-control','placeholder'=>"Password", "",'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter password']) !!}
 			        {!! $errors->first('password', '<p class="help-block"style="color:red;">:message</p>') !!}
 
 			        <button type="submit" class="btn btn-default">Signup</button>

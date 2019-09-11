@@ -23,7 +23,7 @@ class RegistrationController extends Controller
      */
     public function create()
     { 
-        return view('frontend.register');
+        return view('frontend.login');
          
         //
     }
@@ -37,15 +37,20 @@ class RegistrationController extends Controller
     public function store(Request $request)
     {
         //
-       $input = $request->all();
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
             ]);
 
-        $user = User::create($input);
-        return redirect()->route('shopper')
+          $user= User::create([
+            //'firstname' => $data['name'],
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+
+        ]);
+        return redirect()->route('home_shopper')
                         ->with('success','User created successfully');
                          }
 
