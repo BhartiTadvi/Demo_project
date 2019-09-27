@@ -15,7 +15,7 @@ class LoginController extends Controller
 { 
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/homeshopper';
+    protected $redirectTo = '/index';
     
    
    public function login(Request $request)
@@ -34,7 +34,7 @@ class LoginController extends Controller
 
             if(Auth::attempt($users))
             {
-             return redirect('/homeshopper');
+             return redirect('/index');
             }
 
         else

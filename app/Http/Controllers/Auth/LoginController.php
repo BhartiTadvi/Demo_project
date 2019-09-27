@@ -46,7 +46,7 @@ class LoginController extends Controller
         
      // $permissions = $this->getAllPermissions($permissions);
 
-      return view('registeruser');
+      return view('register');
     }
          
          public function redirectToGoogle()

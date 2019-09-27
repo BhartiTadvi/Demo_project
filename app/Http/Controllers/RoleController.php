@@ -9,6 +9,7 @@ use App\Rolesmodel;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+
 use DB;
 
 
@@ -48,14 +49,15 @@ class RoleController extends Controller
 
      public function store(Request $request)
     {
-         // dd($request);
+         dd($request->all());
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
         ]);
         $role = Rolesmodel::create(['name' => $request->input('name')]);
          //dd($role);
-        // $role->syncPermissions($request->input('permission'));
+        // $permissions=$request->input('permission');
+        // $role->givePermissionTo($permissions);
          
           return redirect()->route('Roles.index')
                         ->with('success','Role created successfully');

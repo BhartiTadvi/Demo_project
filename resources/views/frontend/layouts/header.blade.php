@@ -38,12 +38,13 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
                           
-                                <li><a href="{{route('loginuser')}}"><i class="fa fa-user"></i> Account</a></li>
-                                @guest
+                                <li><a href="{{route('user.account')}}"><i class="fa fa-user"></i> Account</a></li>
+                                
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								
+								<li><a href="{{url('/checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+							<li><a href="{{route('cart')}}"><span class="badge">{{Cart::content()->count()}}</span><i class="fa fa-shopping-cart"></i>Cart </a></li>
+								@guest
 								<li><a href="{{route('loginuser')}}"><i class="fa fa-lock"></i> Login</a></li>
                              @else
               			  <li>
@@ -84,13 +85,13 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html" class="active">Home</a></li>
+								<li><a href="{{route('home_shopper')}}" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-										<li><a href="product-details.html">Product Details</a></li> 
-										<li><a href="checkout.html">Checkout</a></li> 
-										<li><a href="cart.html">Cart</a></li> 
+                                        <li><a href="{{route('home_shopper')}}">Products</a></li>
+										<li><a href="">Product Details</a></li> 
+										<li><a href="{{url('/checkout')}}">Checkout</a></li> 
+										<li><a href="{{route('cart')}}">Cart</a></li> 
 										<li> </li> 
                                     </ul>
                                 </li> 

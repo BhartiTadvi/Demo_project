@@ -37,7 +37,7 @@
      $('#category').on('change',function(e){
        
          var cat_id = e.target.value;
-    // alert(cat_id);
+    
      $.ajax({
         data: {'category_id':cat_id},
         type: 'get',
@@ -46,7 +46,9 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-         //console.log(response);
+        
+            // alert(response);
+
             $('#subcategory').empty();
 
              $('#subcategory').append(' Please choose one');

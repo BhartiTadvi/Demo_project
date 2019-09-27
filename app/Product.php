@@ -52,6 +52,21 @@ class Product extends Model
    {   
     return $this->hasOne('App\Category','parent_id');
    }
+
+   public function wishList() 
+   {   
+    return $this->hasMany('App\UserWishlist','product_id');
+   }
+
+    public function productOrder() 
+   {   
+    return $this->hasMany('App\Product_Order');
+   }
+
+   public function orders() 
+    {   
+      return $this->belongsToMany('App\Order','Product_Order','order_id','product_id');
+    }
     
     
 }

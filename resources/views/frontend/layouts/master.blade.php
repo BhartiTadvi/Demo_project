@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="author" content="">
     <title>Home | E-Shopper</title>
     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -13,6 +15,8 @@
     <link href="{{asset('css/animate.css')}}" rel="stylesheet">
 	<link href="{{asset('css/main.css')}}" rel="stylesheet">
 	<link href="{{asset('css/responsive.css')}}" rel="stylesheet">
+    <link href="{{asset('dist/jquery.simplewizard.css')}}" rel="stylesheet" />
+    
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -23,6 +27,42 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <link rel="stylesheet" type="text/css" href="https://parsleyjs.org/src/parsley.css">
+    <style>
+       
+#top{margin-top:-40px;}
+  .error-message{color:red;}
+  .address,.table{
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+  }
+  #showpaypal{
+    display:none;
+  }
+  .form{
+    background: #F0F0E9;
+    border: 0 none;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    font-weight: 300;
+  }
+  .profile-sidebar{background-color: #fdb45e;}
+  .profile1{color:white;}
+  .trackorder{
+    margin-top: -33px;
+    color: #fdb45e;
+    margin-left: 248px;
+    font-size: 31px;
+    font-family: cursive;
+}
+  .order{    border: 1px solid #1f23291c;
+             color: #696763;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 0;
+    padding-bottom: 10px;}
+    </style>
 
 </head><!--/head-->
 
@@ -42,8 +82,9 @@
     <script src="{{asset('js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
     <script src="https://parsleyjs.org/dist/parsley.min.js"></script>
+    <script src="{{asset('dist/jquery.simplewizard.js')}}"></script>
 
+    @yield('script')
        
-
 </body>
 </html>

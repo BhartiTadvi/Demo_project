@@ -64,6 +64,7 @@ class CategoryController extends Controller
             ]);
         $category = new Category();
         $category->name = $request->category_name;
+      
         $result = $category->save();
         if($result){
              return redirect('category')->with('success', 'Category added successfully');
