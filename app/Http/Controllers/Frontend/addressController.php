@@ -111,8 +111,11 @@ class addressController extends Controller
     public function edit($id)
     {
         $address = address::findOrFail($id);
+        $countries = Country::get();
+        //dd($countries);
 
-        return view('frontend.address.edit', compact('address'));
+
+        return view('frontend.address.edit', compact('address','$countries'));
     }
 
     /**

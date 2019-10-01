@@ -12,8 +12,9 @@ use App\address;
 use Cart;
 use Auth;
 use Session;
-use App\UserOrder;
+use App\Order;
 use App\Product_Order;
+use App\OrderDetail;
 
 
 
@@ -39,9 +40,11 @@ class CheckoutController extends Controller
          $countries = Country::get();
          $states = State::get();
          $user = User::get();
-         $orders  =  UserOrder::get();
+         $orders  =  Order::get();
+          $user_id = Auth::user()->id;
+
          // $data  =  Cart::content();
-          $addresses = Address::with('country','state')->get();
+          $addresses = Address::with('country','state')->where('user_id',$user_id)->get();
 
         }
         else{
@@ -63,8 +66,9 @@ class CheckoutController extends Controller
     public function getBillingAddress(Request $request){
 
       $address_id = $request->address_id;
+      $user_id = Auth::user()->id;
        // dd($address_id);
-      $addresses = Address::with('country','state')->where('id',$address_id)->get();
+      $addresses = Address::with('country','state')->where('user_id',$user_id)->get();
        return view('frontend.billing', compact('addresses'));
 
         // return response()->json($addresses);
@@ -75,14 +79,14 @@ class CheckoutController extends Controller
       $addresses = Address::with('country','state')->get();
       
         // return response()->json($addresses);
-       return view('frontend.checkout', compact('addresses'));
+       return view('frontend.checkout', compact(''));
 
     }
 
   
     public function placeOrder(Request $request){
           
-         //dd($request->all());
+         dd($request->all());
         //dd( $request->order_id);
 
       
@@ -104,8 +108,8 @@ class CheckoutController extends Controller
             'billing_address1' => 'required',
             'billing_address2' => 'required',
             ]);
-       $countries = Country::get();
-       $states = State::get();
+        $countries = Country::get();
+        $states = State::get();
         $user = User::get();
         $data  =  Cart::content();
        
@@ -137,7 +141,7 @@ class CheckoutController extends Controller
          }  
 
 
-        $orders = new UserOrder();
+        $orders = new Order();
         $orders->user_id  = Auth::user()->id;
         $orders->address_id = $request->address_id;
         $orders->subtotal = $request->subtotal;
@@ -150,6 +154,21 @@ class CheckoutController extends Controller
          $productorders->order_id = $request->order_id;
          $productorders->quantity = $request->quantity;
          $productorders->save(); 
+         
+         $orderdetails = new OrderDetail();
+         $orderdetails->order_id =$request->order_id;
+         $orderdetails->payment_mode =$request->submit;
+         
+         $codtransactionid = str_random(10);
+
+         //dd($codtransactionid);
+         
+         $orderdetails->transaction_id =$codtransactionid;
+
+
+         $orderdetails->save();
+
+
 
         return redirect('thanks')->with('flash_message', 'order has been placed successfully');
         

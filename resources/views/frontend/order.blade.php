@@ -19,15 +19,8 @@
                                 <thead>
                                     <tr>
                                         <th class="order">Order No</th>
-                                        <th class="order">Product Name</th>
-                                        <th class="order">Product Image</th>
-                                        <th class="order">Product Price</th>
-                                        <th class="order">Status</th>
-                                        <th class="order">Product Quantity</th>
-                                        <th class="order">Shipping Charge</th>
-                                        <th class="order">Total</th>
-
-
+                                        <th class="order">Date</th>
+                                        <th class="order">Order Details</th>
                                     </tr>
                                 </thead>
                                   @foreach($orders as $order)
@@ -40,28 +33,15 @@
                                           {{$order->id}}
                                         </td>
                                         <td class="order">
-                                           {{$orderproduct->product->productname}}
+                                          {{$order->created_at}}
+                                          
+                                          
                                         </td>
-                                        <td class="order">
-                                           @foreach($orderproduct->product->productImage as $productimage)
-                                            @endforeach
-                                           <img src="{{asset('uploads/'.$productimage->image)}}" height="84" width="85">
+                                        <td>  
+                                          <a href="{{ url('/show-order/' . $order->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Order Details</button></a> 
                                         </td>
-                                        <td class="order">
-                                          {{$orderproduct->product->price}}
-                                        </td>
-                                        <td class="order">
-                                         
-                                        </td>
-                                        <td class="order">
-                                           {{$orderproduct->quantity}}
-                                        </td>
-                                        <td class="order">
-                                          {{$order->shipping_charge}}
-                                        </td>
-                                        <td class="order">
-                                          {{$order->total}}
-                                        </td>
+
+                                        
                                     </tr>
                                 </tbody>
                                 @endforeach

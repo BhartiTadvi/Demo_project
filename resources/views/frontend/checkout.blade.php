@@ -84,7 +84,7 @@
 							<div class="form-one" id="billing" >
 							<form id="billing" method="POST" action="{{ url('/placeorder/store') }}">
                          {{ csrf_field() }}
-                   <input type="hidden" name ="address_id" value="{{$address->id}}">
+                  <!--  <input type="hidden" name ="address_id" value="{{$address->id}}"> -->
                    <input type="hidden" name ="user_id" value="{{Auth::user()->id}}">
                    
 
@@ -261,21 +261,24 @@
 			</div>
 			<div class="payment-options">
 					<span>
-				 <label><input type="radio" id="cod"> Cash On Delivery</label>
+				 <label><input type="radio" name="payment" id="cod"> Cash On Delivery</label>
 					</span>
 					<span>
-						<label><input type="radio" id ="paypal"> Paypal</label>
+
+						<label><input type="radio" name="payment" id ="paypal"> Paypal</label>
 					</span>
 
 			
 			<input type="submit" id="hideplaceorder" name="submit" class="check_out btn-block"style="width: 101px;" value="placeorder"/>
-			<button type="submit" id="showcod" name="submit" class="check_out btn-block"style="width: 150px;">Cash on delivery </button>
+			<button type="submit" value="1" id="showcod" name="submit" class="check_out btn-block"style="width: 150px;">Cash on delivery </button>
 
 			
 		   <!--  <input type="submit"  name="submit" class="check_out btn-block"style="width: 101px;" value="placeorder"/> -->
 		   
-
-		    <input type="submit" id="showpaypal" name="submit" class="check_out btn-block"style="width: 120px;" value="Paypal"/>
+       <!-- <button type="submit" id="showpaypal" formaction="" name="submit" class="check_out btn-block"style="width: 120px;" >Paypal
+       </button> -->
+       <button  id="showpaypal" class="btn btn-primary btn-md" value="0" formaction="{{route('addmoney.paypal')}}" id="formButton" name="submit" style="margin-left:50px;margin-bottom:10px;" formmethod="POST">Pay with Paypal</button>
+		    
    			</form>
 				</div>
 			</div>
@@ -455,17 +458,10 @@
       });
      });
    });
-
-
     
-
-      
-
-
-      
   //    $("#CartMsg").hide();
     //$('#CartTotal').hide();
-          $('#showcod').hide();
+    $('#showcod').hide();
 		$('#cod').click(function() {
 		
 		$('#showcod').show();
@@ -475,9 +471,6 @@
 		 $('#cod').click(function(){
        $('#hidecod').hide();
        });
-       
-
-
        $('#paypal').click(function(){
        $('#hidecod').hide();
        });

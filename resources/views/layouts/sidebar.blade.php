@@ -107,13 +107,38 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
-            <span>Coupon management</span>
+            <span>Coupon Management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('coupon.index')}}"><i class="fa fa-circle-o"></i>coupons</a></li>
+            <li><a href="{{route('coupon.index')}}"><i class="fa fa-circle-o"></i>Coupons</a></li>
+           </ul>
+        </li>
+
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Manage User Contacts</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('manage_user_contacts.index')}}"><i class="fa fa-circle-o"></i>Contacts</a></li>
+           </ul>
+        </li>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Manage User mails</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('manage_user_email.index')}}"><i class="fa fa-circle-o"></i>manage Mails</a></li>
            </ul>
         </li>
        

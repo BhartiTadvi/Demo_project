@@ -13,4 +13,9 @@ class OrderDetail extends Model
          'order_id','transaction_id','transaction_status','payment_mode','status'
     ];
 
+    public function getorder()
+    {
+        return $this->belongsTo('App\Order');
+    }
+
 }

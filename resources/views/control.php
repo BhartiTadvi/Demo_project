@@ -242,3 +242,23 @@ public function cartStore(Request $request)
   
   </script>
 @endsection
+
+
+
+<?php
+Route::get('changepassword', function() {
+    $user = App\User::where('email', 'admin@laravel.com')->first();
+    $user->password = Hash::make('123456');
+    $user->save();
+ 
+    echo 'Password changed successfully.';
+});
+?>
+
+SELECT order_details.transaction_status FROM order_details INNER JOIN user_orders ON order_details.order_id=user_orders.id
+
+
+
+
+
+?>

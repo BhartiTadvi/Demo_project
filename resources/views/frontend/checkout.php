@@ -140,3 +140,49 @@
     Your order has been placed</p>
 
 @endsection
+
+$c_id= Session::get('cart_id');
+            $s_id= Session::get('shipping_address_id');
+            $b_id= Session::get('billing_address_id');
+
+            order_details::where('id', $c_id)->update(
+            ['transaction_id' =>$result->id,
+            'status' => "processing"]);
+
+@if($i==1)
+                            @foreach($orders as $order)
+                            <h4>Order ID: {{$order->id}}</h4>
+                             <h4 style="margin-left:300px;margin-top:-30px;">Order Date:{{substr($order->created_at,0,10)}} </h4><br>
+                            <div id="progressbar"  >
+                            <div class="form-group col-md-12">  
+                                  <ul class="progressbar" >
+                                    
+                                    @if($order->status == "pending")
+                                    <li class="active">Confirmed</li>
+                                    <li class="active">Pending</li>
+                                    <li>Processing</li>
+                                    <li>Shipped</li>
+                                    <li>Delivered</li>
+                                    @elseif($order->status == "processing")
+                                    <li class="active">Confirmed</li>
+                                     <li class="active">Pending</li>
+                                    <li class="active">Processing</li>
+                                    <li>Shipped</li>
+                                    <li>Delivered</li>
+                                    @else
+                                    <li class="active">Confirmed</li>
+                                    <li>Pending</li>
+                                    <li>Processing</li>
+                                    <li>Shipped</li>
+                                    <li>Delivered</li>
+                                     @endif
+                                   
+                                   
+                                  </ul>
+                             </div>
+                             </div>  
+
+                             @endforeach
+                             @endif  
+                             <?php Session()->forget('i'); ?>
+

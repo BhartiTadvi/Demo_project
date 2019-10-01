@@ -40,7 +40,7 @@
                           
                                 <li><a href="{{route('user.account')}}"><i class="fa fa-user"></i> Account</a></li>
                                 
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+								<li><a href="{{url('/WishList')}}"><i class="fa fa-star"></i> Wishlist</a></li>
 								
 								<li><a href="{{url('/checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 							<li><a href="{{route('cart')}}"><span class="badge">{{Cart::content()->count()}}</span><i class="fa fa-shopping-cart"></i>Cart </a></li>

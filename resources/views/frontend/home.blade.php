@@ -141,8 +141,6 @@
 						 <form id="wishlist" method="POST" action="{{url('/addToWishList')}}">
                                   {{ csrf_field() }}
 								<div class="choose">
-									
-									<input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 									<input type="hidden" name="product_id" value="{{$product->id}}">
 									<ul class="nav nav-pills nav-justified">
 										<li>

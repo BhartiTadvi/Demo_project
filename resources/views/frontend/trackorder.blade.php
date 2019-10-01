@@ -1,7 +1,9 @@
 @extends('frontend.layouts.master')
 @section('content')
+
+
 <section>
-  <div class="container">
+    <div class="container">
     <div class="row profile">
     <div class="col-md-3">
       <div class="profile-sidebar">
@@ -33,29 +35,41 @@
            <p class="trackorder">Track order</p>
       <div class="col-md-2"></div>
     <div class="profile-content col-md-6">
-
-        <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
-                    
+        <form method="POST" action="{{ url('/orderStatus') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                            {{ csrf_field() }}
                     <div class="form-group col-md-12">
-                        <input type="text" name="emailid" class="form-control" required="required" placeholder="Email ID">
+                        <input type="text" name="emailid" class="form-control"  placeholder="Email ID">
+                        {!! $errors->first('emailid', '<p class="help-block">:message</p>') !!}
                     </div>
                      <div class="form-group col-md-12">
-                        <input type="text" name="orderid" class="form-control" required="required" placeholder="Order ID">
+                        <input type="text" name="orderid" class="form-control" placeholder="Order ID">
+                        {!! $errors->first('orderid', '<p class="help-block">:message</p>') !!}
                     </div>
-                                         
                     <div class="form-group col-md-12">
-                        <input type="submit" name="submit" class="btn btn-primary pull-right" value="Submit">
                     </div>
-                </form>
-  
-    <div class="col-md-2"></div>
-            </div>
-
+              <button type="submit" name="submit" class="btn btn-primary  pull-right" id="trackorder" id="trackorder">Track Order </button>
+          <div class="col-md-2">
+        </div>
+        
+      </div>
     </div>
-
+   
   </div>
+</form>
+
 </div>
+
 </section>
+@endsection
+@section('script')
+ <script type="text/javascript">
+    $(document).ready(function(){
+   // $('#showstatus').hide();
+    
+     // $("#Create").toggle();
+    });
 
-
+  
+     
+  </script>
 @endsection

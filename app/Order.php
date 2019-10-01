@@ -22,6 +22,12 @@ class Order extends Model
    {   
     return $this->hasMany('App\Product_Order');
    }
+
+    public function orderDetail() 
+   {   
+    return $this->hasOne('App\OrderDetail','order_id');
+   }
+
    
 
 }

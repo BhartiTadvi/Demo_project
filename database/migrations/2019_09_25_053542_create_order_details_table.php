@@ -16,7 +16,7 @@ class CreateOrderDetailsTable extends Migration
         Schema::create('order_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('order_id')->unsigned()->nullable();
-            $table->foreign('order_id')->references('id')->on('users');
+            $table->foreign('order_id')->references('id')->on('user_orders');
             $table->integer('transaction_id')->nullable();
             $table->enum('transaction_status',['processing', 'pending','dispatched','delivered','cancelled']);
             $table->enum('payment_mode',[0, 1])->comment("0 = paypal, 1 = cash_on_delivery");

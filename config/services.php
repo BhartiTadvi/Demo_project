@@ -42,5 +42,6 @@ return [
        'redirect' => 'http://localhost:8000/callback/google',
 
     ],
+    
 
 ];

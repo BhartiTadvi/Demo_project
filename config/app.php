@@ -182,6 +182,12 @@ return [
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+       Skovmand\Mailchimp\MailchimpServiceProvider::class,
+
+
+
+
+
         
 
 
@@ -238,8 +244,10 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+         'Input'     => Illuminate\Support\Facades\Input::class,
 
 
     ],
+
 
 ];

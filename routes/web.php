@@ -112,11 +112,33 @@ Route::get('/trackOrder', 'Frontend\profileController@trackOrder')->name('track.
 
 Route::get('/order', 'Frontend\profileController@getOrder')->name('user.order');
 
+Route::get('/show-order/{id}', 'Frontend\profileController@showOrder')->name('show.order');
+
+
+
+
+
 Route::get('/passwordchange', 'Frontend\profileController@showChangePasswordForm')->name('update.password');
 
 Route::post('/updatePassword', 'Frontend\profileController@updatePassword')->name('changepassword');
 
 Route::get('/myAddress', 'Frontend\profileController@userAddress')->name('myaddress');
+
+
+Route::post('/orderStatus', 'Frontend\profileController@orderStatus')->name('order.status');
+
+Route::get('/getStatus', 'Frontend\profileController@getStatus')->name('get.status');
+
+
+//manage mail
+Route::get('manageMailChimp', 'Frontend\MailChimpController@manageMailChimp');
+Route::post('subscribe',['as'=>'subscribe','uses'=>'Frontend\MailChimpController@subscribe']);
+Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'Frontend\MailChimpController@sendCompaign']);
+
+
+
+
+
 
 
 
@@ -151,3 +173,6 @@ Route::get('demo1',function(){
 
 
 Route::resource('address', 'Frontend\addressController');
+Route::resource('manage', 'manageController');
+Route::resource('manage_user_contacts', 'manage_user_contactsController');
+Route::resource('manage_user_email', 'manage_user_emailController');

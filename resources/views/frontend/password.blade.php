@@ -28,6 +28,11 @@
         <!-- END MENU -->
       </div>
     </div>
+      @if ($message = Session::get('success'))
+           <div class="alert alert-success">
+            <p>{{ $message }}</p>
+           </div>
+          @endif
    <div class="col-md-9">
            <p class="trackorder">Change password</p>
       <div class="col-md-2"></div>
@@ -38,12 +43,15 @@
                     {{ csrf_field() }}
                      <div class="form-group col-md-12">
                         <input type="password" name="current_password" class="form-control"  placeholder="Current Password" value="">
+                        {!! $errors->first('current_password', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="form-group col-md-12">
                         <input type="password" name="new_password" class="form-control"  placeholder="New Password" value="">
+                        {!! $errors->first('new_password', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="form-group col-md-12">
                         <input type="password" name="confirm_password" class="form-control" placeholder=" Confirm Password" value="">
+                        {!! $errors->first('confirm_password', '<p class="help-block">:message</p>') !!}
                     </div>
                                          
                     <div class="form-group col-md-12">
