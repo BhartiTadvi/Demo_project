@@ -49,5 +49,5 @@
 
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
-    <a href="{{ url('/address') }}"  class="btn btn btn-primary" title="Back"> Back</a>
+    <a href="{{ url('/myAddress') }}"  class="btn btn btn-primary" title="Back"> Back</a>
 </div>

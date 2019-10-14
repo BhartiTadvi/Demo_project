@@ -12,8 +12,10 @@ use App\Contactus;
 use App\UserWishlist;
 use Auth;
 use DB;
-
-
+use Illuminate\Support\Facades\Mail;
+use App\EmailTemplate;
+use App\Mail\ContactMail;
+use App\Cms;
 
 class FrontendController extends Controller
 {
@@ -31,15 +33,11 @@ class FrontendController extends Controller
          $products = Product::with('productCategories','productCategories.category'
             ,'categories','productImage','parentCategory')->get();
 
-         //dd($products);
          $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
          $minprice=Product::min('price');
          $maxprice=Product::max('price');
          $filter = Product::whereBetween('price',[$minprice,$maxprice])->get();
-
-         
-
-       // dd($maxprice);
+       
         return view('frontend.home',compact('sliders','categories','subcategories','products','productCounts','product','minprice','maxprice','filter'));
     }
 
@@ -61,9 +59,6 @@ class FrontendController extends Controller
          
          $filter = Product::whereBetween('price',[$minprice,$maxprice])->get();
          
-
-         //dd($products);
-        
        return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'filter'=>$filter]);
     }
 
@@ -92,8 +87,8 @@ class FrontendController extends Controller
 
     public function contact()
     {
-        //
-        return view('frontend.contactus');
+        $contact_info = Cms::where('id',1)->get();
+        return view('frontend.contactus',compact('contact_info'));
      }
 
     public function storeContact(Request $request)
@@ -109,7 +104,23 @@ class FrontendController extends Controller
        $contactus->email = $request->email;
        $contactus->subject = $request->subject;
        $contactus->message = $request->message;
-        $result = $contactus->save();
+       $result = $contactus->save();
+     
+
+       $contactmail= array(
+        'name'  => $request->get('name'),
+        'email'  => $request->get('email'),
+        'subject'  => $request->get('subject'),
+        'message' => $request->get('message'),
+        'template_key' => "contact_template_key",
+
+        );
+      // dd($contactmail);
+
+        $email="bhartitadvi081@gmail.com";
+
+        Mail::to($email)->send(new ContactMail($contactmail));
+
         if($result){
              return view('frontend.contactus');
                  }
@@ -122,11 +133,7 @@ class FrontendController extends Controller
          $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
           $categories = Category::where('parent_id','=', 0)->get();
            $subcategories = category::with('children')->get();
-
-         //dd($products->productImage[0]->image);
-        //
          
-        //dd($products->productname);
         return view('frontend.product_details',compact('products','productCounts','categories','subcategories'));
      }
 
@@ -149,46 +156,45 @@ class FrontendController extends Controller
       $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
        $products =Product::where('id','product_id')->with('wishList','productImage')->get();
       $productwish =UserWishlist::with('product')->get();   
-
-     //dd($productwish);
+     
                 return view('frontend.wishlist',compact('categories','subcategories','productCounts','productwish','products'));
 
        }
 
-       public function wishList(Request $request) {
+   public function wishList(Request $request) {
 
-        // dd($request->all());
         $user_id = Auth::user()->id;
+        $categories = Category::where('parent_id','=', 0)->get();
+        $subcategories = Category::with('children')->get();
+        $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
+
+         $productwish=UserWishlist::where('user_id',Auth::user()->id)
+         ->where('product_id',$request->product_id)
+         ->first();
+
+
+     if(isset($productwish->user_id) and isset($request->product_id))
+     {
+       return redirect()->back()->with('flash_messaged', 'This item is already in your 
+       wishlist!');
+     }
+     else
+     {
         $wishList = new UserWishlist;
         $wishList->user_id = $user_id;
         $wishList->product_id = $request->product_id;
         $wishList->save();
-        // $products = Product::with('productImage')->where('id', $request->product_id)->get();
-        // // dd($products[0]->productImage);
-       $categories = Category::where('parent_id','=', 0)->get();
-       $subcategories = Category::with('children')->get();
-       $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
 
-        $productwish =UserWishlist::with('product')->get();   
+       return redirect()->back()->with('flash_message',
+                     'Item, '. $wishlist->product->title.' Added to your wishlist.');
+     }
 
-           // dd($productwish[0]->product->productImage);
-
-          //dd($productwish);
-        
-       return redirect('/WishList')->with('flash_message', 'address added!');
-
-       // return view('frontend.wishlist',compact('categories','subcategories','productCounts','products','productwish'));
 
     }
 
     public function removeWishList($id) {
-        // dd($id);
-
         UserWishlist::destroy($id);
-
         return redirect('/WishList')->with('success', 'Item Removed from Wishlist');
-        
-
     }
    
 }

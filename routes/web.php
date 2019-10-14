@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('login');
     });
 
@@ -44,7 +44,7 @@ Route::resource('admin/posts', 'Admin\\PostsController');
 Route::resource('coupon/coupon', 'Coupon\\CouponController');
 
  //frontend routes
- Route::get('/index','Frontend\FrontendController@index')->name('home_shopper');
+ Route::get('/','Frontend\FrontendController@index')->name('home_shopper');
  Route::get('/loginuser','Frontend\RegistrationController@create')->name('loginuser');
  Route::post('/register/store','Frontend\RegistrationController@store')->name('user.store');
  Route::post('/userlogin','Frontend\LoginController@login')->name('userlogin');
@@ -69,12 +69,12 @@ Route::get('cart/remove/{id}', 'Frontend\CartController@removeItem');
 Route::post('/cartincrementitem/','Frontend\CartController@incrementItem');
 Route::post('/cartdecrementitem/','Frontend\CartController@decrementItem');
 
-Route::get('/applycoupon','Frontend\CartController@applyCoupon');
+Route::post('/applycoupon','Frontend\CartController@applyCoupon')->name('coupon');
 
 
  
 //checkout
-Route::get('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
+Route::post('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
 Route::get('/states/','Frontend\CheckoutController@getState')->name('get.state');
 
 Route::get('/getbillingaddress/','Frontend\CheckoutController@getBillingAddress')->name('getBillingAddress');
@@ -105,28 +105,14 @@ Route::get('/removeWishList/{id}', 'Frontend\FrontendController@removeWishList')
 
 //userprofile
 Route::get('/profile', 'Frontend\profileController@index')->name('profile');
-
 Route::get('/myAccount', 'Frontend\profileController@userAccount')->name('user.account');
-
 Route::get('/trackOrder', 'Frontend\profileController@trackOrder')->name('track.order');
-
 Route::get('/order', 'Frontend\profileController@getOrder')->name('user.order');
-
 Route::get('/show-order/{id}', 'Frontend\profileController@showOrder')->name('show.order');
-
-
-
-
-
 Route::get('/passwordchange', 'Frontend\profileController@showChangePasswordForm')->name('update.password');
-
 Route::post('/updatePassword', 'Frontend\profileController@updatePassword')->name('changepassword');
-
 Route::get('/myAddress', 'Frontend\profileController@userAddress')->name('myaddress');
-
-
 Route::post('/orderStatus', 'Frontend\profileController@orderStatus')->name('order.status');
-
 Route::get('/getStatus', 'Frontend\profileController@getStatus')->name('get.status');
 
 
@@ -135,34 +121,6 @@ Route::get('manageMailChimp', 'Frontend\MailChimpController@manageMailChimp');
 Route::post('subscribe',['as'=>'subscribe','uses'=>'Frontend\MailChimpController@subscribe']);
 Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'Frontend\MailChimpController@sendCompaign']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-// Route::get('google', function () {
-
-//     return view('googleAuth');
-
-// });
-
-// Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
-
-// Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
-
 Route::get('demo1',function(){
 
   return  $countries= App\State::where('countryID', 1)
@@ -170,9 +128,20 @@ Route::get('demo1',function(){
 
 });
 
-
-
 Route::resource('address', 'Frontend\addressController');
+
+//manage email notification
 Route::resource('manage', 'manageController');
 Route::resource('manage_user_contacts', 'manage_user_contactsController');
 Route::resource('manage_user_email', 'manage_user_emailController');
+
+
+Route::resource('order_management', 'order_managementController');
+Route::get('/order-detail/{id}', 'order_managementController@orderDetail')->name('show.orderdetail');
+Route::resource('cms', 'cmsController');
+
+//reports
+Route::resource('report', 'reportController');
+Route::get('report', 'reportController@index');
+Route::get('/customer-report', 'reportController@showCustomer');
+

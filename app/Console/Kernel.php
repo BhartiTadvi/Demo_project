@@ -13,8 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+      Commands\MailCron::class,
+      Commands\WishlishMail::class,
     ];
+     
 
     /**
      * Define the application's command schedule.
@@ -26,6 +28,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('demo:cron')
+                 ->daily();
+        $schedule->command('wishlistmail:cron')
+                 ->weekly();
     }
 
     /**

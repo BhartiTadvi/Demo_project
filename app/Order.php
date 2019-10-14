@@ -25,9 +25,18 @@ class Order extends Model
 
     public function orderDetail() 
    {   
-    return $this->hasOne('App\OrderDetail','order_id');
+    return $this->hasMany('App\OrderDetail','order_id');
    }
 
+   public function orderStatus() 
+   {   
+    return $this->hasOne('App\OrderDetail','order_id');
+   }
+   
+    public function address() 
+   {   
+    return $this->hasMany('App\address','id','address_id');
+   }
    
 
 }

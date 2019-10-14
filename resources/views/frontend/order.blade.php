@@ -20,6 +20,7 @@
                                     <tr>
                                         <th class="order">Order No</th>
                                         <th class="order">Date</th>
+                                         <th class="order">Order Status</th>
                                         <th class="order">Order Details</th>
                                     </tr>
                                 </thead>
@@ -34,8 +35,11 @@
                                         </td>
                                         <td class="order">
                                           {{$order->created_at}}
-                                          
-                                          
+                                        </td>
+                                        <td class="order">
+                                        @foreach($order->orderDetail as $status)
+                                          {{$status->transaction_status}}
+                                          @endforeach
                                         </td>
                                         <td>  
                                           <a href="{{ url('/show-order/' . $order->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Order Details</button></a> 

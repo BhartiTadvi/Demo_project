@@ -14,37 +14,26 @@ use Hash;
 use Session;
 class profileController extends Controller
 {
-    //
+    
        public function index()
     {
-        //
         return view('frontend.profile');
     }
     
-    //
        public function userAccount()
     {
     	 $profile = User::get();
-    	 
-        //
         return view('frontend.account',compact('profile'));
     }
     
-    //     public function userOrder()
-    // {
-    //     //
-    //     return view('frontend.order');
-    // }
         public function trackOrder()
     {
          $orders = Session::get('orders');
-
         return view('frontend.trackorder',compact('orders'));
     }
     
       public function showChangePasswordForm()
     {
-        //
         return view('frontend.password');
     }
 
@@ -88,8 +77,8 @@ class profileController extends Controller
     {
         $user_id= Auth::id();
 
-        $orders=Order::with('products','products.product')->where('user_orders.user_id',$user_id)->get();
-         //dd($orders);
+        $orders=Order::with('products','products.product','orderDetail')->where('user_orders.user_id',$user_id)->get();
+         //dd($orders[0]->orderDetail);
         return view('frontend.order',compact('orders'));
     }
 
@@ -97,21 +86,14 @@ class profileController extends Controller
     public function showOrder($id)
     {
        
-        $user_id= Auth::id();
-
-        
-        $orders=Order::with('products','products.product')->where('user_orders.user_id',$user_id)->find($id);
-           // dd($id);
-        // dd($orders);
-
-       
+    $user_id= Auth::id();
+    $orders=Order::with('products','products.product','orderDetail')->where('user_orders.user_id',$user_id)->find($id);
      return view('frontend.show-product',compact('orders'));
 
     }
 
     public function orderStatus(Request $request)
     {
-       //dd($request->all());
          $this->validate($request, [
         'emailid'=>'required',
         'orderid'=>'required'
@@ -127,38 +109,15 @@ class profileController extends Controller
             $user_id =$user->id;
          }
 
-        $orders =Order::with('orderDetail')->where('user_id',$user_id)->where('id',$orderid)->get();
+        $orders =Order::with('orderStatus')->where('user_id',$user_id)->where('id',$orderid)->get();
 
-         // dd($orders);
-      
          Session::put('orders',$orders);
-
-       //dd($orders[0]->orderDetail->transaction_status);
-        // $orders=Order::where('user_id',$user_id)->get();
-         //$orders=OrderDetail::get();
-
-         // $orders = DB::table('user_orders')
-         //    ->join('order_details', 'user_orders.id', '=', 'order_details.order_id')
-         //    ->join('users', 'users.id', '=', 'user_orders.user_id')
-         //    ->select('order_details.*', 'order_details.transaction_status', 'order_details.status')
-         //    ->get();
-       // dd($orders[0]->orderDetail->transaction_status);
-       
          return redirect('getStatus')->with('success', 'track order!');
-       
-         // dd($emailid,$orderid);
          
     }
-      public function getStatus(){
-           $orders = Session::get('orders');
-         
-
-        return view('frontend.getstatus',compact('orders'));
-
-      }
       
-   
-
-
-
+      public function getStatus(){
+        $orders = Session::get('orders');
+          return view('frontend.getstatus',compact('orders'));
+      }
 }

@@ -1,4 +1,3 @@
-
 @extends('frontend.layouts.master')
 
 @section('content')
@@ -79,7 +78,6 @@
               </div>
             </div>
 
-    
             <!-- Form actions -->
             <div class="form-group">
               <div class="col-md-12 text-right">

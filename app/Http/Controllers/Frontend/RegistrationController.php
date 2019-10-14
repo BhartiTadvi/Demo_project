@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use App\User;
+use Illuminate\Support\Facades\Mail;
+
 
 class RegistrationController extends Controller
 {
@@ -50,8 +53,33 @@ class RegistrationController extends Controller
             'password' => bcrypt($request['password']),
 
         ]);
-        return redirect()->route('home_shopper')
-                        ->with('success','User created successfully');
+
+      
+       $Userdata= array(
+
+        'email'  => $request->get('email'),
+          
+        'password' => $request->get('password'),
+
+        'template_key' => "user_registration_mail",
+
+        );
+       
+      Mail::to($request['email'])->send(new SendMail($Userdata));
+      
+       $Userdata1= array(
+
+        'email'  => $request->get('email'),
+        'template_key' => "email_template_key",
+
+        );
+        $email="bhartitadvi081@gmail.com";
+
+        Mail::to($email)->send(new SendMail($Userdata1));
+     
+
+        return redirect()->route('loginuser')
+                        ->with('success','Registration done successfully');
                          }
 
     /**
@@ -60,50 +88,5 @@ class RegistrationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function contact(Request $request)
-    {
-        //
-       
-
-    }
-
-    public function show($id)
-    {
-        //
-        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+     
 }

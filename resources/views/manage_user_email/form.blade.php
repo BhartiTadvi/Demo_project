@@ -9,6 +9,14 @@
 
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group {{ $errors->has('address1') ? 'has-error' : ''}}">
+    <label for="template_key" class="control-label">{{ 'Template key' }}</label>
+    <input class="form-control" name="template_key" type="text" id="template_key" value="{{ isset($manage_user_email->template_key) ? $manage_user_email->template_key : ''}}" >
+    {!! $errors->first('template_key', '<p class="help-block">:message</p>') !!}
+</div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12">
+<div class="form-group {{ $errors->has('address1') ? 'has-error' : ''}}">
     <label for="mailsubject" class="control-label">{{ 'Mail Subject' }}</label>
     <input class="form-control" name="mailsubject" type="text" id="mailsubject" value="{{ isset($manage_user_email->mailsubject) ? $manage_user_email->mailsubject : ''}}" >
     {!! $errors->first('mailsubject', '<p class="help-block">:message</p>') !!}
@@ -18,7 +26,9 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group {{ $errors->has('template_content') ? 'has-error' : ''}}">
     <label for="template_content" class="control-label">{{ 'Template Content' }}</label>
-    <input class="form-control" name="template_content" type="text" id="template_content" value="{{ isset($manage_user_email->templatecontent) ? $manage_user_email->templatccontent : ''}}" >
+    <textarea id="template_content" name="template_content" >
+      
+    </textarea>
     {!! $errors->first('template_content', '<p class="help-block">:message</p>') !!}
 </div>
 </div>

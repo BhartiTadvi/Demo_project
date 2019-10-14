@@ -141,6 +141,44 @@
             <li><a href="{{route('manage_user_email.index')}}"><i class="fa fa-circle-o"></i>manage Mails</a></li>
            </ul>
         </li>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Cms</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('cms.index')}}"><i class="fa fa-circle-o"></i>manage Cms</a></li>
+           </ul>
+        </li>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Order Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('order_management.index')}}"><i class="fa fa-circle-o"></i>Manage Order</a></li>
+           </ul>
+        </li>
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Reports</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('report')}}"><i class="fa fa-circle-o"></i>Sales Report</a></li>
+            <li><a href="{{url('/customer-report')}}"><i class="fa fa-circle-o"></i>Customers Report</a></li>
+           </ul>
+           
+        </li>
        
        
         </li>

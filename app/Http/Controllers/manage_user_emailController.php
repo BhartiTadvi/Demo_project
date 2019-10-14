@@ -28,7 +28,7 @@ class manage_user_emailController extends Controller
                 ->orWhere('city', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $manage_user_email = EmailTemplate::latest()->paginate($perPage);
+            $manage_user_email = EmailTemplate::paginate($perPage);
         }
 
         return view('manage_user_email.index', compact('manage_user_email'));
@@ -57,7 +57,7 @@ class manage_user_emailController extends Controller
         
         $requestData = $request->all();
 
-        // dd($requestData);
+         //dd($requestData);
         
         EmailTemplate::create($requestData);
 
@@ -103,11 +103,16 @@ class manage_user_emailController extends Controller
     public function update(Request $request, $id)
     {
         
-        $requestData = $request->all();
         
-        $manage_user_email = EmailTemplate::findOrFail($id);
-        $manage_user_email->update($requestData);
+      $manage_user_email = EmailTemplate::findOrFail($id);
 
+
+        $manage_user_email->name = $request->name;
+        $manage_user_email->mailsubject = $request->mailsubject;
+        $manage_user_email->templatecontent = $request->template_content;
+        $manage_user_email->template_key = $request->template_key;
+
+        $manage_user_email->save();
         return redirect('manage_user_email')->with('flash_message', 'manage_user_email updated!');
     }
 

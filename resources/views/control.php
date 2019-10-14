@@ -262,3 +262,154 @@ SELECT order_details.transaction_status FROM order_details INNER JOIN user_order
 
 
 ?>
+
+ <strong id="shopping"> Welcome to My Shopping Cart.</strong>
+        To log in when visiting our site just  click log in or My account at the top of every page, and then enter your email address and password.
+        <br/>
+        Use the following values when  prompted to log in.
+
+        <hr/>
+        Email-
+        Password-
+
+
+        ublic function build()
+    {
+
+        $showtemplates = EmailTemplate::where('template_keys',$this->data['template_keys'])->get();
+
+        foreach($showtemplates as $showtemplate){
+        $template = htmlspecialchars_decode($showtemplate->email_template_content);
+        }
+
+        $template = $this->replace($template,$this->data);
+
+        return $this->from('eshopper@gmail.com')->subject($showtemplate->email_subject)->view('dynamic_mail_template')->with('template',$template);
+    }
+
+    public function replace($template,$data){
+            foreach( $data as $key => $value){
+            $template = str_replace('{{'.$key.'}}', $value,$template);     
+            }
+            //dd($template);
+            return $template;
+
+    }
+
+}
+Expected response code 354 but got code "550", with message "550 5.7.0 Requested action not taken: too many emails per second "
+
+
+
+@extends('layouts.master')
+
+@section('content')
+    <div class="container">
+        <div class="row">
+           
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">Sales Report</div>
+                    <div class="box-body">
+                       
+
+                        <form method="GET" action="{{ url('/order_management') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
+                               
+                            </div>
+                             <span class="input-group-append">
+                                    <button class="btn btn-secondary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                            </span>
+                        </form>
+
+                        <br/>
+                        <br/>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                         <th class="order">Product Id</th>
+                                        <th class="order">Product Name</th>
+                                        <th class="order">Total Quantity</th>
+                                         <th class="order">Unit price</th>
+                                    </tr>
+                                </thead>
+                                @foreach($orders as $order)
+
+                               
+                                <tbody>
+                                    <tr>
+                                        <td class="order">
+                                          {{$order->id}}
+                                        </td>
+                                        <td class="order">
+                                      @foreach($order->products as $productreport)
+                                         {{$productreport->product->productname}}
+                                     @endforeach
+                                        </td>
+                                        <td class="order">
+                                        @foreach($order->products as $product)
+                                         {{$product->quantity}}
+                                       @endforeach
+
+                                        </td>
+                                        <td class="order">
+                                        @foreach($order->products as $productreport)
+                                         {{$productreport->product->price}}
+                                     @endforeach
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                              @endforeach
+                     </table>
+                     
+                            <div class="pagination-wrapper">  </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+ $check = DB::table('coupons')
+        ->where('coupon_code',$code)
+        ->get();
+        if(count($check)=="1"){
+            //ok
+            $user_id = Auth::user()->id;
+            $check_used = DB::table('used_coupons')
+            ->where('user_id',$user_id)
+            ->where('coupon_id',$check[0]->id)
+            ->count();
+           if($check_used=="0"){
+                //insert used one
+            $used_add = DB::table('used_coupons')
+            ->insert([
+                    'coupon_id' => $check[0]->id,
+                    'user_id' => $user_id
+            ]);
+            $insert_cart_total = DB::table('cart_total')
+            ->insert([
+                    'cart_totol' => Cart::total(),
+                    'discount' => $check[0]->discount,
+                    'user_id' => $user_id,
+                    'gtotal' =>  Cart::total() - (Cart::total() * $check[0]->discount)/100,
+            ]);
+            $disnew = $check[0]->discount;
+            $gtnew = Cart::total() - (Cart::total() * $check[0]->discount)/100;
+            product_image" => "http://127.0.0.1:8000/uploads/INikqtDw2Kjpeg"
+  "product_name" => "T shirt"
+  "product_price" => "400"
+  "quantity" => "8"
+  //"coupon" => "OFF10"
+  "subTotal" => "3200"
+  "discounttype" => "1"
+  "discountvalue" => "10"
+  "grandTotal" => "2880"
+  "checkout" => "Submit"

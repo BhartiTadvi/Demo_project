@@ -12,21 +12,24 @@
                                 <thead>
                                     <tr>
                                         <th class="order">Order Name</th>
+                                        <th class="order">Transaction Id</th>
                                         <th class="order">Order Image</th>
                                         <th class="order"> Order Price </th>
                                         <th class="order">Order Quantity</th>
-                                        <th class="order">Subtotal</th>
-                                        <th class="order">Shipping Charge</th>
-                                        <th class="order">Total</th>
                                     </tr>
-                                </thead>
+                                </thead>  
                                   @foreach($orders->products as $productdetail)
                                 <tbody>
                                     <tr>
                                         <td class="order">
                                          {{$productdetail->product->productname}}
                                         </td>
-                                       
+                                        <td class="order">
+                                     @foreach($orders->orderDetail as $id)
+
+                                          {{$id->transaction_id}}
+                                          @endforeach
+                                        </td>
                                         <td>  
                                       @foreach($productdetail->product->productImage as   $productimage)
 
@@ -43,6 +46,23 @@
                                          {{$productdetail->quantity}}
                                         </td>
                                        
+                                        
+                                    </tr>
+                                </tbody>
+                                @endforeach
+                      </table>
+                          <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="order">Subtotal</th>
+                                        <th class="order">Shipping Charge</th>
+                                        <th class="order">Total</th>
+                                    </tr>
+                                </thead>
+                                  @foreach($orders->products as $productdetail)
+                                <tbody>
+                                    <tr>
+
                                         <td class="order">
                                            {{$orders->subtotal}}
                                         </td>
@@ -56,6 +76,7 @@
                                 </tbody>
                                 @endforeach
                       </table>
+                             
                              
                         </div>
                         <a href="{{url('order')}}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>

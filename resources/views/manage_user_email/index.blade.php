@@ -30,8 +30,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
-                                        <th>Address1</th>
-                                        <th>Address2</th>
+                                        <th>mail subject</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -41,7 +40,6 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->mailsubject }}</td>
-                                        <td>{{ $item->templatecontent }}</td>
                                         <td>
                                             <a href="{{ url('/manage_user_email/' . $item->id) }}" title="View manage_user_email"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/manage_user_email/' . $item->id . '/edit') }}" title="Edit manage_user_email"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

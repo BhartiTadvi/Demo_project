@@ -34,7 +34,7 @@ class LoginController extends Controller
 
             if(Auth::attempt($users))
             {
-             return redirect('/index');
+             return redirect('/');
             }
 
         else

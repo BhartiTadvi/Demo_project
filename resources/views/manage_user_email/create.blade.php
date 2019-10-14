@@ -30,3 +30,9 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+ <script>
+        CKEDITOR.replace( 'template_content' );
+    </script>
+@endsection

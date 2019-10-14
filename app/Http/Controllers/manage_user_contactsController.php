@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\manage_user_contact;
 use Illuminate\Http\Request;
 use App\Contactus;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResponseContactMail;
+
 
 class manage_user_contactsController extends Controller
 {
@@ -104,9 +107,19 @@ class manage_user_contactsController extends Controller
     {
         
         $requestData = $request->all();
-        
         $manage_user_contact = Contactus::findOrFail($id);
         $manage_user_contact->update($requestData);
+
+         $responsemail= array(
+        'name'  => $request->get('name'),
+        'email'  => $request->get('email'),
+        'subject'  => $request->get('subject'),
+        'message' => $request->get('message'),
+        'note' => $request->get('note'),
+        'template_key' => "reply_email_template",
+        );
+
+        Mail::to($request['email'])->send(new ResponseContactMail($responsemail));
 
         return redirect('manage_user_contacts')->with('flash_message', 'manage_user_contact updated!');
     }

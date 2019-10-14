@@ -1,4 +1,7 @@
-  <?php $total=Session::get('total');
+  <?php 
+  // $total=Session::get('total');
+  //$totalamount=Session::get('totalamount');
+   //dd(session('totalamount'));
   ?>
  @extends('frontend.layouts.master')
 @section('content')
@@ -86,6 +89,7 @@
                          {{ csrf_field() }}
                   <!--  <input type="hidden" name ="address_id" value="{{$address->id}}"> -->
                    <input type="hidden" name ="user_id" value="{{Auth::user()->id}}">
+                   <input type="hidden" name ="address_id" value="{{$address->id}}">
                    
 
                    <input type="text" placeholder="Name" name="name" class="name">
@@ -127,6 +131,8 @@
 
                 @foreach($orders as $order)
                    <input type="hidden" name="order_id" value="{{$order->id}}">
+                    <input type="hidden" name="created_at" value="{{$order->created_at}}">
+
                 @endforeach
 							</div>
 					@if ($message = Session::get('success'))
@@ -196,63 +202,76 @@
               <td></td>
             </tr>
           </thead>
-          @foreach($data as $item)
+          
+     
+          @foreach($cart as $item)
           <tbody id="updateQuantity">
             <tr>
               <td class="cart_product">
                 <a href="">
-                 <img src="{{asset('uploads/'.$item->options->product_image)}}" height="84" width="85" 
-                  alt="">
+              
+                 <a href="">
+                <img src="{{$item['product_image']}}" height="84" width="85" 
+                  alt="img">
+                </a>
                 </a>
               </td>
               <td class="cart_description">
-                <h4><a href="">{{$item->name}}</a></h4>
-                <p>{{$item->id}}</p>
-                <input type="hidden" name="product_id" value="{{$item->id}}">
+                <h4><a href="">{{$item['product_name']}}</a></h4>
+               coupon
+                <input type="hidden" name="product_id[]" value="{{$item['product_id']}}">
+                 <input type="hidden" name="productname[]" value="{{$item['product_name']}}">
+
               </td>
-              <td class="cart_price" id="price{{$item->id}}" >
-                <p>{{$item->price}}</p>
+              <td class="cart_price">
+              <input type="hidden" name="price" value="{{$item['product_price']}}">
+
+                <p>{{$item['product_price']}}</p>
               </td>
               <td class="cart_quantity">
                
 
                <div class="cart_quantity_button">
 
-             <a class="cart_quantity_up" href="javascript:void(0)" data-route="{{url('/cartincrementitem/')}}" data-increase="1" data-id="{{$item->rowId}}" id="{{$item->id}}"> + </a>
-                
-              <input class="cart_quantity_input" type="text" name="quantity" value="{{$item->qty}}" autocomplete="off" size="1" id="test{{$item->id}}" min="1">
-             
-                <a class="cart_quantity_down" href="javascript:void(0)" data-route="{{url('/cartdecrementitem/')}}" data-increase="0" data-id="{{$item->rowId}}" id="{{$item->id}}"> - </a>
-               
+          
+            <label class="cart_up" for="disabled">+</label><br>
+             <input type="hidden" name="quantity1[]" value=" {{$item['quantity']}}">
+              <input class="cart_quantity_input" type="text" name="quantity" value="{{$item['quantity']}}" autocomplete="off" size="1" min="1" disabled>
+               <label class="cart_down" for="disabled">-</label><br>
                 </div>
               </td>
               <td class="cart_total">
-                <p class="cart_total_price" id="priceu{{$item->id}}" >
-                  {{$item->price*$item->qty}}
-               
+                <p class="cart_total_price">
+                  {{$item['product_price']*$item['quantity']}}
                  </p>
               </td>
               <td class="cart_delete">
-                <a class="cart_quantity_delete" href="{{url('cart/remove')}}/{{$item->rowId}}"><i class="fa fa-times"></i></a>
+              <label class="cart_up" for="disabled" style="    margin-bottom: -8px"><i class="fa fa-times"></i></label>
+
               </td>
             </tr>
           </tbody>
           @endforeach
         </table>
+
 				<div class="col-sm-6"></div>
 				<div class="col-sm-6">
 	          	 <div class="total_area">
-                  
 	            <ul>
-	                   <li>Cart Sub Total<span id="subTotal">{{$total}}</span>
-                      <input type="hidden" name ="subtotal" value="{{$total}}">  
+	                   <li>Cart Sub Total<span id="subTotal">{{$subTotal}}</span>
+                      <input type="hidden" name ="subtotal" value="{{$subTotal}}">    
                      </li>
-               <li>Shipping Cost <span id="shippingCost">${{$total<500 ? 50 : 0}}</span>
-                <input type="hidden" name ="shippingcost" value="{{$total<500 ? 50 : 0}}">  
+               <li>Shipping Cost <span id="shippingCost">${{$ShippingCost}}</span>
+               <input type="hidden" name="discount_amount" value="{{$discount_amount}}">
+                <input type="hidden" name="coupon_id" value="{{$coupon_id}}">
 
+                <input type="hidden" name ="shippingcost" value="{{$subTotal<500 ? 50 : 0}}">  
                 </li>
-                <li>Total <span id="grandTotal">${{$total<500 ? $total+50 : $total}}</span>
-                   <input type="hidden" name ="grandtotal" value="{{$total<500 ? $total+50 : $total}}">  
+               <input type="hidden" name ="coupon" value="                {{$coupon}}">  
+
+                <li>Total <span id="grandTotal">
+                  ${{$grandTotal}}</span>
+                   <input type="hidden" name ="grandtotal" value="{{$grandTotal}}">  
                 </li>
 	            </ul>
 	          </div>
@@ -261,16 +280,20 @@
 			</div>
 			<div class="payment-options">
 					<span>
-				 <label><input type="radio" name="payment" id="cod"> Cash On Delivery</label>
+				 <label>
+          <input type="hidden" name="paymentmode" value="cash on delivery" />
+          <input type="radio" name="payment" id="cod"> Cash On Delivery</label>
 					</span>
 					<span>
-
-						<label><input type="radio" name="payment" id ="paypal"> Paypal</label>
+						<label>
+            <input type="hidden" name="paymentmode1" value="paypal" />
+  
+              <input type="radio" name="payment"  id ="paypal"> Paypal</label>
 					</span>
 
 			
 			<input type="submit" id="hideplaceorder" name="submit" class="check_out btn-block"style="width: 101px;" value="placeorder"/>
-			<button type="submit" value="1" id="showcod" name="submit" class="check_out btn-block"style="width: 150px;">Cash on delivery </button>
+			<button type="submit" value="1" id="showcod" name="submit" class="check_out btn-block"style="width: 150px;"> Cash on delivery </button>
 
 			
 		   <!--  <input type="submit"  name="submit" class="check_out btn-block"style="width: 101px;" value="placeorder"/> -->
@@ -289,85 +312,100 @@
  <script type="text/javascript">
      
   $(document).ready(function(){
-          $('.cart_quantity_up').on('click', function(e) {
-          // alert('hi');
-          //alert($('.cart_total_price').text());
-        e.preventDefault();
-        var id =$(this).attr("id"); 
-        var rowId =$(this).data("id"); 
-        var url = $(this).data('route');
-        var  increase = $(this).data('increase');
-        var  price = $('#price' + id).text(); 
-        var  priceu = $('#priceu' + id).text(); 
+    //       $('.cart_quantity_up').on('click', function(e) {
+    //       // alert('hi');
+    //       //alert($('.cart_total_price').text());
+    //     e.preventDefault();
+    //     var id =$(this).attr("id"); 
+    //     var rowId =$(this).data("id"); 
+    //     var url = $(this).data('route');
+    //     var  increase = $(this).data('increase');
+    //     var  price = $('#price' + id).text(); 
+    //     var  priceu = $('#priceu' + id).text(); 
+    //      var coupontype =$('#discounttype').val();
+    //     var couponvalue =$('#discountvalue').val();
 
-         //alert(priceu);
-        updateQty(url,increase,rowId,id, price,priceu);
-      });
-
-    $('.cart_quantity_down').on('click', function(e) {
-        
-        e.preventDefault();
-        var id =$(this).attr("id"); 
-        var rowId =$(this).data("id"); 
-        var url = $(this).data('route');
-       var  increase = $(this).data('increase');
-        var  price = $('#price' + id).text(); 
-       var  priceu = $('#priceu' + id).text();
-
-         // alert(price);
-
-      updateQty(url,increase,rowId,id, price,priceu);
+       
+       
+    //   updateQty(url,increase,rowId,id, price,priceu,coupontype,couponvalue);
       
-    });
-    
-    function updateQty(url,increase,rowId,id,priceu,price){
-    
-          var qty = $('#test' + id).val();
-          var qtyval="";
-          var subTotal = $('#subTotal').text();
-         if (qty) {
-        qtyval = qty;
-        }
+    // });
 
-        $.ajax({
-            type: 'POST',
-            url: url,
-            dataType: 'json', 
-             headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                cart_qty: qtyval,
-                id: id,
-                increase: increase,
-                rowId: rowId,
-                price: price,
-                priceu: priceu,
-                subTotal:subTotal
-            },
-            success:function(response){
+    // $('.cart_quantity_down').on('click', function(e) {
+        
+    //     e.preventDefault();
+    //     var id =$(this).attr("id"); 
+    //     var rowId =$(this).data("id"); 
+    //     var url = $(this).data('route');
+    //     var  increase = $(this).data('increase');
+    //     var  price = $('#price' + id).text(); 
+    //     var  priceu = $('#priceu' + id).text();
+        
+    //      // alert(price);
 
-                 console.log(response);
-                 var newSubTotal = response.subTotal;
-                 var grandTotal = 0;
-                 var shippingCost = 50;
-                  if( newSubTotal < 500)
-                  { 
-                    grandTotal = newSubTotal + shippingCost;
-                    $('#subTotal').text(newSubTotal);
-                    $('#shippingCost').text(shippingCost);
-                  }else{
-                    grandTotal = newSubTotal;
-                    $('#subTotal').text(newSubTotal);
-                    $('#shippingCost').text(0);
-                  }
+      
+    //   updateQty(url,increase,rowId,id, price,priceu,coupontype,couponvalue);
+      
+    // });
+      
+   
+    
+    // function updateQty(url,increase,rowId,id,priceu,price,coupontype,couponvalue){
+    
+    //       var qty = $('#test' + id).val();
+    //       var qtyval="";
+    //       var subTotal = $('#subTotal').text();
+    //      if (qty) {
+    //     qtyval = qty;
+    //     }
+
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: url,
+    //         dataType: 'json', 
+    //          headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         data: {
+    //             cart_qty: qtyval,
+    //             id: id,
+    //             increase: increase,
+    //             rowId: rowId,
+    //             price: price,
+    //             priceu: priceu,
+    //             subTotal:subTotal,
+                
+    //         },
+    //         success:function(response){
+
+    //              console.log(response);
+
+
+    //              console.log(response.totalamount);
                  
-                    $('#grandTotal').text(grandTotal);
-                    $('#test'+id).val(response.quantity.qty);
-                    $('#priceu'+id).text(response.updateprice);
-              }
-            });
-      } 
+
+    //              var newSubTotal = response.subTotal;
+    //              var grandTotal = 0;
+    //              var shippingCost = 50;
+    //               if( newSubTotal < 500)
+    //               { 
+    //                 grandTotal = newSubTotal + shippingCost;
+    //                 $('#subTotal').text(newSubTotal);
+    //                 $('#shippingCost').text(shippingCost);
+    //               }else{
+    //                 grandTotal = newSubTotal;
+    //                 $('#subTotal').text(newSubTotal);
+    //                 $('#shippingCost').text(0);
+    //               }
+                    
+    //                 $('#grandTotal').empty();
+    //                 $('#grandTotal').text(response.totalamount<500 ? response.totalamount+50 :response.totalamount);
+    //                 // $('#grandTotal').text(grandTotal);
+    //                 $('#test'+id).val(response.quantity.qty);
+    //                 $('#priceu'+id).text(response.updateprice);
+    //           }
+    //         });
+    //   } 
 
 
        $('.billing').on('click', function(e) {
@@ -499,8 +537,11 @@
       });
      });
    });
+     
 
-   });
+});
+
+   
 
 
 

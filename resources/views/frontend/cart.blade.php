@@ -1,10 +1,12 @@
-  <?php $total=Session::get('total');
+  <?php 
+  $total=Session::get('total');
   ?>
   @extends('frontend.layouts.master')
 
 @section('content')
-
+ <form  method="POST" action="{{ url('/checkout') }}">
   <section id="cart_items">
+    {{ csrf_field() }}
     <div class="container">
       <div class="breadcrumbs">
         <ol class="breadcrumb">
@@ -29,35 +31,34 @@
           <tbody id="updateQuantity">
             <tr>
               <td class="cart_product">
+                <input type="hidden" name="product_image[]" value="{{asset('uploads/'.$item->options->product_image)}}">
                 <a href="">
                  <img src="{{asset('uploads/'.$item->options->product_image)}}" height="84" width="85" 
                   alt="">
                 </a>
               </td>
               <td class="cart_description">
+                <input type="hidden" name="product_name[]" value="{{$item->name}}">
+                 <input type="hidden" name="product_id[]" value="{{$item->id}}">
                 <h4><a href="">{{$item->name}}</a></h4>
                 <p>Web ID: 1089772</p>
               </td>
               <td class="cart_price" id="price{{$item->id}}" >
+                <input type="hidden" name="product_price[]" value="{{$item->price}}">
                 <p>{{$item->price}}</p>
               </td>
               <td class="cart_quantity">
-               
-
                <div class="cart_quantity_button">
 
              <a class="cart_quantity_up" href="javascript:void(0)" data-route="{{url('/cartincrementitem/')}}" data-increase="1" data-id="{{$item->rowId}}" id="{{$item->id}}"> + </a>
                 
-              <input class="cart_quantity_input" type="text" name="quantity" value="{{$item->qty}}" autocomplete="off" size="1" id="test{{$item->id}}" min="1">
-             
+              <input class="cart_quantity_input" type="text" name="quantity[]" value="{{$item->qty}}" autocomplete="off" size="1" id="test{{$item->id}}" min="1">
                 <a class="cart_quantity_down" href="javascript:void(0)" data-route="{{url('/cartdecrementitem/')}}" data-increase="0" data-id="{{$item->rowId}}" id="{{$item->id}}"> - </a>
-               
                 </div>
               </td>
               <td class="cart_total">
                 <p class="cart_total_price" id="priceu{{$item->id}}" >
                   {{$item->price*$item->qty}}
-               
                  </p>
               </td>
               <td class="cart_delete">
@@ -79,34 +80,41 @@
       </div>
       <div class="row">
         <div class="col-sm-6">
-          <div class="chose_area">
+           <div class="chose_area">
+              @if ($message = Session::get('message_error'))
+                 <p class="error-message" style="margin-left: 43px;">
+                 {{ $message }}</p>
+             @endif
             <ul class="user_option">
               <li>
+
+                <input type="hidden" id="coupon_id" name="coupon_id">
                <label>Use Coupon Code</label><br/>
-               @foreach($coupons as $coupon)
-                <input type="radio" class="coupon" name="coupon" data-id="{{$coupon->id}}">
-                  {{$coupon->code}}
-               @endforeach
+               @if($total>300)
+               <input type="text" class="coupon_code" name="coupon"/>
+               @endif
               </li>
             </ul>
-            <a class="btn btn-default update" href="">Apply coupon</a>
-            <!-- <a class="btn btn-default check_out" href="">Continue</a> -->
+            <input type="button" class="btn btn-default update coupon" value=" Apply coupon">
           </div>
         </div>
         <div class="col-sm-6">
-          
-           
           <div class="total_area">
             <ul>
-              
+             <input type="hidden" name="subTotal" value="{{$total}}">
               <li>Cart Sub Total<span id="subTotal">{{$total}}</span></li>
-                <li>Shipping Cost <span id="shippingCost">${{$total<500 ? 50 : 0}}</span></li>
-                <li>Total <span id="grandTotal">${{$total<500 ? $total+50 : $total}}</span></li>
-              
+             <input type="hidden" name="ShippingCost" value="{{$total<500 ? 50 : 0}}">
+                <li>Shipping Cost <span id="shippingCost">{{$total<500 ? 50 : 0}}</span></li>
+                  <input type="hidden" id="discounttype" name="discounttype">
+                  <input type="hidden" id="discountvalue" name="discountvalue">
+                <li>Discount Coupon <span id="discountamount">0</span></li>
+           <input type="hidden" name="grandTotal" id="grandTotal1">
+                <li>Total <span id="grandTotal">
+                  {{$total<500 ? $total+50 : $total}}</span></li>
             </ul>
-              <a class="btn btn-default check_out" href="{{url('/checkout')}}">Check Out</a>
-          </div>
-          
+           <input type="submit" name="checkout" class="btn btn-default check_out" value="Checkout">
+            </div>
+                </form>
         </div>
       </div>
     </div>
@@ -120,8 +128,6 @@
    <script>
  $(document).ready(function(){
       $('.cart_quantity_up').on('click', function(e) {
-          // alert('hi');
-          //alert($('.cart_total_price').text());
         e.preventDefault();
         var id =$(this).attr("id"); 
         var rowId =$(this).data("id"); 
@@ -129,36 +135,33 @@
         var  increase = $(this).data('increase');
         var  price = $('#price' + id).text(); 
         var  priceu = $('#priceu' + id).text(); 
-
-         //alert(priceu);
-        updateQty(url,increase,rowId,id, price,priceu);
+        var coupontype =$('#discounttype').val();
+        var couponvalue =$('#discountvalue').val();
+        updateQty(url,increase,rowId,id, price,priceu,coupontype,couponvalue);
       });
 
     $('.cart_quantity_down').on('click', function(e) {
         
         e.preventDefault();
-        var id =$(this).attr("id"); 
-        var rowId =$(this).data("id"); 
-        var url = $(this).data('route');
+       var id =$(this).attr("id"); 
+       var rowId =$(this).data("id"); 
+       var url = $(this).data('route');
        var  increase = $(this).data('increase');
-        var  price = $('#price' + id).text(); 
+       var  price = $('#price' + id).text(); 
        var  priceu = $('#priceu' + id).text();
-
-         // alert(price);
-
-      updateQty(url,increase,rowId,id, price,priceu);
+       var coupontype =$('#discounttype').val();
+      var couponvalue =$('#discountvalue').val();
+      updateQty(url,increase,rowId,id, price,priceu,coupontype,couponvalue);
       
     });
     
-    function updateQty(url,increase,rowId,id,priceu,price){
-    
+    function updateQty(url,increase,rowId,id,priceu,price,coupontype,couponvalue){
           var qty = $('#test' + id).val();
           var qtyval="";
           var subTotal = $('#subTotal').text();
          if (qty) {
         qtyval = qty;
         }
-
         $.ajax({
             type: 'POST',
             url: url,
@@ -173,10 +176,11 @@
                 rowId: rowId,
                 price: price,
                 priceu: priceu,
-                subTotal:subTotal
+                subTotal:subTotal,
+                coupontype:coupontype,
+                couponvalue:couponvalue
             },
             success:function(response){
-
                  console.log(response);
                  var newSubTotal = response.subTotal;
                  var grandTotal = 0;
@@ -191,8 +195,17 @@
                     $('#subTotal').text(newSubTotal);
                     $('#shippingCost').text(0);
                   }
-                 
-                    $('#grandTotal').text(grandTotal);
+                    $('#discountamount').empty();
+                    $('#discountamount').text(0);
+
+                    $('#discountamount').text(response.couponvalue);
+                    $('#grandTotal').empty();
+
+                    $('#grandTotal').text(response.total);
+                    //$('#grandTotal').text(response.total);
+                    $('#grandTotal1').val(response.total);
+
+
                     $('#test'+id).val(response.quantity.qty);
                     $('#priceu'+id).text(response.updateprice);
               }
@@ -204,7 +217,6 @@
           if(quantity >1) 
           {
            $('.cart_quantity_down').removeAttr('disable');
-            // $('.cart_quantity_down').css('cursor','allowed');
           }             
 
         });
@@ -214,27 +226,36 @@
            console.log(quantity);
         if(quantity == 1){
                 $('.cart_quantity_down').attr('disable','true');
-
              }
 
         });
-      $('.coupon').click(function(){
-        var coupon_id =$(this).data("id"); 
-       // alert(coupon_id);
-      $.ajax({
-        url:'{{url('/applycoupon')}}',
-        data: 'coupon_id=' + coupon_id,
-        success:function(response){
-       // alert(res);
-       console.log(response);
-       // $('#cartTotal').html(response);
-        }
-      })
-  });
-        // cursor: default;
-         
-
-
+        
+        $('.coupon').click(function(){
+            var coupon_code =$('.coupon_code').val();
+            var subTotal = $('#subTotal').text(); 
+          $.ajax({
+           
+           data: {'coupon_code':coupon_code,'subTotal':subTotal},
+           type: 'post',
+           url: "{{route('coupon')}}",
+           headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+            success:function(response){
+         $('#discountamount').text(0);
+         $('#discountamount').empty();
+         $('#discountamount').append(response.discount);
+        
+         $('#grandTotal').empty();
+         $('#grandTotal').append(response.total<500 ? response.total+50 :response.total);
+         $('#grandTotal1').val(response.total<500 ? response.total+50 :response.total);
+         $('#coupon_id').val(response.coupon_id);
+         $('#discounttype').val(response.discounttype);
+         $('#discountvalue').val(response.discount);
+            
+          }
+        });
+        });
   });
 </script>
   @endsection

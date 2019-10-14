@@ -1,6 +1,5 @@
 @extends('frontend.layouts.master')
 
-
 @section('content')
 <section id="slider"><!--slider-->
 		<div class="container">
@@ -15,15 +14,8 @@
 						
 						<div class="carousel-inner">
 							@foreach($sliders as $key => $slide)
-                            
 							
 							<div class="item {{$key == 0 ? 'active' : '' }}">
-								<!-- <div class="col-sm-6">
-									<h1><span>E</span>-SHOPPER</h1>
-									<h2>Free E-Commerce Template</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-									<button type="button" class="btn btn-default get">Get it now</button>
-								</div> -->
 								<div class="col-sm-6">
 									<img src="{{asset('storage/'.$slide->image)}}" class="girl img-responsive" alt="" height=300px width= 500px; />
 									<img src="images/home/pricing.png"width="300px" height="600px"  class="pricing" alt="" />
@@ -89,6 +81,7 @@
 								</ul>
 							</div>
 							
+							
 						</div><!--/brands_products-->
 						
 						<div class="price-range"><!--price-range-->
@@ -132,7 +125,7 @@
 											<div class="overlay-content">
 												<h2>RS {{$product->price}}</h2>
 												<p></p>
-												<a href="{{ url('/productdetails/' . $product->id) }}"id="add" class="btn btn-default" style="margin-top: -25px;color:#FE980F;"><i class="add-to-cart"></i>product_details</a>
+												<a href="{{ url('/productdetails/' . $product->id) }}"id="add" class="btn btn-default" style="margin-top: -25px;color:#FE980F;"><i class="add-to-cart"></i>Product_details</a>
 												<a href="{{ url('/shopping-cart-add/' . $product->id) }}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
@@ -144,20 +137,14 @@
 									<input type="hidden" name="product_id" value="{{$product->id}}">
 									<ul class="nav nav-pills nav-justified">
 										<li>
-									<button><i class="fa fa-plus-square"></i>Add to wishlist</button>		
-										<!-- <input type="submit" name="submit" value="Add to wishlist"/>	
-											 -->
-										<!-- <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li> -->
+									<button class="btn btn-default add-to-cart" ><i class="fa fa-plus-square"></i>Add to wishlist</button>		
+										
 									</ul>
 								</div>
 								</form>
 							</div>
 						</div>
-						
-
 						@endforeach
-					
-						
 					</div><!--features_items-->
 					<div class="category-tab"><!--category-tab-->
 						<div class="col-sm-12">
@@ -302,39 +289,6 @@
 	      }
     	   });
 		});
-	 // $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-     
-
-	// $('#sl2').on('change',function(e){
- //         alert("hi");
-	// 	var min_price = $(this).attr("data-slider-min");
-	// 	var max_price = $(this).attr("data-slider-max");
-	// 	///console.log(min_price);
-	// 	$.ajax({
-	// 	  type: 'get',
-	//       dataType: 'html',
-	//       url: '{{url('/pricefilter')}}',
-	//       data: { min_price : 'min_price ', max_price : 'max_price' },
-	//       success: function(response) {
- //           console.log(response);
- //           // $(".padding-right").html(response);
-         
- //         }
-
-	// 	});
-	// });
-
-	// $('#add').click(function(){
-	// 	alert('hi');
-	// });
-
-
-	// $('#add').on('click',function(e){
- //       consloe.log('hi');
-	// });
-     
-
-
 
     });
 

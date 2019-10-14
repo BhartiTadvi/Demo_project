@@ -5,15 +5,12 @@
     	<div class="bg">
 	    	<div class="row">    		
 	    		<div class="col-sm-12">    			   			
-					<h2 class="title text-center">Contact <strong>Us</strong></h2>    			    				    				
-					<div id="gmap" class="contact-map">
-					</div>
 				</div>			 		
 			</div>    	
     		<div class="row">  	
 	    		<div class="col-sm-8">
 	    			<div class="contact-form">
-	    				<h2 class="title text-center">Get In Touch</h2>
+	    				<h2 class="title text-center">Contact Us</h2>
 	    				<div class="status alert alert-success" style="display: none"></div>
 	    				{!! Form::open(array('route' => 'contact.store','method'=>'POST','data-parsley-validate','class'=>'contact-form row','name'=>'contact-form',
 	    				'id'=>'main-contact-form','enctype'=>'multipart/form-data')) !!}
@@ -39,12 +36,8 @@
 	    			<div class="contact-info">
 	    				<h2 class="title text-center">Contact Info</h2>
 	    				<address>
-	    					<p>E-Shopper Inc.</p>
-							<p>935 W. Webster Ave New Streets Chicago, IL 60614, NY</p>
-							<p>Newyork USA</p>
-							<p>Mobile: +2346 17 38 93</p>
-							<p>Fax: 1-714-252-0026</p>
-							<p>Email: info@e-shopper.com</p>
+	    					{!! $contact_info[0]->pagecontent !!}
+	    					
 	    				</address>
 	    				<div class="social-networks">
 	    					<h2 class="title text-center">Social Networking</h2>

@@ -89,15 +89,7 @@ class CartController extends Controller
        $qty =$request->cart_qty;
        $price =$request->price;
        $qty--;
-       // $total=0;
-        //$cart = Cart::content();
-
-        //  foreach($cart as $item){
-        //     $total=$total+$item->qty*$item->$price;
-        // }
-
-
-        // $total=$total+$qty*$price;
+       
        $update = Cart::updateDecrement($rowId, $qty);
        $updateprice= $update->subtotal();
 
@@ -112,18 +104,7 @@ class CartController extends Controller
     }
 
      
-    //  public function total()
-    // {   
-    //    $total=0;
-    //    $cart = Cart::content();
-    //     foreach($cart as $item){
-    //         $total=$total+$item->qty*$item->price;
-    //     }
-    //     Session::put('total',$total);
-    //     return view('frontend.cart');
- 
-
-    // }
+    
 
 
 

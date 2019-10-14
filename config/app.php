@@ -182,7 +182,9 @@ return [
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
-       Skovmand\Mailchimp\MailchimpServiceProvider::class,
+        Skovmand\Mailchimp\MailchimpServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
+
 
 
 

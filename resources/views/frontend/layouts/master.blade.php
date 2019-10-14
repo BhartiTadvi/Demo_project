@@ -121,6 +121,35 @@ ol.progtrckr li.progtrckr-todo:before {
     bottom: -1.2em;
 }
 #showstatus{    padding-bottom: 59px;}
+.error-message {
+                  color:red;
+                }
+
+      .cart_up{
+     background: #F0F0E9;
+    color: #696763;
+    display: inline-block;
+    font-size: 16px;
+    height: 28px;
+    overflow: hidden;
+    text-align: center;
+    width: 35px;
+    float: left;
+    margin-top: 20px;
+
+        }
+          .cart_down{
+     background: #F0F0E9;
+    color: #696763;
+    display: inline-block;
+    font-size: 16px;
+    height: 28px;
+    overflow: hidden;
+    text-align: center;
+    width: 35px;
+    float: left;
+
+        }
     </style>
 
 

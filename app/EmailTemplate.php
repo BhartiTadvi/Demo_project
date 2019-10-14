@@ -10,6 +10,6 @@ class EmailTemplate extends Model
     protected $table='email_template';
      public $timestamp='true';
      public $fillable = [
-         'name', 'mailsubject','templatecontent'
+         'name', 'mailsubject','templatecontent','template_key'
     ];
 }

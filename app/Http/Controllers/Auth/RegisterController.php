@@ -88,6 +88,7 @@ class RegisterController extends Controller
 
         // $role = new App\Rolesmodel(['role_id' => 5]);
         // $user->roles()->save($role);
+       
 
           return $user;
     }
@@ -95,4 +96,5 @@ class RegisterController extends Controller
     {
         return view('register');
     }
+
 }

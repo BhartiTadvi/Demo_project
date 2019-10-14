@@ -17,5 +17,18 @@ class UserWishlist extends Model
     {
         return $this->belongsTo('App\Product');
     }
+    
+     public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
+    public function userDetail() 
+   {   
+    return $this->hasMany('App\User','id','user_id');
+   }
+    public function productDetail() 
+   {   
+    return $this->hasMany('App\Product','id','product_id');
+   }
 }

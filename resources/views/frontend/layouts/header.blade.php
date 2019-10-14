@@ -42,7 +42,6 @@
                                 
 								<li><a href="{{url('/WishList')}}"><i class="fa fa-star"></i> Wishlist</a></li>
 								
-								<li><a href="{{url('/checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 							<li><a href="{{route('cart')}}"><span class="badge">{{Cart::content()->count()}}</span><i class="fa fa-shopping-cart"></i>Cart </a></li>
 								@guest
 								<li><a href="{{route('loginuser')}}"><i class="fa fa-lock"></i> Login</a></li>
@@ -89,18 +88,18 @@
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{route('home_shopper')}}">Products</a></li>
-										<li><a href="">Product Details</a></li> 
+										
 										<li><a href="{{url('/checkout')}}">Checkout</a></li> 
 										<li><a href="{{route('cart')}}">Cart</a></li> 
 										<li> </li> 
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+								<!-- <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="blog.html">Blog List</a></li>
 										<li><a href="blog-single.html">Blog Single</a></li>
                                     </ul>
-                                </li> 
+                                </li>  -->
                             <li><a href="{{route('contactus')}}">Contact</a></li>
 							</ul>
 						</div>
