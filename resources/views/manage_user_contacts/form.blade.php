@@ -1,5 +1,3 @@
-
-
  <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
     <label for="name" class="control-label">{{ 'Name' }}</label>
@@ -33,9 +31,7 @@
 <div class="form-group {{ $errors->has('message') ? 'has-error' : ''}}">
     <label for="note" class="control-label">{{ 'Note' }}</label>
     <textarea name="note" class="form-control"> </textarea>
-
-    
-    {!! $errors->first('note', '<p class="help-block">:message</p>') !!}
+{!! $errors->first('note', '<p class="help-block">:message</p>') !!}
 </div>
 </div>
 

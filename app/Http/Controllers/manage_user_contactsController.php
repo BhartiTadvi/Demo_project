@@ -1,16 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\manage_user_contact;
 use Illuminate\Http\Request;
 use App\Contactus;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResponseContactMail;
-
 
 class manage_user_contactsController extends Controller
 {
@@ -23,7 +19,6 @@ class manage_user_contactsController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
         if (!empty($keyword)) {
             $manage_user_contacts = Contactus::where('name', 'LIKE', "%$keyword%")
                 ->orWhere('address1', 'LIKE', "%$keyword%")
@@ -31,12 +26,9 @@ class manage_user_contactsController extends Controller
                 ->orWhere('city', 'LIKE', "%$keyword%")
                 ->orWhere('zipcode', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
-        
-
         } else {
             $manage_user_contacts = Contactus::latest()->paginate($perPage);
         }
-           //dd($manage_user_contacts);
         return view('manage_user_contacts.index', compact('manage_user_contacts'));
     }
 
@@ -59,12 +51,9 @@ class manage_user_contactsController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
-        
         manage_user_contact::create($requestData);
-
-        return redirect('manage_user_contacts')->with('flash_message', 'manage_user_contact added!');
+        return redirect()->route('manage_user_contacts.index')->with('flash_message', 'manage_user_contact added!');
     }
 
     /**
@@ -77,7 +66,6 @@ class manage_user_contactsController extends Controller
     public function show($id)
     {
         $manage_user_contact = Contactus::findOrFail($id);
-
         return view('manage_user_contacts.show', compact('manage_user_contact'));
     }
 
@@ -91,7 +79,6 @@ class manage_user_contactsController extends Controller
     public function edit($id)
     {
         $manage_user_contact = Contactus::findOrFail($id);
-
         return view('manage_user_contacts.edit', compact('manage_user_contact'));
     }
 
@@ -109,7 +96,6 @@ class manage_user_contactsController extends Controller
         $requestData = $request->all();
         $manage_user_contact = Contactus::findOrFail($id);
         $manage_user_contact->update($requestData);
-
          $responsemail= array(
         'name'  => $request->get('name'),
         'email'  => $request->get('email'),
@@ -120,8 +106,7 @@ class manage_user_contactsController extends Controller
         );
 
         Mail::to($request['email'])->send(new ResponseContactMail($responsemail));
-
-        return redirect('manage_user_contacts')->with('flash_message', 'manage_user_contact updated!');
+        return redirect()->route('manage_user_contacts.index')->with('flash_message', 'manage_user_contact updated!');
     }
 
     /**
@@ -134,7 +119,6 @@ class manage_user_contactsController extends Controller
     public function destroy($id)
     {
         Contactus::destroy($id);
-
-        return redirect('manage_user_contacts')->with('flash_message', 'manage_user_contact deleted!');
+        return redirect()->route('manage_user_contacts.index')->with('flash_message', 'manage_user_contact deleted!');
     }
 }

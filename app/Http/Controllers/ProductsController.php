@@ -1,17 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Product;
 use App\Category;
 use App\Product_image;
-
-
 use Illuminate\Http\Request;
-
 class ProductsController extends Controller
 {
     /**
@@ -23,22 +17,15 @@ class ProductsController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 4;
-
         if (!empty($keyword)) {
             $products = Product::where('productname', 'LIKE', "%$keyword%")
                 ->orWhere('price', 'LIKE', "%$keyword%")
                 ->orWhere('description', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage)
                 ->with('productCategories','productCategories.category');
-            dd($products);
-
-
         } else {
             $products = Product::with('productCategories','productCategories.category')->paginate($perPage);
-
-           //dd($products);
         }
-
         return view('products.index', compact('products'));
     }
 
@@ -62,11 +49,9 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
         $product=Product::create($requestData);
         $files = $request->file('image');
-
         foreach($files as $file)
         {
         $filename = $file->getClientOriginalName();
@@ -79,9 +64,8 @@ class ProductsController extends Controller
             $imgObj->image = $imgName;
             $imgObj->save();       
         }
-
          $product->categories()->attach($request->subcategory);
-        return redirect('products')->with('success', 'Product added!');
+        return redirect()->route('products.index')->with('success', 'Product added!');
     }
 
     /**
@@ -94,7 +78,6 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product = Product::with('productImage','productCategories','productCategories.category')->findOrFail($id);
-        //dd($product);
         return view('products.show', compact('product'));
     }
 
@@ -152,7 +135,7 @@ class ProductsController extends Controller
     }
        $products->save();
        $products->categories()->sync([$request->subcategory_id]);
-        return redirect('products')->with('success', 'Product updated!');
+        return redirect()->route('products.index')->with('success', 'Product updated!');
     }
 
     /**
@@ -164,7 +147,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id)->delete();
-        return redirect('products')->with('success', 'Product deleted!');
+    $product = Product::find($id)->delete();
+    return redirect()->route('products.index')->with('success', 'Product deleted!');
     }
 }

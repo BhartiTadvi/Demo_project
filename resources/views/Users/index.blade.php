@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
  @section('content')
   <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
@@ -8,14 +7,12 @@
         Users
         <small></small>
       </h1>
-      
     </section>
      @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
     </div>
     @endif
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -23,7 +20,6 @@
           <div class="box">
             <div class="box-header">
              <div class="pull-right">
-
            @can('role-create')
             <a class="btn btn-success" href="{{ route('Users.create') }}"> Create New User</a>
             @endcan
@@ -57,8 +53,7 @@
                         @endif
                </td>
                <td>
-                   <a class="btn btn-info" id=show_{{$user->id}}_button href="{{ route('Users.show',$user->id) }}">Show</a>
-                   
+                  <a class="btn btn-info" id=show_{{$user->id}}_button href="{{ route('Users.show',$user->id) }}">Show</a>
                   <a class="btn btn-success" id={{$user->id}}_edit href="{{ route('Users.edit',$user->id) }}">Edit
                   </a>
                      {!! Form::open(['method' => 'DELETE','route' => ['Users.destroy',$user->id],'style'=>'display:inline']) !!}
@@ -69,8 +64,7 @@
             </tr>
                  @endforeach
            </tbody>
-                
-              </table>
+            </table>
                {!! $data->render() !!}
             </div>
             <!-- /.box-body -->

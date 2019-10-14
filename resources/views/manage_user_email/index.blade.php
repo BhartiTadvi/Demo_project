@@ -1,9 +1,7 @@
 @extends('layouts.master')
-
 @section('content')
     <div class="container">
         <div class="row">
-          
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">Manage_user_email</div>
@@ -21,7 +19,6 @@
                                     </button>
                             </span>
                         </form>
-
                         <br/>
                         <br/>
                         <div class="table-responsive">
@@ -50,7 +47,6 @@
                             </table>
                             <div class="pagination-wrapper"> {!! $manage_user_email->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
-
                     </div>
                 </div>
             </div>

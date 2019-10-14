@@ -1,4 +1,3 @@
-
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
     <label for="name" class="control-label">{{ 'Name' }}</label>
@@ -32,8 +31,6 @@
     {!! $errors->first('template_content', '<p class="help-block">:message</p>') !!}
 </div>
 </div>
-
-
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">

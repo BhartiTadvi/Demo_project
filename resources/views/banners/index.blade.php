@@ -1,9 +1,7 @@
 @extends('layouts.master')
-
 @section('content')
     <div class="container">
         <div class="row">
-            
             <div class="col-md-11">
                 <div class="box">
                   <div class="box-header">banners</div>
@@ -69,7 +67,6 @@
                               {!! $banners->appends(['search' => Request::get('search')])->render() !!}
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

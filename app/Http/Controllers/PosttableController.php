@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Posttable;
 use Illuminate\Http\Request;
 
@@ -19,7 +16,6 @@ class PosttableController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 3;
-
         if (!empty($keyword)) {
             $posttable = Posttable::where('productname', 'LIKE', "%$keyword%")
                 ->orWhere('price', 'LIKE', "%$keyword%")
@@ -28,7 +24,6 @@ class PosttableController extends Controller
         } else {
             $posttable = Posttable::latest()->paginate($perPage);
         }
-
         return view('posttable.index', compact('posttable'));
     }
 
@@ -51,12 +46,9 @@ class PosttableController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
-        
         Posttable::create($requestData);
-
-        return redirect('posttable')->with('flash_message', 'Posttable added!');
+        return redirect()->route('posttable.index')->with('flash_message', 'Posttable added!');
     }
 
     /**
@@ -103,7 +95,7 @@ class PosttableController extends Controller
         $posttable = Posttable::findOrFail($id);
         $posttable->update($requestData);
 
-        return redirect('posttable')->with('flash_message', 'Posttable updated!');
+        return redirect()->route('posttable.index')->with('flash_message', 'Posttable updated!');
     }
 
     /**
@@ -116,7 +108,6 @@ class PosttableController extends Controller
     public function destroy($id)
     {
         Posttable::destroy($id);
-
-        return redirect('posttable')->with('flash_message', 'Posttable deleted!');
+        return redirect()->route('posttable.index')->with('flash_message', 'Posttable deleted!');
     }
 }

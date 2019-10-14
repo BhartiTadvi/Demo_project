@@ -31,7 +31,6 @@ Route::group(['middleware' => ['auth']], function() {
     
 });
 //admin routes
-Route::resource('admin/posts', 'Admin\\PostsController');
 Route::resource('banners', 'BannersController');
 Route::resource('category', 'CategoryController');
 Route::resource('posttable', 'PosttableController');

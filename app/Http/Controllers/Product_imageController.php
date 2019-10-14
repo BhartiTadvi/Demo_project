@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Product_image;
 use Illuminate\Http\Request;
 
@@ -49,7 +46,6 @@ class Product_imageController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
@@ -58,7 +54,7 @@ class Product_imageController extends Controller
 
         Product_image::create($requestData);
 
-        return redirect('product_image')->with('flash_message', 'Product_image added!');
+        return redirect()->route('product_image.index')->with('flash_message', 'Product_image added!');
     }
 
     /**
@@ -85,7 +81,6 @@ class Product_imageController extends Controller
     public function edit($id)
     {
         $product_image = Product_image::findOrFail($id);
-
         return view('product_image.edit', compact('product_image'));
     }
 
@@ -99,17 +94,14 @@ class Product_imageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-
         $product_image = Product_image::findOrFail($id);
         $product_image->update($requestData);
-
-        return redirect('product_image')->with('flash_message', 'Product_image updated!');
+        return redirect()->route('product_image.index')->with('flash_message', 'Product_image updated!');
     }
 
     /**
@@ -122,7 +114,6 @@ class Product_imageController extends Controller
     public function destroy($id)
     {
         Product_image::destroy($id);
-
-        return redirect('product_image')->with('flash_message', 'Product_image deleted!');
+        return redirect()->route('product_image.index')->with('flash_message', 'Product_image deleted!');
     }
 }

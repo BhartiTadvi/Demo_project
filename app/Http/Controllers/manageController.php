@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\manage;
 use Illuminate\Http\Request;
 
@@ -19,7 +16,6 @@ class manageController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
         if (!empty($keyword)) {
             $manage = manage::where('name', 'LIKE', "%$keyword%")
                 ->orWhere('address1', 'LIKE', "%$keyword%")
@@ -54,16 +50,13 @@ class manageController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-
-        manage::create($requestData);
-
-        return redirect('manage')->with('flash_message', 'manage added!');
+    manage::create($requestData);
+    return redirect()->route('manage.index')->with('flash_message', 'manage added!');
     }
 
     /**
@@ -76,7 +69,6 @@ class manageController extends Controller
     public function show($id)
     {
         $manage = manage::findOrFail($id);
-
         return view('manage.show', compact('manage'));
     }
 
@@ -90,7 +82,6 @@ class manageController extends Controller
     public function edit($id)
     {
         $manage = manage::findOrFail($id);
-
         return view('manage.edit', compact('manage'));
     }
 
@@ -104,17 +95,14 @@ class manageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-
         $manage = manage::findOrFail($id);
         $manage->update($requestData);
-
-        return redirect('manage')->with('flash_message', 'manage updated!');
+        return redirect()->route('manage.index')->with('flash_message', 'manage updated!');
     }
 
     /**
@@ -127,7 +115,6 @@ class manageController extends Controller
     public function destroy($id)
     {
         manage::destroy($id);
-
-        return redirect('manage')->with('flash_message', 'manage deleted!');
+        return redirect()->route('manage.index')->with('flash_message', 'manage deleted!');
     }
 }

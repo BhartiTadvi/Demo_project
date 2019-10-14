@@ -1,18 +1,14 @@
 @extends('layouts.master')
-
 @section('content')
     <div class="container">
         <div class="row">
-            
-
             <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">Cms</div>
-                    <div class="card-body">
+                <div class="box">
+                    <div class="box-header">Cms</div>
+                    <div class="box-body">
                         <a href="{{ url('/cms/create') }}" class="btn btn-success btn-sm" title="Add New cm">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-
                         <form method="GET" action="{{ url('/cms') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
@@ -24,7 +20,6 @@
                                     </button>
                                 </span>
                         </form>
-
                         <br/>
                         <br/>
                         <div class="table-responsive">
@@ -56,7 +51,6 @@
                             </table>
                             <div class="pagination-wrapper"> {!! $cms->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
  @section('content')
   <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
@@ -8,7 +7,6 @@
         Category
         <small></small>
       </h1>
-      
     </section>
   <!-- Main content -->
     <section class="content">

@@ -1,14 +1,11 @@
 @extends('layouts.master')
-
 @section('content')
     <div class="container">
         <div class="row">
-   
             <div class="col-md-9">
                 <div class="box">
                <div class="box-header">Edit manage_user_email #{{ $manage_user_email->id }}</div>
                     <div class="box-body">
-                       
                        @if ($errors->any())
                             <ul class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
@@ -20,7 +17,6 @@
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 
-                           
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
     <label for="name" class="control-label">{{ 'Name' }}</label>
@@ -49,14 +45,11 @@
 <div class="form-group {{ $errors->has('template_content') ? 'has-error' : ''}}">
     <label for="template_content" class="control-label">{{ 'Template Content' }}</label>
     <textarea id="template_content" name="template_content" >
-      
       {{ $manage_user_email->templatecontent }}
     </textarea>
     {!! $errors->first('template_content', '<p class="help-block">:message</p>') !!}
 </div>
 </div>
-
-
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="Update">

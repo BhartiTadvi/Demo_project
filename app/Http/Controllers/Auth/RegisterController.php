@@ -1,16 +1,12 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\User;
 use App\Rolesmodel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Spatie\Permission\Models\Role;
-use DB;
 use Hash;
-
 
 class RegisterController extends Controller
 {
@@ -70,26 +66,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-           
-          
         $user= User::create([
-            //'firstname' => $data['name'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-
         ]);
-
          $role = Rolesmodel::where('name', 'customer')->first();
          $user->assignRole('customer');
-         // $role = Rolesmodel::where('name', '=', 'customer')->firstOrFail();
-         //$user->attachRole('customer');
-        
-
-        // $role = new App\Rolesmodel(['role_id' => 5]);
-        // $user->roles()->save($role);
-       
-
           return $user;
     }
     public function showRegistrationForm()

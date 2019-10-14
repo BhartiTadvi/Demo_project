@@ -1,20 +1,14 @@
 @extends('layouts.master')
-
 @section('content')
     <div class="container">
         <div class="row">
-            
             <div class="col-md-9">
                 <div class="box">
                     <div class="box-header">Edit Product #{{ $product->id }}</div>
                     <div class="box-body">
-                       
-
-            
-         <form method="POST"  action="{{ url('/products/' . $product->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+         <form method="POST"  action="{{ route('products.update',$product->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
-
              <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group {{ $errors->has('categoryname') ? 'has-error' : ''}}">
                     <label for="categoryname" class="control-label">{{ 'Category Name' }}</label>
@@ -27,7 +21,6 @@
                     </option>
                     @endif
                     @endforeach
-
                     </select>
                     <!-- <input class="form-control" name="categoryname" type="text" id="productname" value="{{$product->productCategories->category->name}}" > -->
                     {!! $errors->first('productname', '<p class="help-block">:message</p>') !!}
@@ -40,7 +33,6 @@
                     <select class="form-control" name="subcategory_id" id="subcategory"data-parsley-required="true">
                     <option value="">Select Category</option>
                     @foreach($categories as $category)
-
                      @if($category->parent_id != 0)
                     <option value={{$category->id}} 
                     @if($product->productCategories->category_id == $category->id) selected="selected" @endif>
@@ -51,10 +43,6 @@
                     </select>
             </div>
         </div>
-                                    
-                                    
-
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group {{ $errors->has('productname') ? 'has-error' : ''}}">
                     <label for="productname" class="control-label">{{ 'Product Name' }}</label>
@@ -62,7 +50,6 @@
                     {!! $errors->first('productname', '<p class="help-block">:message</p>') !!}
                 </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group {{ $errors->has('price') ? 'has-error' : ''}}">
                     <label for="price" class="control-label">{{ 'Price' }}</label>
@@ -70,7 +57,6 @@
                     {!! $errors->first('price', '<p class="help-block">:message</p>') !!}
                 </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                     <label for="description" class="control-label">{{ 'Description' }}</label>
@@ -82,7 +68,6 @@
                 <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                     @foreach($product->productImage as $image)
                       <img src="{{asset('uploads/'.$image->image)}}" height="100px" width="100px">  
-                         
                     @endforeach
                 </div>
                 </div>
@@ -93,26 +78,18 @@
                     {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
                  </div>  
                  </div> 
-
-
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
-
                 <div class="form-group">
                     <input class="btn btn-primary" type="submit" value="update">
-
-                <a href="{{ url('/products') }}" title="Back" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                <a href="{{route('products.index') }}" title="Back" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
                 </div>
                 </div>
-
-
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+            </form>
+         </div>
+      </div>
     </div>
+ </div>
+</div>
 @endsection
 
 

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Frontend;
-
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,14 +18,11 @@ use App\EmailTemplate;
 use App\Coupon;
 use Illuminate\Support\Facades\Mail;
 
-
 class CheckoutController extends Controller
 {
-    //
+    /** Get cart details from cart **/
     public function index(Request $request)
     {
-        //dd($request->all());
-
         if(Auth::user())
         {
         $product_name=$request->product_name;
@@ -37,7 +32,6 @@ class CheckoutController extends Controller
         $coupon=$request->coupon;
         $discount_amount=$request->discountvalue;
         $coupon_id=$request->coupon_id;
-      
         $count=count($product_name);
         for($i=0;$i<$count;$i++)
         {
@@ -45,51 +39,44 @@ class CheckoutController extends Controller
                   'quantity' => $request->quantity[$i],
                 'product_image'=> $request->product_image[$i]);
         }
-
          $countries = Country::get();
          $states = State::get();
          $user = User::get();
          $orders  =  Order::get();
          $user_id = Auth::user()->id;
          $addresses = Address::with('country','state')->where('user_id',$user_id)->get();
-
         }
         else{
              return view('frontend.login');
           }
-            
         return view('frontend.checkout',compact('cartDetails','countries','data','cart','user','states','addresses','coupon','orders','ShippingCost','subTotal','grandTotal','discount_amount','coupon_id'));
-
     }
-    public function getState(Request $request){
-
-     $country_id =$request->country_id;
     
+    /** Get state from database **/
+    public function getState(Request $request){
+     $country_id =$request->country_id;
      $countries= State::where('countryID', $country_id)
                     ->get();
-    
         return Response::json($countries);
     }
-    public function getBillingAddress(Request $request){
 
+    /** Get Billing Address from database **/
+    public function getBillingAddress(Request $request){
       $address_id = $request->address_id;
       $user_id = Auth::user()->id;
       $addresses = Address::with('country','state')->where('user_id',$user_id)->get();
        return view('frontend.billing', compact('addresses'));
-        
     }
-     
+
+    /** Get Shipping address from database **/
     public function getShippingAddress(Request $request){
       $user_id = $request->user_id;
       $addresses = Address::with('country','state')->get();
        return view('frontend.checkout', compact(''));
-
     }
-
+    /** store order details **/
     public function placeOrder(Request $request){
         $coupon=$request->coupon;
-
-          //dd($request->all());exit;   
           $this->validate($request, [
             'full_name' => 'required',
             'phone' => 'required',
@@ -112,10 +99,8 @@ class CheckoutController extends Controller
         $states = State::get();
         $user = User::get();
         $data  =  Cart::content();
-
         $address = new Address();
         $addresses = Address::get();
-
         if($address->id != 0)
          {
          $address->name = $request->full_name;
@@ -126,7 +111,6 @@ class CheckoutController extends Controller
         $address->city = $request->city;
         $address->zipcode = $request->zipcode;
         $address->mobileno = $request->phone;
-         
         $address->name = $request->name;
         $address->address1 = $request->billing_address1;
         $address->address2 = $request->billing_address2;
@@ -138,7 +122,6 @@ class CheckoutController extends Controller
         $address->user_id = Auth::user()->id;
          $address->save();
          }  
-
         $orders = new Order();
         $orders->user_id  = Auth::user()->id;
         $orders->address_id = $request->address_id;
@@ -148,20 +131,8 @@ class CheckoutController extends Controller
         $orders->discount_amount = $request->discount_amount;
         $orders->coupon_code_id = $request->coupon_id;
         $orders->save(); 
-
          $price=0;
-        
         $count=count($request->product_id);
-        // for($i=0;$i<$count;$i++)
-        // {
-        //     $productorders = new Product_Order();
-        //     $orders[]= array('product_id'=> $request->product_id[$i],
-        //           'order_id'=> $request->order_id[$i],
-        //           'quantity' => $request->quantity1[$i]);
-
-        //   $productorders->insert($orders);
-        // }
-
         for($i=0;$i<$count;$i++)
         {
           $productorders = new Product_Order();
@@ -170,20 +141,15 @@ class CheckoutController extends Controller
           $productorders->quantity = $request->quantity1[$i];
           $productorders->save();
         }
-         
-
          $orderdetails = new OrderDetail();
          $orderdetails->order_id =$request->order_id;
          $orderdetails->payment_mode =$request->submit;
          $codtransactionid = str_random(10);
          $orderdetails->transaction_id =$codtransactionid;
          $orderdetails->save();
-
         $coupons=Coupon::where('code',$coupon)->first();
         $coupons->remaining_quantity = $coupons->remaining_quantity -1;
         $coupons->save();
-         
-
          $view = '<table border="1" cellpadding="10px" width="100%">
                     <thead>
                         <tr>
@@ -195,7 +161,6 @@ class CheckoutController extends Controller
                         </tr>
                     </thead>
                 <tbody>';
-                
                 foreach(Cart::content() as $row){
                     $price=$price+$row->qty*$row->price;
         $view .=
@@ -204,14 +169,8 @@ class CheckoutController extends Controller
                 '<td>'.$row->price.'</td>'.
                 '<td>'.$row->qty.'</td>'.
                 '<td>'.$row->qty*$row->price.'</td></tr>'
-                                        ;
                 }
-
         $view .=    '</tbody></table>';
-
-
-         
-       
          $order= array(
         'email'  => Auth::user()->email, 
         'product_no'  => $request->get('product_id'),
@@ -226,22 +185,14 @@ class CheckoutController extends Controller
         'template_key' => "order_template_key",
         'view' =>$view
         );
-       
-
-         //dd($order);
         Mail::to(Auth::user()->email)->send(new OrderMail($order));
         $email="bhartitadvi081@gmail.com";
         Mail::to($email)->send(new OrderMail($order));
-         
         return redirect('thanks')->with('flash_message', 'order has been placed successfully');
-        
     }
+             
+   /** Show success on placeorder**/
     public function cashOnDelivery(){
-
       return view('frontend.thanks');
-
     }
-
 }
-
- 

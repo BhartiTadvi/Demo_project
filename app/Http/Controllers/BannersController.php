@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Banner;
 use Illuminate\Http\Request;
 
@@ -26,7 +23,6 @@ class BannersController extends Controller
         } else {
             $banners = Banner::latest()->paginate($perPage);
         }
-
         return view('banners.index', compact('banners'));
     }
 
@@ -49,21 +45,17 @@ class BannersController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name'=>'required', 
             'image'=>'required', 
-
             ]);
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-
         Banner::create($requestData);
-
-        return redirect('banners')->with('success', 'New banner added successfully');
+        return redirect()->route('banners.index')->with('success', 'New banner added successfully');
     }
 
     /**
@@ -76,7 +68,6 @@ class BannersController extends Controller
     public function show($id)
     {
         $banner = Banner::findOrFail($id);
-
         return view('banners.show', compact('banner'));
     }
 
@@ -90,7 +81,6 @@ class BannersController extends Controller
     public function edit($id)
     {
         $banner = Banner::findOrFail($id);
-
         return view('banners.edit', compact('banner'));
     }
 
@@ -104,20 +94,17 @@ class BannersController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $request->validate([
+     $request->validate([
             'name'=>'required', 
              ]);
-        
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-
         $banner = Banner::findOrFail($id);
         $banner->update($requestData);
-
-        return redirect('banners')->with('success', 'Banner updated successfully');
+        return redirect()->route('banners.index')->with('success', 'Banner updated successfully');
     }
 
     /**
@@ -130,7 +117,6 @@ class BannersController extends Controller
     public function destroy($id)
     {
         Banner::destroy($id);
-
-        return redirect('banners')->with('success', 'Banner deleted successfully');
+        return redirect()->route('banners.index')->with('success', 'Banner deleted successfully');
     }
 }

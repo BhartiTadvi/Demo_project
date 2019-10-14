@@ -23,6 +23,7 @@ use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
 
+//Cart and Order model
 use App\Country;
 use App\State;
 use App\User;
@@ -35,7 +36,6 @@ use App\Product_Order;
 
 class AddMoneyController extends Controller
 {
-    //
      private $_api_context;
     /**
      * Create a new controller instance.
@@ -46,7 +46,6 @@ class AddMoneyController extends Controller
     public function __construct()
     {
         //parent::__construct();
-        
         /** setup PayPal api context **/
       $paypal_conf = \Config::get('paypal');
         $this->_api_context = new ApiContext(new OAuthTokenCredential(
@@ -72,15 +71,8 @@ class AddMoneyController extends Controller
      */
     public function postPaymentWithpaypal(Request $request)
     {
-       
-    //dd($request->order_id);
-
         $order_id =$request->order_id;
         Session::put('order_id',$order_id);
-
-        // dd($order_id);
-                 
-
        $this->validate($request, [
             'full_name' => 'required',
             'phone' => 'required',
@@ -105,7 +97,6 @@ class AddMoneyController extends Controller
         $data  =  Cart::content();
         $address = new Address();
         $addresses = Address::get();
-
         if($address->id != 0)
          {
          $address->name = $request->full_name;
@@ -119,8 +110,7 @@ class AddMoneyController extends Controller
         $address->user_id = Auth::user()->id;
          $address->save();
          }  
-
-
+       
         $orders = new Order();
         $orders->user_id  = Auth::user()->id;
         $orders->address_id = $request->address_id;
@@ -128,37 +118,33 @@ class AddMoneyController extends Controller
         $orders->total = $request->grandtotal;
         $orders->shipping_charge = $request->shippingcost;
         $orders->save(); 
-
-         $productorders = new Product_Order();
-         $productorders->product_id = $request->product_id;
-         $productorders->order_id = $request->order_id;
-         $productorders->quantity = $request->quantity;
-         $productorders->save(); 
-         
-         $orderdetails = new OrderDetail();
-         $orderdetails->order_id =$request->order_id;
-         $orderdetails->payment_mode =$request->submit;
-         $orderdetails->save();
-         //dd($orderdetails->id);
-        //$requestData =$request->all();
        
-       // dd($requestData);
-       // $item_1=setQuantity($request->quantity);
+        $productorders = new Product_Order();
+        $productorders->product_id = $request->product_id;
+        $productorders->order_id = $request->order_id;
+        $productorders->quantity = $request->quantity;
+        $productorders->save(); 
+         
+        $orderdetails = new OrderDetail();
+        $orderdetails->order_id =$request->order_id;
+        $orderdetails->payment_mode =$request->submit;
+        $orderdetails->save();
+        
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
+        
         $item_1 = new Item();
-
         $item_1->setName('Item 1') /** item name **/
             ->setCurrency('INR')
             ->setQuantity(1)
             ->setPrice($request->get('grandtotal')); /** unit price **/
         $item_list = new ItemList();
         $item_list->setItems(array($item_1));
-        //dd($item_list);
+        
         $amount = new Amount();
         $amount->setCurrency('INR')
             ->setTotal($request->get('grandtotal'));
-            // dd($amount);
+           
         $transaction = new Transaction();
         $transaction->setAmount($amount)
             ->setItemList($item_list)
@@ -172,11 +158,8 @@ class AddMoneyController extends Controller
             ->setRedirectUrls($redirect_urls)
             ->setTransactions(array($transaction));
        
-            /** dd($payment->create($this->_api_context));exit; **/
-       // dd($payment);
         try {
             $payment->create($this->_api_context);
-             //dd($payment->id);
         } catch (\PayPal\Exception\PPConnectionException $ex) {
             if (\Config::get('app.debug')) {
                 \Session::put('error','Connection timeout');
@@ -198,10 +181,6 @@ class AddMoneyController extends Controller
         }
         /** add payment ID to session **/
       Session::put('paypal_payment_id', $payment->getId());
-
-
-                //dd($order);
-
         if(isset($redirect_url)) {
             /** redirect to paypal **/
             return Redirect::away($redirect_url);
@@ -211,8 +190,6 @@ class AddMoneyController extends Controller
     }
     public function getPaymentStatus()
     {
-         
-
         /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');
         /** clear the session payment ID **/
@@ -222,8 +199,6 @@ class AddMoneyController extends Controller
             return Redirect::route('addmoney.paywithpaypal');
         }
         $payment = Payment::get($payment_id, $this->_api_context);
-
-        
         /** PaymentExecution object includes information necessary **/
         /** to execute a PayPal account payment. **/
         /** The payer_id is added to the request query parameters **/
@@ -235,14 +210,12 @@ class AddMoneyController extends Controller
         /** dd($result);exit; /** DEBUG RESULT, remove it later **/
        
         if ($result->getState() == 'approved') { 
-
           $order_id= Session::get('order_id');
-
           $orderdetails =new OrderDetail();
           $orderdetails->order_id =$order_id;
           $orderdetails->transaction_id = $result->id;
           $orderdetails->save();
-            
+         
             /** it's all right **/
             /** Here Write your database logic like that insert record or value in database if you want **/
             \Session::put('success','Payment success');

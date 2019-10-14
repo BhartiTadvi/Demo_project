@@ -1,10 +1,8 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row">
             @include('admin.sidebar')
-
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">Post {{ $post->id }}</div>
@@ -20,7 +18,6 @@
                         </form>
                         <br/>
                         <br/>
-
                         <div class="table-responsive">
                             <table class="table">
                                 <tbody>
@@ -31,7 +28,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>

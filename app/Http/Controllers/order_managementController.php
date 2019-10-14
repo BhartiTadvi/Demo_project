@@ -1,29 +1,23 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\order_management;
-
 use Illuminate\Http\Request;
 use App\Order;
 class order_managementController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
 
      */
-
-
     public function index(Request $request)
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
         if (!empty($keyword)) {
             $order_management = order_management::where('customer_details_with_address', 'LIKE', "%$keyword%")
                 ->orWhere('Ordered products', 'LIKE', "%$keyword%")
@@ -38,14 +32,8 @@ class order_managementController extends Controller
 
     public function orderDetail($id)
     {
-       
-        
       $orders=Order::with('products','products.product','orderDetail','address')->find($id);
-           // dd($id);
-        // dd($orders->address);
-       
      return view('order_management.product_details',compact('orders'));
-
     }
 
     /**
@@ -67,12 +55,9 @@ class order_managementController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        order_management::create($requestData);
-
-        return redirect('order_management')->with('flash_message', 'order_management added!');
+      $requestData = $request->all();
+      order_management::create($requestData);
+      return redirect()->route('order_management.index')->with('flash_message', 'order_management added!');
     }
 
     /**
@@ -84,9 +69,8 @@ class order_managementController extends Controller
      */
     public function show($id)
     {
-        $order_management = order_management::findOrFail($id);
-
-        return view('order_management.show', compact('order_management'));
+     $order_management = order_management::findOrFail($id);
+     return view('order_management.show', compact('order_management'));
     }
 
     /**
@@ -98,9 +82,8 @@ class order_managementController extends Controller
      */
     public function edit($id)
     {
-        $order_management = order_management::findOrFail($id);
-
-        return view('order_management.edit', compact('order_management'));
+     $order_management = order_management::findOrFail($id);
+     return view('order_management.edit', compact('order_management'));
     }
 
     /**
@@ -113,13 +96,10 @@ class order_managementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $requestData = $request->all();
-        
         $order_management = order_management::findOrFail($id);
         $order_management->update($requestData);
-
-        return redirect('order_management')->with('flash_message', 'order_management updated!');
+        return redirect()->route('order_management.index')->with('flash_message', 'order_management updated!');
     }
 
     /**
@@ -131,8 +111,7 @@ class order_managementController extends Controller
      */
     public function destroy($id)
     {
-        order_management::destroy($id);
-
-        return redirect('order_management')->with('flash_message', 'order_management deleted!');
+       order_management::destroy($id);
+       return redirect()->route('order_management.index')->with('flash_message', 'order_management deleted!');
     }
 }

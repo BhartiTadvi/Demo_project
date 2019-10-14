@@ -1,13 +1,10 @@
 @extends('layouts.master')
-
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Edit Role</h2>
         </div>
-        
     </div>
 </div>
 <div class="container">
@@ -15,7 +12,6 @@
              <div class="col-md-9">
                 <div class="box">
                     <div class="box-body">
-        
 {!! Form::model($role, ['method' => 'PATCH','route' => ['Roles.update', $role->id]]) !!}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -23,7 +19,6 @@
             <strong>Name:</strong>
             {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
             {!! $errors->first('name', '<span class="error-message">:message</span>') !!}
-
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -36,7 +31,6 @@
             <br/>
             @endforeach
             {!! $errors->first('permission', '<span class="error-message">:message</span>') !!}
-
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">

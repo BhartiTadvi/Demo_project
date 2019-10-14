@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row">
@@ -21,7 +20,6 @@
                                     </button>
                                 </span>
                         </form>
-
                         <br/>
                         <br/>
                         <div class="table-responsive">
@@ -60,7 +58,6 @@
                             </table>
                             <div class="pagination-wrapper"> {!! $manage_user_contacts->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -1,13 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\Coupon;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Coupon;
 use Illuminate\Http\Request;
-
 class CouponController extends Controller
 {
     /**
@@ -19,7 +15,6 @@ class CouponController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
         if (!empty($keyword)) {
             $coupon = Coupon::where('title', 'LIKE', "%$keyword%")
                 ->orWhere('code', 'LIKE', "%$keyword%")
@@ -29,7 +24,6 @@ class CouponController extends Controller
         } else {
             $coupon = Coupon::latest()->paginate($perPage);
         }
-
         return view('coupon.index', compact('coupon'));
     }
 
@@ -60,10 +54,8 @@ class CouponController extends Controller
             'type'=>'required'
              ]);
         $requestData = $request->all();
-        
         Coupon::create($requestData);
-
-        return redirect('coupon/coupon')->with('success', 'Coupon added!');
+        redirect()->route('coupon.index')->with('success', 'Coupon added!');
     }
 
     /**
@@ -90,7 +82,6 @@ class CouponController extends Controller
     public function edit($id)
     {
         $coupon = Coupon::findOrFail($id);
-
         return view('coupon.edit', compact('coupon'));
     }
 
@@ -111,11 +102,9 @@ class CouponController extends Controller
             'discount'=>'required', 
              ]);
         $requestData = $request->all();
-        
         $coupon = Coupon::findOrFail($id);
         $coupon->update($requestData);
-
-        return redirect('coupon/coupon')->with('success', 'Coupon updated!');
+        return redirect()->route('coupon.index')->with('success', 'Coupon updated!');
     }
 
     /**
@@ -128,7 +117,6 @@ class CouponController extends Controller
     public function destroy($id)
     {
         Coupon::destroy($id);
-
-        return redirect('coupon/coupon')->with('success', 'Coupon deleted!');
+        return redirect()->route('coupon.index')->with('success', 'Coupon deleted!');
     }
 }

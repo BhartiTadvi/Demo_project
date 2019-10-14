@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers\Frontend;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\address;
 use App\Country;
 use App\State;
@@ -22,7 +19,6 @@ class addressController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
         if (!empty($keyword)) {
             $address = address::where('name', 'LIKE', "%$keyword%")
                 ->orWhere('address1', 'LIKE', "%$keyword%")
@@ -36,7 +32,6 @@ class addressController extends Controller
         } else {
             $address = address::latest()->paginate($perPage);
         }
-
         return view('frontend.address.index', compact('address'));
     }
 
@@ -48,7 +43,6 @@ class addressController extends Controller
     public function create()
     {
         $countries = Country::get();
-       // dd($countries);
         return view('frontend.address.create',compact('countries'));
     }
 
@@ -61,8 +55,6 @@ class addressController extends Controller
      */
     public function store(Request $request)
     {
-        //$requestData = $request->all();
-    // dd($request->country);
         $request->validate([
             'name'=>'required',
             'address1'=>'required',
@@ -78,13 +70,9 @@ class addressController extends Controller
         $address->city = $request->city;
         $address->zipcode = $request->zipcode;
         $address->mobileno = $request->mobileno;
-        // $address->user_id = Auth::user()->id;
         $address->user_id = Auth::user()->id;
-
         $result = $address->save();
-       
-
-        return redirect('myAddress')->with('flash_message', 'address added!');
+        return redirect()->route('myaddress')->with('flash_message', 'address added!');
     }
 
     /**
@@ -97,7 +85,6 @@ class addressController extends Controller
     public function show($id)
     {
         $address = address::findOrFail($id);
-
         return view('frontend.address.show', compact('address'));
     }
 
@@ -112,9 +99,6 @@ class addressController extends Controller
     {
         $address = address::findOrFail($id);
         $countries = Country::get();
-        //dd($countries);
-
-
         return view('frontend.address.edit', compact('address','$countries'));
     }
 
@@ -128,13 +112,10 @@ class addressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $requestData = $request->all();
-        
         $address = address::findOrFail($id);
         $address->update($requestData);
-
-        return redirect('myAddress')->with('flash_message', 'address updated!');
+        return redirect()->route('myaddress')->with('flash_message', 'address updated!');
     }
 
     /**
@@ -147,23 +128,14 @@ class addressController extends Controller
     public function destroy($id)
     {
         address::destroy($id);
-
-        return redirect('address')->with('flash_message', 'address deleted!');
+         return redirect()->route('myaddress')->with('flash_message', 'address deleted!');
     }
-
+   
     public function getState(Request $request){
-
       $country_id =$request->country_id;
-    
-     return $countries= State::where('countryID', $country_id)
+      $countries= State::where('countryID', $country_id)
                     ->get();
-                    
-                   // echo '<pre>';print_r($countries);die;
         return Response::json($countries);
-
-    
-    //dd($request->all());
-
 
    }
 

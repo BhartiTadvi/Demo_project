@@ -1,7 +1,3 @@
-
-    
-
-
 <div class="col-xs-12 col-sm-12 col-md-12 {{ $errors->has('name') ? 'has-error' : ''}}">
 	<div class="form-group">
     <label for="name" class="control-label">{{ 'Name' }}</label>

@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -19,7 +16,6 @@ class PostsController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
         if (!empty($keyword)) {
             $posts = Post::where('title', 'LIKE', "%$keyword%")
                 ->orWhere('content', 'LIKE', "%$keyword%")
@@ -28,7 +24,6 @@ class PostsController extends Controller
         } else {
             $posts = Post::latest()->paginate($perPage);
         }
-
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -51,12 +46,8 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
-        
-        Post::create($requestData);
-
-        return redirect('admin/posts')->with('flash_message', 'Post added!');
+        return redirect()->route('posts.index')->with('flash_message', 'Post added!');
     }
 
     /**
@@ -69,7 +60,6 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-
         return view('admin.posts.show', compact('post'));
     }
 
@@ -83,7 +73,6 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-
         return view('admin.posts.edit', compact('post'));
     }
 
@@ -97,13 +86,10 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $requestData = $request->all();
-        
         $post = Post::findOrFail($id);
         $post->update($requestData);
-
-        return redirect('admin/posts')->with('flash_message', 'Post updated!');
+        return redirect()->route('posts.index')->with('flash_message', 'Post updated!');
     }
 
     /**
@@ -116,7 +102,6 @@ class PostsController extends Controller
     public function destroy($id)
     {
         Post::destroy($id);
-
-        return redirect('admin/posts')->with('flash_message', 'Post deleted!');
+         return redirect()->route('posts.index')->with('flash_message', 'Post deleted!');
     }
 }

@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\manage_user_email;
 use Illuminate\Http\Request;
 use App\EmailTemplate;
@@ -30,7 +27,6 @@ class manage_user_emailController extends Controller
         } else {
             $manage_user_email = EmailTemplate::paginate($perPage);
         }
-
         return view('manage_user_email.index', compact('manage_user_email'));
     }
 
@@ -53,15 +49,9 @@ class manage_user_emailController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
         $requestData = $request->all();
-
-         //dd($requestData);
-        
         EmailTemplate::create($requestData);
-
-        return redirect('manage_user_email')->with('flash_message', 'manage_user_email added!');
+        return redirect()->route('manage_user_email.index')->with('flash_message', 'manage_user_email added!');
     }
 
     /**
@@ -74,7 +64,6 @@ class manage_user_emailController extends Controller
     public function show($id)
     {
         $manage_user_email = EmailTemplate::findOrFail($id);
-
         return view('manage_user_email.show', compact('manage_user_email'));
     }
 
@@ -88,7 +77,6 @@ class manage_user_emailController extends Controller
     public function edit($id)
     {
         $manage_user_email = EmailTemplate::findOrFail($id);
-
         return view('manage_user_email.edit', compact('manage_user_email'));
     }
 
@@ -102,18 +90,13 @@ class manage_user_emailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        
       $manage_user_email = EmailTemplate::findOrFail($id);
-
-
         $manage_user_email->name = $request->name;
         $manage_user_email->mailsubject = $request->mailsubject;
         $manage_user_email->templatecontent = $request->template_content;
         $manage_user_email->template_key = $request->template_key;
-
         $manage_user_email->save();
-        return redirect('manage_user_email')->with('flash_message', 'manage_user_email updated!');
+        return redirect()->route('manage_user_email.index')->with('flash_message', 'manage_user_email updated!');
     }
 
     /**
@@ -126,7 +109,6 @@ class manage_user_emailController extends Controller
     public function destroy($id)
     {
         manage_user_email::destroy($id);
-
-        return redirect('manage_user_email')->with('flash_message', 'manage_user_email deleted!');
+        return redirect()->route('manage_user_email.index')->with('flash_message', 'manage_user_email deleted!');
     }
 }

@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
  @section('content')
   <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
@@ -28,8 +27,6 @@
             <p>{{ $message }}</p>
           </div>
           @endif
-
-
           <form method="GET" action="{{ url('/coupon/coupon') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
@@ -40,7 +37,6 @@
                                     </button>
                                 </span>
              </form>
-
         @if ($message = Session::get('success'))
         <div class="success">
             <p>{{ $message }}</p>
@@ -89,5 +85,4 @@
                  </div>
                </div>
           </section>
-   
  @endsection

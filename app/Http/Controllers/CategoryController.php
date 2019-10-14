@@ -1,15 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Category;
 use Response;
-
-use DB;
-
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -23,19 +17,14 @@ class CategoryController extends Controller
     {
         $keyword = $request->get('search');
         $perPage =5;
-
     if (!empty($keyword)) {
             $category = Category::where('name', 'LIKE', "%$keyword%")
-
                 ->latest()->paginate($perPage);
         } else {
          $category = Category::latest()->paginate($perPage);
-
          $categories = Category::where('parent_id',0)->get();
-         //dd($categories);
      }
-       
-        return view('category.index', compact('category','categories'));
+     return view('category.index', compact('category','categories'));
     }
 
     /**
@@ -45,9 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        
         return view('category.create');
-        
     }
 
     /**
@@ -64,10 +51,9 @@ class CategoryController extends Controller
             ]);
         $category = new Category();
         $category->name = $request->category_name;
-      
         $result = $category->save();
         if($result){
-             return redirect('category')->with('success', 'Category added successfully');
+         return redirect()->route('category.index')->with('success', 'Category added successfully');
                  }
     }
 
@@ -80,11 +66,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-     
      $categories = category::with('children')->findOrFail($id);
-    // dd($categories);
-
-
         return view('category.show', compact('categories'));
     }
 
@@ -98,7 +80,6 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-
         return view('category.edit', compact('category'));
     }
 
@@ -115,17 +96,12 @@ class CategoryController extends Controller
         $request->validate([
             'category_name'=>'required', 
             ]);
-       
-
        $category = Category::findOrFail($id);
-        
        $category->name = $request->category_name;
        $category->status = $request->status;
-       //dd($category);
          if($category->save())
         {
-         
-         return redirect('category')->with('success', 'Category updated successfully');
+          return redirect()->route('category.index')->with('success', 'Category updated successfully');
         }
     }
 
@@ -139,23 +115,13 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
-
-        return redirect('category')->with('success', 'Category deleted successfully');
+        return redirect()->route('category.index')->with('success', 'Category deleted successfully');
     }
-
+   /** Get subcategory from category**/
    public function getSubCategory(Request $request){
-
       $category =$request->category_id;
       $subcategories= Category::where('parent_id', '=', $category)
                     ->get();
-                    // dd($subcategories);
         return Response::json($subcategories);
-
-    
-   // dd($request->all());
-
-
    }
-
-
 }

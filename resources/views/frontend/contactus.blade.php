@@ -34,7 +34,7 @@
 	    		<div class="col-sm-4">
 	    			<div class="contact-info">
 	    				<h2 class="title text-center">Contact Info</h2>
-	    				<address>
+	    				<address class="contact-content">
 	    					{!! $contact_info[0]->pagecontent !!}
 	    					
 	    				</address>

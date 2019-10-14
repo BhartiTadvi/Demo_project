@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
  @section('content')
   <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
@@ -45,28 +44,17 @@
                                         <td>{{ $child->name }}</td>
                                   
                                   <td>
-                                            
-                                            
                           <a href="{{ url('/category/' . $child->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-
-                        
                                             <form method="POST" action="{{ url('/category' . '/' . $child->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Delete Category" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             </form>
-                                           
-                                             
-
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
-
-
-                                
                             </table>
-
                         </div>
                          <a href="{{ url('/category') }}" title="Back"><button class="btn btn-warning btn-sm" style="margin-left: 13px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
 

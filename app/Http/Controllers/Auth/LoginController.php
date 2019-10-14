@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
@@ -43,7 +41,6 @@ class LoginController extends Controller
     
      public function showLoginForm()
     {
-        
      // $permissions = $this->getAllPermissions($permissions);
 
       return view('login');
@@ -52,7 +49,6 @@ class LoginController extends Controller
          public function redirectToGoogle()
 
     {
-
         return Socialite::driver('google')->redirect();
 
     }
@@ -75,9 +71,7 @@ class LoginController extends Controller
                 $newUser = User::create([
 
                     'name' => $user->name,
-
                     'email' => $user->email,
-
                     'google_id'=> $user->id
 
                 ]);

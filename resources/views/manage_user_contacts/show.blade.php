@@ -1,9 +1,7 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row">
-           
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">manage_user_contact {{ $manage_user_contact->id }}</div>
@@ -38,7 +36,6 @@
                             </table>
                             <a href="{{ url('/manage_user_contacts') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         </div>
-
                     </div>
                 </div>
             </div>

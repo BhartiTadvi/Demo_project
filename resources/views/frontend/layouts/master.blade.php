@@ -136,7 +136,6 @@ ol.progtrckr li.progtrckr-todo:before {
     width: 35px;
     float: left;
     margin-top: 20px;
-
         }
           .cart_down{
      background: #F0F0E9;
@@ -148,8 +147,9 @@ ol.progtrckr li.progtrckr-todo:before {
     text-align: center;
     width: 35px;
     float: left;
-
         }
+        .contact-content{margin-left: 53px;
+}
     </style>
 
 

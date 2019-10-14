@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\cm;
 use Illuminate\Http\Request;
 
@@ -19,7 +16,6 @@ class cmsController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
         if (!empty($keyword)) {
             $cms = cm::where('customer_details_with_address', 'LIKE', "%$keyword%")
                 ->orWhere('Ordered products', 'LIKE', "%$keyword%")
@@ -28,7 +24,6 @@ class cmsController extends Controller
         } else {
             $cms = cm::latest()->paginate($perPage);
         }
-
         return view('cms.index', compact('cms'));
     }
 
@@ -51,12 +46,9 @@ class cmsController extends Controller
      */
     public function store(Request $request)
     {
-        
         $requestData = $request->all();
-        
         cm::create($requestData);
-
-        return redirect('cms')->with('flash_message', 'cm added!');
+        return redirect()->route('cms.index')->with('flash_message', 'cm added!');
     }
 
     /**
@@ -69,7 +61,6 @@ class cmsController extends Controller
     public function show($id)
     {
         $cm = cm::findOrFail($id);
-
         return view('cms.show', compact('cm'));
     }
 
@@ -83,7 +74,6 @@ class cmsController extends Controller
     public function edit($id)
     {
         $cm = cm::findOrFail($id);
-
         return view('cms.edit', compact('cm'));
     }
 
@@ -97,13 +87,10 @@ class cmsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $requestData = $request->all();
-        
         $cm = cm::findOrFail($id);
         $cm->update($requestData);
-
-        return redirect('cms')->with('flash_message', 'cm updated!');
+        return redirect()->route('cms.index')->with('flash_message', 'cm updated!');
     }
 
     /**
@@ -116,7 +103,6 @@ class cmsController extends Controller
     public function destroy($id)
     {
         cm::destroy($id);
-
-        return redirect('cms')->with('flash_message', 'cm deleted!');
+        return redirect()->route('cms.index')->with('flash_message', 'cm deleted!');
     }
 }

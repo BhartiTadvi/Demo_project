@@ -1,15 +1,12 @@
 @extends('layouts.master')
-
 @section('content')
     <div class="container">
         <div class="row">
-           
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header">Order_management</div>
                     <div class="box-body">
-                       
-                        <form method="GET" action="{{ url('/order_management') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                        <form method="GET" action="{{ route('order_management.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
                                
@@ -20,13 +17,11 @@
                                     </button>
                             </span>
                         </form>
-
                         <br/>
                         <br/>
                         <div class="table-responsive">
                           <h3>Customer Details</h3>
                             <table class="table" style="width: 635px;">
-                               
                                @foreach($orders->address as $customerdetail)
                                 <tbody>
                                   <tr>
@@ -45,15 +40,11 @@
                                         <th>Customer Mobile no</th>
                                         <td>                                        {{$customerdetail->mobileno}}</td>
                                     </tr>
-
-
-                                   
                                 </tbody>
                                 @endforeach
                       </table>
                           <h3>Order Details</h3>
-
-                             <table class="table" style="width: 635px;">
+                           <table class="table" style="width: 635px;">
                                 <thead>
                                     <tr>
                                         <th class="order">Order Name</th>
@@ -89,8 +80,6 @@
                                         <td class="order">
                                          {{$productdetail->quantity}}
                                         </td>
-                                       
-                                        
                                     </tr>
                                 </tbody>
                                 @endforeach
@@ -106,7 +95,6 @@
                                   @foreach($orders->products as $productdetail)
                                 <tbody>
                                     <tr>
-
                                         <td class="order">
                                            {{$orders->subtotal}}
                                         </td>
@@ -120,11 +108,9 @@
                                 </tbody>
                                 @endforeach
                       </table>
-                      <a href="{{ url('/order_management') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                     
+                      <a href="{{ route('order_management.index') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                             <div class="pagination-wrapper">   </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -1,22 +1,16 @@
 @extends('layouts.master')
-
-
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
-
         <div class="pull-left">
-            
         </div><br/>
         <div class="pull-left" style="margin-left:10px">
             <h2> Show User</h2>
         </div>
-        
     </div>
 </div>
 <div class="container">
         <div class="row">
-           
             <div class="col-md-11">
                 <div class="box">
             <div class="row">

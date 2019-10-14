@@ -1,6 +1,4 @@
-
 @extends('layouts.master')
-
 @section('content')
     <div class="container">
         <div class="row">
@@ -9,9 +7,6 @@
 
                     <div class="box-header">Create New Subcategory</div>
                     <div class="box-body">
-                        
-                        
-
              <form method="POST" action="{{url('/subcategory/store')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
                                         {{ csrf_field() }}
                  <div class="col-xs-12 col-sm-12 col-md-12 {{ $errors->has('category') ? 'has-error' : ''}}">
@@ -39,9 +34,8 @@
                         <a href="{{ url('/category') }}" title="Back" class="btn btn-warning" role="button"> Back </a>
 
                     </div>
-                </form>
-
-                    </div>
+                  </form>
+                 </div>
                 </div>
             </div>
         </div>
