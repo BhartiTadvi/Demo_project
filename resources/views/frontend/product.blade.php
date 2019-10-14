@@ -5,7 +5,6 @@
 			<div class="productinfo text-center">
 				    @foreach($product->productImage as $image)
                     @endforeach
-				    
 					<img src="{{asset('uploads/'.$image->image)}}" alt="" width="208" height="180" />
 					
 						<h2>${{$product->price}}</h2>

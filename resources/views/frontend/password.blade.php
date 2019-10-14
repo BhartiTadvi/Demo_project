@@ -9,7 +9,6 @@
         <div class="profile-userpic">
           <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
         </div>
-        
         @include('frontend.sidebar')
         <!-- END MENU -->
       </div>

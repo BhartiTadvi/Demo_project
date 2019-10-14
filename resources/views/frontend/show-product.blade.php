@@ -1,6 +1,5 @@
 @extends('frontend.layouts.master')
 @section('content')
-
     <div class="container">
         <div class="row">
             <div class="col-md-9">
@@ -36,17 +35,12 @@
                                         @endforeach
                                            <img src="{{asset('uploads/'.$productimage->image)}}" height="84" width="85">
                                         </td>
-
                                        <td class="order">
                                           {{$productdetail->product->price}}
                                         </td>
-                                          
-                                        
                                         <td class="order">
                                          {{$productdetail->quantity}}
                                         </td>
-                                       
-                                        
                                     </tr>
                                 </tbody>
                                 @endforeach
@@ -62,7 +56,6 @@
                                   @foreach($orders->products as $productdetail)
                                 <tbody>
                                     <tr>
-
                                         <td class="order">
                                            {{$orders->subtotal}}
                                         </td>
@@ -76,8 +69,6 @@
                                 </tbody>
                                 @endforeach
                       </table>
-                             
-                             
                         </div>
                         <a href="{{url('order')}}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                      </div>

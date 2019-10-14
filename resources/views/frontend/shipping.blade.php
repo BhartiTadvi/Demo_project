@@ -1,9 +1,6 @@
 @foreach($addresses as $address)
 <form  method="POST" action="{{ url('/placeorder/store') }}">
-
 <input type="text" placeholder="Name" value="{{$address->name}}" name="name">
-									
-									
 <input type="text" value="{{$address->mobileno}}" placeholder="Phone number" name="phone">
  <input type="text" placeholder="Zip / Postal Code *"value="{{$address->zipcode}}" >
                                      

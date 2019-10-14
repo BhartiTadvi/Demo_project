@@ -1,6 +1,4 @@
 @extends('frontend.layouts.master')
-
-
 @section('content')
 	<section id="form"><!--form-->
 		<div class="container">
@@ -17,7 +15,6 @@
 
 		       		    {!! Form::password('password1', ['class' => 'form-control','placeholder'=>"Password", "",'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter Password ']) !!}
 			       	    {!! $errors->first('password1', '<p class="help-block"style="color:red;">:message</p>') !!}
-
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in

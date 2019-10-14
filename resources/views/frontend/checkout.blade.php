@@ -19,7 +19,6 @@
 			</div>
 			<div class="checkout-options">
 				<h3></h3>
-				
 				<ul class="nav">
 					<li>
               <table class="table">
@@ -132,7 +131,6 @@
                 @foreach($orders as $order)
                    <input type="hidden" name="order_id" value="{{$order->id}}">
                     <input type="hidden" name="created_at" value="{{$order->created_at}}">
-
                 @endforeach
 							</div>
 					@if ($message = Session::get('success'))

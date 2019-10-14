@@ -1,5 +1,4 @@
  @extends('frontend.layouts.master')
-
  @section('content')
  <div id="contact-page" class="container">
     	<div class="bg">
