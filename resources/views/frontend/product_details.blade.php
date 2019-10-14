@@ -23,7 +23,7 @@
 									 <ul>
 									  @foreach($subcategories as $child)
 									   @if($category->id == $child->parent_id)
-									   <li><a href="{{ url('productsinfo/'.$child->id) }}">{{ $child->name}}</a>
+									   <li><a href="{{ route('product.show', ['id'=>$child->id]) }}">{{ $child->name}}</a>
 									</li>
 								@endif
 								@endforeach
@@ -124,7 +124,7 @@
 
 									<input type="text" value="3" />
 
-								<a href="{{ url('/shopping-cart-add/' . $products->id) }}" id="add" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+								<a href="{{ route('add.cart', ['id'=>$products->id]) }}" id="add" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 								</span>
 								<!-- <p><b>Availability:</b> In Stock</p>
 								<p><b>Condition:</b> New</p>
@@ -155,7 +155,7 @@
 
 												<h2>${{$products->price}}</h2>
 												<p>{{$products->productname}}</p>
-												<a href="{{ url('/shopping-cart-add/' . $products->id) }}" id="add" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="route('add.cart', ['id'=>$products->id])" id="add" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												
 											</div>
 										</div>

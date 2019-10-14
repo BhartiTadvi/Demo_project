@@ -28,7 +28,7 @@
                                      <ul>
                                       @foreach($subcategories as $child)
                                        @if($category->id == $child->parent_id)
-                                       <li><a href="{{ url('productsinfo/'.$child->id) }}">{{ $child->name}}</a>
+                                       <li><a href="{{ route('product.show', ['id'=>$child->id]) }}">{{ $child->name}}</a>
                                     </li>
                                 @endif
                                 @endforeach
@@ -91,21 +91,22 @@
                                        </h2>
 
                                         <p><a href="">{{$data->product->productname}}</a></p>
-                                        <a href="{{ url('/shopping-cart-add/' . $data->product->id) }}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="
+                                        {{ route('add.cart', ['id'=>$data->product->id])}}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                     <a href="">
                                         <div class="product-overlay">
                                             <div class="overlay-content">
                                                 <h2>${{$data->product->price}}</h2>
                                                 <p>{{$data->product->productname}}</p>
-                                               <a href="{{ url('/shopping-cart-add/' . $data->product->id) }}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                               <a href="{{  route('add.cart', ['id'=>$data->product->id])}}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div></a>
                                 </div>
                                 <div class="choose">
                                     <ul class="nav nav-pills nav-justified">
                                     <li>
-                                    <a href="{{url('/removeWishList')}}/{{$data->id}}" style="color:red"><i class="fa fa-minus-square"></i>Remove from wishlist</a></li>
+                                    <a href="{{route('remove.wishlist', ['id'=>$data->id])}}" style="color:red"><i class="fa fa-minus-square"></i>Remove from wishlist</a></li>
                                     </ul>
                                 </div>
 

@@ -84,7 +84,7 @@
 						<div class="bill-to">
 							<p>Billing Address</p>
 							<div class="form-one" id="billing" >
-							<form id="billing" method="POST" action="{{ url('/placeorder/store') }}">
+							<form id="billing" method="POST" action="{{ route('placeorder.store') }}">
                          {{ csrf_field() }}
                   <!--  <input type="hidden" name ="address_id" value="{{$address->id}}"> -->
                    <input type="hidden" name ="user_id" value="{{Auth::user()->id}}">

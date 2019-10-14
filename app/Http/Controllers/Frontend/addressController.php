@@ -84,7 +84,7 @@ class addressController extends Controller
         $result = $address->save();
        
 
-        return redirect('address')->with('flash_message', 'address added!');
+        return redirect('myAddress')->with('flash_message', 'address added!');
     }
 
     /**
@@ -134,7 +134,7 @@ class addressController extends Controller
         $address = address::findOrFail($id);
         $address->update($requestData);
 
-        return redirect('address')->with('flash_message', 'address updated!');
+        return redirect('myAddress')->with('flash_message', 'address updated!');
     }
 
     /**

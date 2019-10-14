@@ -10,7 +10,6 @@
 						<h2>Login to your account</h2>
 						{!! Form::open(array('route' => 'userlogin','method'=>'POST','data-parsley-validate','id'=>'login-user','enctype'=>'multipart/form-data')) !!}
 					      {{ csrf_field() }}
-							
 
 						{!! Form::text('e-mail', null, array('placeholder' => 'Email Address', 'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter Name ')) !!}
 		       		    {!! $errors->first('e-mail',  '<p class="help-block"style="color:red;">:message</p>') !!}

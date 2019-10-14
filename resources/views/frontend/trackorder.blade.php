@@ -19,7 +19,7 @@
            <p class="trackorder">Track order</p>
       <div class="col-md-2"></div>
     <div class="profile-content col-md-6">
-        <form method="POST" action="{{ url('/orderStatus') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('order.status') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
                     <div class="form-group col-md-12">
                         <input type="text" name="emailid" class="form-control"  placeholder="Email ID">

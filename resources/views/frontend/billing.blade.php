@@ -1,5 +1,5 @@
 @foreach($addresses as $address)
-<form  method="POST" action="{{ url('/placeorder/store') }}">
+<form  method="POST" action="{{ route('placeorder.store')}}">
 
      <input type="text" placeholder="Name" value="{{$address->name}}" name="name">								
 								

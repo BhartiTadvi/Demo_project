@@ -59,7 +59,7 @@
 									 <ul>
 									  @foreach($subcategories as $child)
 									   @if($category->id == $child->parent_id)
-									   <li><a href="{{ url('productsinfo/'.$child->id) }}">{{ $child->name}}</a>
+									   <li><a href="{{ route('product.show', ['id'=>$child->id] )}}">{{ $child->name}}</a>
 									</li>
 								@endif
 								@endforeach
@@ -119,19 +119,20 @@
 											<p>{{$product->productname}} </p>
 
 
-											<a href="{{ url('/shopping-cart-add/' . $product->id) }}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											<a href="{{ route('add.cart', ['id'=>$product->id])}}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
 												<h2>RS {{$product->price}}</h2>
 												<p></p>
-												<a href="{{ url('/productdetails/' . $product->id) }}"id="add" class="btn btn-default" style="margin-top: -25px;color:#FE980F;"><i class="add-to-cart"></i>Product_details</a>
-												<a href="{{ url('/shopping-cart-add/' . $product->id) }}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="{{
+												route('product.details', ['id'=>$product->id])}}"id="add" class="btn btn-default" style="margin-top: -25px;color:#FE980F;"><i class="add-to-cart"></i>Product_details</a>
+												<a href="{{route('add.cart', ['id'=>$product->id]) }}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
 
 								</div>
-						 <form id="wishlist" method="POST" action="{{url('/addToWishList')}}">
+						 <form id="wishlist" method="POST" action="{{route('add.wishlist')}}">
                                   {{ csrf_field() }}
 								<div class="choose">
 									<input type="hidden" name="product_id" value="{{$product->id}}">

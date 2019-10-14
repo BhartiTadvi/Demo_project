@@ -17,13 +17,13 @@
              Track order</a>
             </li>
             <li>
-               <a href="{{url('/passwordchange')}}" class="profile1">
+               <a href="{{route('update.password')}}" class="profile1">
               <i class="glyphicon glyphicon-flag"></i>
               Change Password</a>
             </li>
             <li>
 
-               <a href="{{url('/myAddress')}}" class="profile1">
+               <a href="{{route('myaddress')}}" class="profile1">
               <i class="glyphicon glyphicon-flag"></i>
               My address</a>
             </li>

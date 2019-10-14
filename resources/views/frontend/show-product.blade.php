@@ -70,7 +70,7 @@
                                 @endforeach
                       </table>
                         </div>
-                        <a href="{{url('order')}}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{route('user.order')}}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                      </div>
                 </div>
             </div>

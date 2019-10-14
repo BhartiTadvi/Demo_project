@@ -4,7 +4,7 @@
   @extends('frontend.layouts.master')
 
 @section('content')
- <form  method="POST" action="{{ url('/checkout') }}">
+ <form  method="POST" action="{{ route('create.checkout') }}">
   <section id="cart_items">
     {{ csrf_field() }}
     <div class="container">
@@ -50,10 +50,10 @@
               <td class="cart_quantity">
                <div class="cart_quantity_button">
 
-             <a class="cart_quantity_up" href="javascript:void(0)" data-route="{{url('/cartincrementitem/')}}" data-increase="1" data-id="{{$item->rowId}}" id="{{$item->id}}"> + </a>
+             <a class="cart_quantity_up" href="javascript:void(0)" data-route="{{route('cart.increment')}}" data-increase="1" data-id="{{$item->rowId}}" id="{{$item->id}}"> + </a>
                 
               <input class="cart_quantity_input" type="text" name="quantity[]" value="{{$item->qty}}" autocomplete="off" size="1" id="test{{$item->id}}" min="1">
-                <a class="cart_quantity_down" href="javascript:void(0)" data-route="{{url('/cartdecrementitem/')}}" data-increase="0" data-id="{{$item->rowId}}" id="{{$item->id}}"> - </a>
+                <a class="cart_quantity_down" href="javascript:void(0)" data-route="{{route('cart.decrement')}}" data-increase="0" data-id="{{$item->rowId}}" id="{{$item->id}}"> - </a>
                 </div>
               </td>
               <td class="cart_total">
@@ -62,7 +62,7 @@
                  </p>
               </td>
               <td class="cart_delete">
-                <a class="cart_quantity_delete" href="{{url('cart/remove')}}/{{$item->rowId}}"><i class="fa fa-times"></i></a>
+                <a class="cart_quantity_delete" href="{{ route('cart.remove', ['id'=>$item->rowId])}}"><i class="fa fa-times"></i></a>
               </td>
             </tr>
           </tbody>

@@ -8,7 +8,7 @@
   				<div class="col-sm-12">
   				 <div class="breadcrumbs">
   			       <ul>
-  			          <li><a href="{{url('/')}}">Home </a></li>
+  			          <li></li>
                    <li><span class="dot">/</span>
                     <a href="">cart</a>
   			        </ul>

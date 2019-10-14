@@ -30,7 +30,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('Users','UserController');
     
 });
-
 //admin routes
 Route::resource('admin/posts', 'Admin\\PostsController');
 Route::resource('banners', 'BannersController');
@@ -63,10 +62,10 @@ Route::get('/get/states/','Frontend\addressController@getState')->name('getState
 //cart route
 Route::get('/cart', 'Frontend\CartController@index')->name('cart');
 Route::get('/shopping-cart-add/{id}', 'Frontend\CartController@addItem')->name('add.cart'); 
-Route::get('cart/remove/{id}', 'Frontend\CartController@removeItem');
+Route::get('cart/remove/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
 
-Route::post('/cartincrementitem/','Frontend\CartController@incrementItem');
-Route::post('/cartdecrementitem/','Frontend\CartController@decrementItem');
+Route::post('/cartincrementitem/','Frontend\CartController@incrementItem')->name('cart.increment');
+Route::post('/cartdecrementitem/','Frontend\CartController@decrementItem')->name('cart.decrement');
 
 Route::post('/applycoupon','Frontend\CartController@applyCoupon')->name('coupon');
 
@@ -97,9 +96,9 @@ Route::get('/user/address', function () {
 //wishlist
 
 //Route::get('/logout', 'Auth\LoginController@logout');
-Route::post('addToWishList', 'Frontend\FrontendController@wishList');
+Route::post('addToWishList', 'Frontend\FrontendController@wishList')->name('add.wishlist');
 Route::get('/WishList', 'Frontend\FrontendController@View_wishList');
-Route::get('/removeWishList/{id}', 'Frontend\FrontendController@removeWishList');
+Route::get('/removeWishList/{id}', 'Frontend\FrontendController@removeWishList')->name('remove.wishlist');
 
 
 //userprofile
