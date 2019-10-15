@@ -34,7 +34,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="{{ url('/manage_user_contacts') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                            <a href="{{ route('manage_user_contacts.index') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         </div>
                     </div>
                 </div>

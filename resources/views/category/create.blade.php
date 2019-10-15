@@ -6,7 +6,7 @@
                 <div class="box">
                     <div class="box-header">Create New Category</div>
                     <div class="box-body">
-                     <form method="POST" action="{{ url('/category') }}" id="create_category" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
+                     <form method="POST" action="{{ route('category.store') }}" id="create_category" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
                                             {{ csrf_field() }}
                          <div class="col-xs-12 col-sm-12 col-md-12 {{ $errors->has('name') ? 'has-error' : ''}}">
                             <div class="form-group">
@@ -22,8 +22,7 @@
                      <input type="radio" name="status" value="0" class="minimal-red"></div>
                      <div class="col-xs-12 col-sm-12 col-md-12">
                             <input class="btn btn-primary" type="submit">
-                             <a href="{{ url('/category') }}" title="Back">
-                            <a href="{{ url('/category') }}" title="Back" class="btn btn-warning" role="button">Back</a>
+                            <a href="{{ route('category.index') }}" title="Back" class="btn btn-warning" role="button">Back</a>
                      </div>
                     </form>
                   </div>

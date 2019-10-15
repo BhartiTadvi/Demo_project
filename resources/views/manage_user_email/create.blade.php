@@ -13,9 +13,8 @@
                                 @endforeach
                             </ul>
                         @endif
-                        <form method="POST" action="{{ url('/manage_user_email') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('manage_user_email.store') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
-
                             @include ('manage_user_email.form', ['formMode' => 'create'])
                         </form>
                     </div>

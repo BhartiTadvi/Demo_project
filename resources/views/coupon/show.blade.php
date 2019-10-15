@@ -30,7 +30,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                              <a href="{{ url('/coupon/coupon') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                              <a href="{{ route('coupon.index') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         </div>
                     </div>
                 </div>

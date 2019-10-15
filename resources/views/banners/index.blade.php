@@ -7,11 +7,11 @@
                   <div class="box-header">banners</div>
                       <div class="box-body">
                         <div class="pull-right">
-                        <a href="{{ url('/banners/create') }}" class="btn btn-success   btn-sm" title="Add New Banner">
+                        <a href="{{ route('banners.create') }}" class="btn btn-success   btn-sm" title="Add New Banner">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                       </a>
                  </div>
-                  <form method="GET" action="{{ url('/banners_management') }}"  accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                  <form method="GET" action="{{ route('banners.index') }}"  accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                  <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
                 </div>
@@ -44,15 +44,15 @@
                                      <td>
                                             @can('banner-list')
 
-                                            <a href="{{ url('/banners/' . $item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ route('banners.show',$item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @endcan
                                             @can('banner-edit')
-                                            <a href="{{ url('/banners/' . $item->id . '/edit') }}" title="Edit Banner"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ route('banners',$item->id) }}" title="Edit Banner"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             @endcan
 
                                             @can('banner-delete')
 
-                                            <form method="POST" action="{{ url('/banners' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                            <form method="POST" action="{{ route('banners.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Delete Banner" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>

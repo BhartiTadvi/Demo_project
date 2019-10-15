@@ -16,14 +16,14 @@
             <div class="box-header">
              <div class="pull-right">
               @can('category-create')
-              <a href="{{ url('/subcategory') }}" class="btn btn-success btn-sm" title="Add New Category">
+              <a href="{{ route('subcategory.create') }}" class="btn btn-success btn-sm" title="Add New Category">
                 <i class="fa fa-plus" aria-hidden="true"></i> Add Subcategory
                 </a>
                     @endcan
                </div><br/><br/>
               <div class="top" style="margin-top: -40px;
                 margin-left: 758px;">
-                 <a href="{{ url('/category/create') }}" class="btn btn-success btn-sm" title="Add New Category">
+                 <a href="{{ route('category.create') }}" class="btn btn-success btn-sm" title="Add New Category">
                  <i class="fa fa-plus" aria-hidden="true"></i> Add Category
                 </a>
               </div>
@@ -33,7 +33,7 @@
             <p>{{ $message }}</p>
           </div>
           @endif
-          <form method="GET" action="{{ url('/category') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+          <form method="GET" action="{{ route('category.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
           <div class="input-group">
            <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
            </div>
@@ -71,12 +71,12 @@
                                         @endif<td>
                                     @can('category-edit')
 
-                                    <a href="{{ url('/category/' . $item->id . '/edit') }}" title="Edit Category">
+                                    <a href="{{ route('category.edit',$item->id) }}" title="Edit Category">
                                           <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
                                      </a>
                                     @endcan
                                     @can('category-delete')
-                                     <form method="POST" action="{{ url('/category' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                     <form method="POST" action="{{ route('category.destroy',$item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Delete Category" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
@@ -85,7 +85,7 @@
                                      
                                      @can('category-list')
                                             
-                                             <a href="{{ url('/category/' . $item->id) }}" title="View Category">
+                                             <a href="{{ route('category.show', $item->id) }}" title="View Category">
                                               <button class="btn btn-success btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> </button>
                                             </a>
                                     @endcan

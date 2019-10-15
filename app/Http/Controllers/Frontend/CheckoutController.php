@@ -17,7 +17,6 @@ use App\Mail\OrderMail;
 use App\EmailTemplate;
 use App\Coupon;
 use Illuminate\Support\Facades\Mail;
-
 class CheckoutController extends Controller
 {
     /** Get cart details from cart **/
@@ -59,7 +58,6 @@ class CheckoutController extends Controller
                     ->get();
         return Response::json($countries);
     }
-
     /** Get Billing Address from database **/
     public function getBillingAddress(Request $request){
       $address_id = $request->address_id;
@@ -67,7 +65,6 @@ class CheckoutController extends Controller
       $addresses = Address::with('country','state')->where('user_id',$user_id)->get();
        return view('frontend.billing', compact('addresses'));
     }
-
     /** Get Shipping address from database **/
     public function getShippingAddress(Request $request){
       $user_id = $request->user_id;
@@ -168,7 +165,7 @@ class CheckoutController extends Controller
                 '<td>'.$row->name.'</td>'.
                 '<td>'.$row->price.'</td>'.
                 '<td>'.$row->qty.'</td>'.
-                '<td>'.$row->qty*$row->price.'</td></tr>'
+                '<td>'.$row->qty*$row->price.'</td></tr>';
                 }
         $view .=    '</tbody></table>';
          $order= array(
@@ -183,7 +180,8 @@ class CheckoutController extends Controller
         'created_at'  => $request->get('created_at'), 
         'paymentmode' => $request->get('paymentmode'),
         'template_key' => "order_template_key",
-        'view' =>$view
+        'view' =>$vi
+
         );
         Mail::to(Auth::user()->email)->send(new OrderMail($order));
         $email="bhartitadvi081@gmail.com";
@@ -196,3 +194,4 @@ class CheckoutController extends Controller
       return view('frontend.thanks');
     }
 }
+

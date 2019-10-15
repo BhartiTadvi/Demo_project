@@ -6,7 +6,6 @@
                 <div class="box">
                 <div class="box-header">Edit cm #{{ $cm->id }}</div>
                     <div class="box-body">
-                        <a href="{{ url('/cms') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
                         @if ($errors->any())
@@ -16,10 +15,9 @@
                                 @endforeach
                             </ul>
                         @endif
-                        <form method="POST" action="{{ url('/cms/' . $cm->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('cms.update',$cm->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
-
                             @include ('cms.form', ['formMode' => 'edit'])
                         </form>
                     </div>

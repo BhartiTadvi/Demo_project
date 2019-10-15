@@ -25,7 +25,7 @@
                                  </tbody>
                             </table>
                         </div>
-                        <a href="{{ url('/banners') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ route('banners.index') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                      </div>
                  </div>
             </div>

@@ -13,7 +13,7 @@
                                 @endforeach
                             </ul>
                         @endif
-                          <form method="POST" action="{{ url('/manage_user_email/' . $manage_user_email->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                          <form method="POST" action="{{ route('manage_user_email.update', $manage_user_email->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 
@@ -53,7 +53,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group">
     <input class="btn btn-primary" type="submit" value="Update">
-     <a href="{{ url('/manage_user_email') }}" title="Back" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+     <a href="{{ route('manage_user_email.index') }}" title="Back" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
 </div>
 </div>
                         </form>

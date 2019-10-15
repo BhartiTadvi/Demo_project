@@ -6,10 +6,9 @@
                 <div class="box">
                     <div class="box-header">Create New Coupon</div>
                     <div class="box-body">
-                     <form method="POST" action="{{ url('/coupon/coupon') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
+                     <form method="POST" action="{{ route('coupon.store') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
                             {{ csrf_field() }}
                             @include ('coupon.form', ['formMode' => 'create'])
-
                         </form>
 
                     </div>

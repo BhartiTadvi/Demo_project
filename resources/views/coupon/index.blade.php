@@ -16,7 +16,7 @@
           <div class="box">
             <div class="box-header">
              <div class="pull-right">
-              <a href="{{ url('/coupon/coupon/create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
+              <a href="{{ route('coupon.create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
                <i class="fa fa-plus" aria-hidden="true"></i> Add New
               </a>
                     
@@ -27,7 +27,7 @@
             <p>{{ $message }}</p>
           </div>
           @endif
-          <form method="GET" action="{{ url('/coupon/coupon') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+          <form method="GET" action="{{ route('coupon.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
                                 </div>
@@ -65,10 +65,10 @@
                                         <td>{{ $item->discount }}</td>
 
                                         <td>
-                                            <a href="{{ url('/coupon/coupon/' . $item->id) }}" title="View Coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/coupon/coupon/' . $item->id . '/edit') }}" title="Edit Coupon"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ route('coupon.show',$item->id) }}" title="View Coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ route('coupon.edit',$item->id) }}" title="Edit Coupon"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
-                                            <form method="POST" action="{{ url('/coupon/coupon' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                            <form method="POST" action="{{ route('coupon.destroy',$item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Delete Coupon" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>

@@ -44,7 +44,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="form-group">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
-    <a href="{{ url('/coupon/coupon') }}" title="Back" class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+    <a href="{{ route('coupon.index') }}" title="Back" class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
 </div>
 </div>
 

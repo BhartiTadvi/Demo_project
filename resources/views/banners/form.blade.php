@@ -17,7 +17,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
 
-<a href="{{ url('/banners') }}" title="Back" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+<a href="{{ route('banners.index') }}" title="Back" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
 </div>
 
 
