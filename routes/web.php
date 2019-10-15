@@ -94,7 +94,7 @@ Route::get('/user/address', function () {
 
 //wishlist
 
-//Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('addToWishList', 'Frontend\FrontendController@wishList')->name('add.wishlist');
 Route::get('/WishList', 'Frontend\FrontendController@View_wishList');
 Route::get('/removeWishList/{id}', 'Frontend\FrontendController@removeWishList')->name('remove.wishlist');

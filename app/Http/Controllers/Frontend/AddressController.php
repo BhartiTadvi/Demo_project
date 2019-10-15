@@ -6,6 +6,7 @@ use App\Address;
 use App\Country;
 use App\State;
 use Auth;
+use Response;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
@@ -86,7 +87,8 @@ class AddressController extends Controller
     {
         $address = Address::findOrFail($id);
         $countries = Country::get();
-        return view('frontend.address.edit', compact('address','$countries'));
+        $states = State::get();
+        return view('frontend.address.edit', compact('address','countries','states'));
     }
 
     /**
@@ -102,7 +104,7 @@ class AddressController extends Controller
         $requestData = $request->all();
         $address = Address::findOrFail($id);
         $address->update($requestData);
-        return redirect()->route('myaddress')->with('flash_message', 'address updated!');
+        return redirect()->route('myaddress')->with('success', 'Address updated successfully!');
     }
 
     /**
@@ -115,7 +117,7 @@ class AddressController extends Controller
     public function destroy($id)
     {
         Address::destroy($id);
-         return redirect()->route('myaddress')->with('flash_message', 'address deleted!');
+         return redirect()->route('myaddress')->with('success', 'Address deleted successfully!');
     }
    
     public function getState(Request $request){

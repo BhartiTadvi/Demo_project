@@ -7,7 +7,6 @@
         Coupon
         <small></small>
       </h1>
-      
     </section>
   <!-- Main content -->
     <section class="content">
@@ -19,7 +18,6 @@
               <a href="{{ route('coupon.create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
                <i class="fa fa-plus" aria-hidden="true"></i> Add New
               </a>
-                    
                </div><br/><br/>
             </div>
           @if ($message = Session::get('success'))

@@ -10,7 +10,6 @@
                             {{ csrf_field() }}
                             @include ('coupon.form', ['formMode' => 'create'])
                         </form>
-
                     </div>
                 </div>
             </div>

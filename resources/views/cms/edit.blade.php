@@ -6,8 +6,6 @@
                 <div class="box">
                 <div class="box-header">Edit cm #{{ $cm->id }}</div>
                     <div class="box-body">
-                        <br />
-                        <br />
                         @if ($errors->any())
                             <ul class="alert alert-danger">
                                 @foreach ($errors->all() as $error)

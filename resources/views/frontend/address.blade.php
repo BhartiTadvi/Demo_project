@@ -16,6 +16,11 @@
    <div class="col-md-9">
       <a href="{{ route('address.create') }}" title="View address"><button class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Create</button></a>
            <p class="trackorder">My Address</p>
+             @if ($message = Session::get('success'))
+              <div class="alert alert-success">
+                <p>{{ $message }}</p>
+              </div>
+              @endif
       <div class="col-md-2"></div>
     <div class="profile-content col-md-12">
         <table class="table">

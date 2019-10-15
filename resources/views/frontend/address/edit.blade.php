@@ -18,7 +18,7 @@
                             </ul>
                         @endif
 
- <form method="POST" action="{{ url('/address/' . $address->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+       <form method="POST" action="{{ url('/address/' . $address->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             {{ csrf_field() }}
 
@@ -37,20 +37,22 @@
             <input class="form-control" name="address2" type="text" id="address2" value="{{ isset($address->address2) ? $address->address2 : ''}}" >
             {!! $errors->first('address2', '<p class="help-block">:message</p>') !!}
         </div>
-            <div class="form-group {{ $errors->has('country') ? 'has-error' : ''}}">
+        <div class="form-group {{ $errors->has('country') ? 'has-error' : ''}}">
                 <label for="country" class="control-label">{{ 'Country' }}</label>
-                <select name="country" class="form-control" id="country" >
-                
-                    <option value=""></option>
-               
+
+            <select name="country_id" class="form-control" id="country" >
+           @foreach($countries as $country)
+                    <option value="{{$country->id}}"@if($country->id ==$address->country_id) selected="selected" @endif>{{$country->country_name}}</option>
+               @endforeach
             </select>
                 {!! $errors->first('country', '<p class="help-block">:message</p>') !!}
             </div>
     <div class="form-group {{ $errors->has('state') ? 'has-error' : ''}}">
         <label for="state" class="control-label">{{ 'State' }}</label>
-        <select name="state" class="form-control" id="state" >
-            <option value=""></option>
-      
+        <select name="state_id" class="form-control" id="state" >
+            @foreach($states as $state)
+            <option value="{{$state->id}}"@if($state->id ==$address->state_id) selected="selected" @endif">{{$state->state_name}}</option>
+           @endforeach
     </select>
         {!! $errors->first('state', '<p class="help-block">:message</p>') !!}
 </div>

@@ -96,6 +96,7 @@ class FrontendController extends Controller
         'email'  => $request->get('email'),
         'subject'  => $request->get('subject'),
         'message' => $request->get('message'),
+        'ip' => $request->ip(),
         'template_key' => "contact_template_key",
         );
         $email="bhartitadvi081@gmail.com";

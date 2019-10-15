@@ -5,9 +5,9 @@
             <div class="col-md-11">
                 <div class="box">
                   <div class="box-header">banners</div>
-                      <div class="box-body">
-                        <div class="pull-right">
-                        <a href="{{ route('banners.create') }}" class="btn btn-success   btn-sm" title="Add New Banner">
+                    <div class="box-body">
+                      <div class="pull-right">
+                      <a href="{{ route('banners.create') }}" class="btn btn-success   btn-sm" title="Add New Banner">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                       </a>
                  </div>

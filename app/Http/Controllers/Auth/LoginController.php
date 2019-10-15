@@ -5,6 +5,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use Exception;
 use App\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -41,8 +42,6 @@ class LoginController extends Controller
     
      public function showLoginForm()
     {
-     // $permissions = $this->getAllPermissions($permissions);
-
       return view('login');
     }
          
@@ -84,7 +83,12 @@ class LoginController extends Controller
             return redirect('auth/google');
 
         }
+   }
 
+   Public function logout()
+   {
+       Auth::logout();
+     return redirect('/login');
    }
     
 

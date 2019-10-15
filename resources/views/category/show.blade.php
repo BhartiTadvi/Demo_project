@@ -13,7 +13,6 @@
         <li class="active">Data tables</li>
       </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -21,8 +20,6 @@
           <div class="box">
             <div class="box-header">
              </div>
-            
-                        
               <div class="box-header"><strong>Category Name -</strong>
                     {{ $categories->name }}</div>
                     <div class="box-body">
@@ -57,24 +54,11 @@
                             </table>
                         </div>
                          <a href="{{ route('category.index') }}" title="Back"><button class="btn btn-warning btn-sm" style="margin-left: 13px;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-
             <!-- /.box-body -->
           </div>
-
-
-          <!-- /.box -->
-           
-        <!-- /.modal -->
-
-          
-          <!-- /.box -->
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
     </section>
-    <!-- /.content -->
-
-  
-  <!-- /.content-wrapper -->
  @endsection

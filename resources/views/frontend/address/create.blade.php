@@ -1,17 +1,12 @@
 @extends('frontend.layouts.master')
-
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="card">
-                    <div class="title text-center">Create New address</div>
+              <div class="card">
+                 <div class="title text-center">Create New address</div>
                     <div class="card-body">
-                        
-                        <br />
-                        <br />
-
                         @if ($errors->any())
                             <ul class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
@@ -19,19 +14,15 @@
                                 @endforeach
                             </ul>
                         @endif
-
                         <form method="POST" action="{{ url('/address') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('frontend.address.form', ['formMode' => 'create'])
-
                         </form>
-
                     </div>
                 </div>
             </div>
-            <div class="col-md-2"></div>
-            
+           <div class="col-md-2"></div>
         </div>
     </div>
 @endsection

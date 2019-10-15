@@ -6,9 +6,6 @@
                 <div class="box">
                     <div class="box-header">Create New cm</div>
                     <div class="box-body">
-                        
-                        <br />
-                        <br />
                         @if ($errors->any())
                             <ul class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
@@ -20,7 +17,6 @@
                             {{ csrf_field() }}
                             @include ('cms.form', ['formMode' => 'create'])
                         </form>
-                       
                     </div>
                 </div>
             </div>

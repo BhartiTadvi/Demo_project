@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Country;
 use App\State;
 use App\User;
-use App\address;
+use App\Address;
 use Cart;
 use Auth;
 use Session;
@@ -185,9 +185,7 @@ class CheckoutController extends Controller
         'created_at'  => $request->get('created_at'), 
         'paymentmode' => $request->get('paymentmode'),
         'template_key' => "order_template_key",
-        'view' =>$vi
-
-        );
+        'view' =>$view);
         Mail::to(Auth::user()->email)->send(new OrderMail($order));
         $email="bhartitadvi081@gmail.com";
         Mail::to($email)->send(new OrderMail($order));

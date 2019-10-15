@@ -46,6 +46,6 @@ class OrderMail extends Mailable
             $orderkey   = array('{{'.$key.'}}');
             $template = str_replace($orderkey,$orderdetail,$template);
             }
-            return $order;
+            return $template;
         }
 }

@@ -77,11 +77,12 @@ class Manage_user_contactController extends Controller
         'subject'  => $request->get('subject'),
         'message' => $request->get('message'),
         'note' => $request->get('note'),
+        'ip' => $request->ip(),
         'template_key' => "reply_email_template",
         );
 
         Mail::to($request['email'])->send(new ResponseContactMail($responsemail));
-        return redirect()->route('manage_user_contacts.index')->with('success', 'message reply updated successfully!');
+        return redirect()->route('manage_user_contacts.index')->with('success', 'Message reply updated successfully!');
     }
 
     /**

@@ -7,9 +7,7 @@
 <body>
 	<?php
 	//echo $template;exit;
-	$view = json_encode($template);
-    echo htmlspecialchars_decode($view);
-	
+    echo htmlspecialchars_decode($template);
 ?>
 
 
