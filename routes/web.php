@@ -128,7 +128,7 @@ Route::get('demo1',function(){
 Route::resource('address', 'Frontend\AddressController');
 
 //manage email notification
-Route::resource('manage_user_contacts', 'Manage_user_contactsController');
+Route::resource('manage_user_contacts', 'Manage_user_contactController');
 Route::resource('manage_user_email', 'Manage_user_emailController');
 
 
