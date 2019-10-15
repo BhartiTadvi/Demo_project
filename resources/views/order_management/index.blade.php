@@ -44,7 +44,7 @@
                                           @endforeach
                                         </td>
                                         <td>  
-                                          <a href="{{ route('order-detail.show', $order->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Order Details</button></a> 
+                                          <a href="{{ route('show.orderdetail', $order->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Order Details</button></a> 
                                         </td>
                                     </tr>
                                     @endforeach

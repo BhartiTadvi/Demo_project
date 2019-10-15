@@ -7,7 +7,7 @@
 
                     <div class="box-header">Create New Subcategory</div>
                     <div class="box-body">
-             <form method="POST" action="{{route('subcategory.store')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
+             <form method="POST" action="{{route('store_subcategory')}}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
                                         {{ csrf_field() }}
                  <div class="col-xs-12 col-sm-12 col-md-12 {{ $errors->has('category') ? 'has-error' : ''}}">
                     <label for="category" class="control-label">{{ 'Category' }}</label>
@@ -27,11 +27,10 @@
                             {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                         </div>
                     </div>
-
                     <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top:10px;">
 
                         <button type="submit" class="btn btn-primary">Create</button>
-                        <a href="{{ route('/category.index') }}" title="Back" class="btn btn-warning" role="button"> Back </a>
+                        <a href="{{ route('category.index') }}" title="Back" class="btn btn-warning" role="button"> Back </a>
 
                     </div>
                   </form>

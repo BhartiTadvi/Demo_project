@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Mail;
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -38,33 +37,20 @@ class SendMail extends Mailable
     {
        
       $viewtemplates = EmailTemplate::where('template_key',$this->Userdata['template_key'])->get();
-     // dd($viewtemplates);
-
-    
-        foreach($viewtemplates as $template){
-
+        foreach($viewtemplates as $template)
+        {
         $template = htmlspecialchars_decode($template->templatecontent);
-            //$template='<h1>hello</h1>';
-       // dd($template);
         }
-        
-       //$template='<h1>hello</h1>';
-
         $template = $this->replace($template,$this->Userdata);
-         //dd($template);
-
        return $this->from('bhartitadvi081@gmail.com')->view('mail_template')->with('template',$template);
 
     }
     
     public function replace($template,$Userdata){
-            
-
             foreach( $Userdata as $key => $data)
             {
             $template = str_replace('{{'.$key.'}}', $data,$template);     
             }
-         
             return $template;
         }
 }

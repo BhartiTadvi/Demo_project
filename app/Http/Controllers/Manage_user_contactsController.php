@@ -2,13 +2,12 @@
 namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\manage_user_contact;
 use Illuminate\Http\Request;
 use App\Contactus;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResponseContactMail;
 
-class manage_user_contactsController extends Controller
+class Manage_user_contactsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,30 +29,6 @@ class manage_user_contactsController extends Controller
             $manage_user_contacts = Contactus::latest()->paginate($perPage);
         }
         return view('manage_user_contacts.index', compact('manage_user_contacts'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('manage_user_contacts.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
-    {
-        $requestData = $request->all();
-        manage_user_contact::create($requestData);
-        return redirect()->route('manage_user_contacts.index')->with('flash_message', 'manage_user_contact added!');
     }
 
     /**
@@ -106,7 +81,7 @@ class manage_user_contactsController extends Controller
         );
 
         Mail::to($request['email'])->send(new ResponseContactMail($responsemail));
-        return redirect()->route('manage_user_contacts.index')->with('flash_message', 'manage_user_contact updated!');
+        return redirect()->route('manage_user_contacts.index')->with('success', 'message reply updated successfully!');
     }
 
     /**
@@ -119,6 +94,6 @@ class manage_user_contactsController extends Controller
     public function destroy($id)
     {
         Contactus::destroy($id);
-        return redirect()->route('manage_user_contacts.index')->with('flash_message', 'manage_user_contact deleted!');
+        return redirect()->route('manage_user_contacts.index')->with('success', 'Message deleted successfully!');
     }
 }

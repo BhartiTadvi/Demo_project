@@ -2,10 +2,11 @@
 namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\cm;
+use App\manage_user_email;
 use Illuminate\Http\Request;
+use App\EmailTemplate;
 
-class cmsController extends Controller
+class Manage_user_emailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +17,17 @@ class cmsController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
+
         if (!empty($keyword)) {
-            $cms = cm::where('customer_details_with_address', 'LIKE', "%$keyword%")
-                ->orWhere('Ordered products', 'LIKE', "%$keyword%")
-                ->orWhere('pagecontent', 'LIKE', "%$keyword%")
+            $manage_user_email = EmailTemplate::where('name', 'LIKE', "%$keyword%")
+                ->orWhere('address1', 'LIKE', "%$keyword%")
+                ->orWhere('address2', 'LIKE', "%$keyword%")
+                ->orWhere('city', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $cms = cm::latest()->paginate($perPage);
+            $manage_user_email = EmailTemplate::paginate($perPage);
         }
-        return view('cms.index', compact('cms'));
+        return view('manage_user_email.index', compact('manage_user_email'));
     }
 
     /**
@@ -34,7 +37,7 @@ class cmsController extends Controller
      */
     public function create()
     {
-        return view('cms.create');
+        return view('manage_user_email.create');
     }
 
     /**
@@ -47,8 +50,8 @@ class cmsController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
-        cm::create($requestData);
-        return redirect()->route('cms.index')->with('flash_message', 'cm added!');
+        EmailTemplate::create($requestData);
+        return redirect()->route('manage_user_email.index')->with('flash_message', 'Email template added successfully!');
     }
 
     /**
@@ -60,8 +63,8 @@ class cmsController extends Controller
      */
     public function show($id)
     {
-        $cm = cm::findOrFail($id);
-        return view('cms.show', compact('cm'));
+        $manage_user_email = EmailTemplate::findOrFail($id);
+        return view('manage_user_email.show', compact('manage_user_email'));
     }
 
     /**
@@ -73,8 +76,8 @@ class cmsController extends Controller
      */
     public function edit($id)
     {
-        $cm = cm::findOrFail($id);
-        return view('cms.edit', compact('cm'));
+        $manage_user_email = EmailTemplate::findOrFail($id);
+        return view('manage_user_email.edit', compact('manage_user_email'));
     }
 
     /**
@@ -87,22 +90,13 @@ class cmsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $requestData = $request->all();
-        $cm = cm::findOrFail($id);
-        $cm->update($requestData);
-        return redirect()->route('cms.index')->with('flash_message', 'cm updated!');
+      $manage_user_email = EmailTemplate::findOrFail($id);
+        $manage_user_email->name = $request->name;
+        $manage_user_email->mailsubject = $request->mailsubject;
+        $manage_user_email->templatecontent = $request->template_content;
+        $manage_user_email->template_key = $request->template_key;
+        $manage_user_email->save();
+        return redirect()->route('manage_user_email.index')->with('flash_message', 'Email updated successfully!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($id)
-    {
-        cm::destroy($id);
-        return redirect()->route('cms.index')->with('flash_message', 'cm deleted!');
-    }
+    
 }

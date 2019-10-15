@@ -55,7 +55,7 @@ Route::resource('coupon/coupon', 'Coupon\\CouponController');
  Route::post('/contact-store','Frontend\FrontendController@storeContact')->name('contact.store');
  Route::get('/productdetails/{id}','Frontend\FrontendController@productDetails')->name('product.details');
 Route::get('/productscateory/','Frontend\FrontendController@productCategory');
-Route::get('/get/states/','Frontend\addressController@getState')->name('getState');
+Route::get('/get/states/','Frontend\AddressController@getState')->name('getState');
 
 
 //cart route
@@ -101,16 +101,16 @@ Route::get('/removeWishList/{id}', 'Frontend\FrontendController@removeWishList')
 
 
 //userprofile
-Route::get('/profile', 'Frontend\profileController@index')->name('profile');
-Route::get('/myAccount', 'Frontend\profileController@userAccount')->name('user.account');
-Route::get('/trackOrder', 'Frontend\profileController@trackOrder')->name('track.order');
-Route::get('/order', 'Frontend\profileController@getOrder')->name('user.order');
-Route::get('/show-order/{id}', 'Frontend\profileController@showOrder')->name('show.order');
-Route::get('/passwordchange', 'Frontend\profileController@showChangePasswordForm')->name('update.password');
-Route::post('/updatePassword', 'Frontend\profileController@updatePassword')->name('changepassword');
-Route::get('/myAddress', 'Frontend\profileController@userAddress')->name('myaddress');
-Route::post('/orderStatus', 'Frontend\profileController@orderStatus')->name('order.status');
-Route::get('/getStatus', 'Frontend\profileController@getStatus')->name('get.status');
+Route::get('/profile', 'Frontend\ProfileController@index')->name('profile');
+Route::get('/myAccount', 'Frontend\ProfileController@userAccount')->name('user.account');
+Route::get('/trackOrder', 'Frontend\ProfileController@trackOrder')->name('track.order');
+Route::get('/order', 'Frontend\ProfileController@getOrder')->name('user.order');
+Route::get('/show-order/{id}', 'Frontend\ProfileController@showOrder')->name('show.order');
+Route::get('/passwordchange', 'Frontend\ProfileController@showChangePasswordForm')->name('update.password');
+Route::post('/updatePassword', 'Frontend\ProfileController@updatePassword')->name('changepassword');
+Route::get('/myAddress', 'Frontend\ProfileController@userAddress')->name('myaddress');
+Route::post('/orderStatus', 'Frontend\ProfileController@orderStatus')->name('order.status');
+Route::get('/getStatus', 'Frontend\ProfileController@getOrderStatus')->name('get.status');
 
 
 //manage mail
@@ -125,20 +125,20 @@ Route::get('demo1',function(){
 
 });
 
-Route::resource('address', 'Frontend\addressController');
+Route::resource('address', 'Frontend\AddressController');
 
 //manage email notification
-Route::resource('manage', 'manageController');
-Route::resource('manage_user_contacts', 'manage_user_contactsController');
-Route::resource('manage_user_email', 'manage_user_emailController');
+Route::resource('manage_user_contacts', 'Manage_user_contactsController');
+Route::resource('manage_user_email', 'Manage_user_emailController');
 
 
-Route::resource('order_management', 'order_managementController');
-Route::get('/order-detail/{id}', 'order_managementController@orderDetail')->name('show.orderdetail');
-Route::resource('cms', 'cmsController');
+Route::resource('order_management', 'Order_managementController');
+Route::get('/order-detail/{id}', 'Order_managementController@orderDetail')->name('show.orderdetail');
+
+Route::resource('cms', 'CmsController');
 
 //reports
-Route::resource('report', 'reportController');
-Route::get('report', 'reportController@index');
-Route::get('/customer-report', 'reportController@showCustomer');
+Route::resource('report', 'ReportController');
+Route::get('report', 'ReportController@index')->name('report.index');
+Route::get('/customer-report', 'ReportController@showCustomer')->name('customer.index');
 

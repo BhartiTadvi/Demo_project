@@ -46,14 +46,8 @@ class MailCron extends Command
 
       $orderdetails=Order::whereRaw('Date(created_at) = CURDATE()')
                   ->get();
-                  
-                  
-       // dd($orderdetails);
         $email="bhartitadvi081@gmail.com";
         Mail::to($email)->send(new OrderDetailmail($orderdetails));
-
-       
-
          $this->info('Demo:Cron Cummand Run successfully!');
 
     }

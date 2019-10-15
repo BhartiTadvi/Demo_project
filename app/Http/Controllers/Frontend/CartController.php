@@ -11,12 +11,11 @@ use App\Coupon;
 use Cart;
 use Session;
 
-
 class CartController extends Controller
 {
    /** Show cart page **/
     public function createCart(){
-    	return view('frontend.cart');
+        return view('frontend.cart');
     }
 
     /** Add item into cart **/
@@ -42,7 +41,7 @@ class CartController extends Controller
      }
 
      /** Show cart details **/
-		public function index(){
+        public function index(){
       $total=0;
       $cart = Cart::content();
       $coupons = Coupon::first();
@@ -63,9 +62,9 @@ class CartController extends Controller
        $subTotal=$request->subTotal;
        $productPrice = $request->priceu;
        $qty++;
-        $subTotal = $subTotal+$productPrice;
-        $coupontype=$request->coupontype;
-        $couponvalue=$request->couponvalue;
+       $subTotal = $subTotal+$productPrice;
+       $coupontype=$request->coupontype;
+       $couponvalue=$request->couponvalue;
         if($couponvalue == null)
         {
           $couponvalue=0;

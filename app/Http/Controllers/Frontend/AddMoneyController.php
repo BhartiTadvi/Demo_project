@@ -207,8 +207,7 @@ class AddMoneyController extends Controller
         $execution->setPayerId(Input::get('PayerID'));
         /**Execute the payment **/
         $result = $payment->execute($execution, $this->_api_context);
-        /** dd($result);exit; /** DEBUG RESULT, remove it later **/
-       
+        
         if ($result->getState() == 'approved') { 
           $order_id= Session::get('order_id');
           $orderdetails =new OrderDetail();
@@ -216,8 +215,6 @@ class AddMoneyController extends Controller
           $orderdetails->transaction_id = $result->id;
           $orderdetails->save();
          
-            /** it's all right **/
-            /** Here Write your database logic like that insert record or value in database if you want **/
             \Session::put('success','Payment success');
             return Redirect::route('addmoney.paywithpaypal');
         }
@@ -225,4 +222,6 @@ class AddMoneyController extends Controller
         return Redirect::route('addmoney.paywithpaypal');
     }
 }
+
+
 

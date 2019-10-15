@@ -9,6 +9,11 @@
                         <a href="{{ route('cms.create') }}" class="btn btn-success btn-sm" title="Add New cm">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
+          @if ($message = Session::get('success'))
+          <div class="alert alert-success">
+            <p>{{ $message }}</p>
+          </div>
+          @endif
                         <form method="GET" action="{{ route('cms.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">

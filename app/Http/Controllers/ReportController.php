@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\User;
 use Illuminate\Http\Request;
-class reportController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,7 @@ class reportController extends Controller
         $keyword = $request->get('search');
         $perPage = 5;
         if (!empty($keyword)) {
-          $products = Product::orWhere('Ordered products', 'LIKE', "%$keyword%")
-                ->orWhere('pagecontent', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+          $products = Product::Where('productname', 'LIKE', "%$keyword%")->latest()->paginate($perPage);
         } else {
               $products = Product::paginate($perPage);
         }
@@ -27,14 +25,16 @@ class reportController extends Controller
     }
 
 
-    /** Show specific customer**/
-    public function showCustomer()
+    /** Show customer**/
+    public function showCustomer(Request $request)
     {
+       $keyword = $request->get('search');
       $perPage = 15;
-      $users=User::paginate($perPage);
+       if (!empty($keyword)) {
+          $users = User::Where('name', 'LIKE', "%$keyword%")->latest()->paginate($perPage);
+        } else {
+       $users=User::paginate($perPage);
+        }
       return view('report.customer_report', compact('users'));
     }
-
-
-   
 }

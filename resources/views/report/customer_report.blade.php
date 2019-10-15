@@ -6,7 +6,7 @@
                 <div class="box">
                     <div class="box-header">Customers Report</div>
                     <div class="box-body">
-                        <form method="GET" action="{{ route('order_management.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                        <form method="GET" action="{{ route('customer.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
                             </div>

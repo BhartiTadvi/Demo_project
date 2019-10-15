@@ -6,10 +6,7 @@ use App\Rolesmodel;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
-        //  $role = Rolesmodel::where('name', '=', 'customer')->firstOrFail();
-        //  $user->attachRole($role);
-        // //  $role = Rolesmodel::where('name', 'customer')->first();
-         //$user->assignRole($role);
+        
 class UserController extends Controller
 {
      /**
@@ -95,19 +92,5 @@ class UserController extends Controller
       User::find($id)->delete();
       return redirect()->route('Users.index')->with('success','User deleted successfully');
     }
-
-
-
-
-
-    
-
- 
-
-
-
-    
-
-
 }
 

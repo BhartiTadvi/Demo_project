@@ -22,12 +22,12 @@
         <form method="POST" action="{{ route('order.status') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                             {{ csrf_field() }}
                     <div class="form-group col-md-12">
-                        <input type="text" name="emailid" class="form-control"  placeholder="Email ID">
-                        {!! $errors->first('emailid', '<p class="help-block">:message</p>') !!}
+                        <input type="text" name="emailId" class="form-control"  placeholder="Email ID">
+                        {!! $errors->first('emailId', '<p class="help-block">:message</p>') !!}
                     </div>
                      <div class="form-group col-md-12">
-                        <input type="text" name="orderid" class="form-control" placeholder="Order ID">
-                        {!! $errors->first('orderid', '<p class="help-block">:message</p>') !!}
+                        <input type="text" name="orderId" class="form-control" placeholder="Order ID">
+                        {!! $errors->first('orderId', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="form-group col-md-12">
                     </div>

@@ -6,6 +6,7 @@
                 <div class="box">
                     <div class="box-header">Manage_user_contacts</div>
                     <div class="box-body">
+
                         <form method="GET" action="{{ route('manage_user_contacts.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
@@ -16,8 +17,12 @@
                                     </button>
                                 </span>
                         </form>
-                        <br/>
-                        <br/>
+
+          @if ($message = Session::get('success'))
+          <div class="alert alert-success">
+            <p>{{ $message }}</p>
+          </div>
+          @endif
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>

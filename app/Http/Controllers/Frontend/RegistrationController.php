@@ -45,7 +45,7 @@ class RegistrationController extends Controller
         'password' => $request->get('password'),
         'template_key' => "user_registration_mail");
         Mail::to($request['email'])->send(new SendMail($Userdata));
-       $Userdata1= array(
+        $Userdata1= array(
         'email'  => $request->get('email'),
         'template_key' => "email_template_key");
         $email="bhartitadvi081@gmail.com";

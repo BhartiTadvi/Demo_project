@@ -47,7 +47,7 @@
                                             <a href="{{ route('banners.show',$item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @endcan
                                             @can('banner-edit')
-                                            <a href="{{ route('banners',$item->id) }}" title="Edit Banner"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ route('banners.edit',$item->id) }}" title="Edit Banner"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             @endcan
 
                                             @can('banner-delete')

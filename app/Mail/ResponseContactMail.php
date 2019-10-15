@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Mail;
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -38,7 +37,8 @@ class ResponseContactMail extends Mailable
         $template = $this->replace($template,$this->responsemail);
        return $this->from('bhartitadvi081@gmail.com')->view('mail_template')->with('template',$template);
     }
-     public function replace($template,$responsemail){
+     public function replace($template,$responsemail)
+       {
             foreach( $responsemail as $key => $response_mail)
             {
             $template = str_replace('{{'.$key.'}}', $response_mail,$template);     

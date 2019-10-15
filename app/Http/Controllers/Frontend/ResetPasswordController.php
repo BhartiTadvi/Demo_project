@@ -9,7 +9,8 @@ class ResetPasswordController extends Controller
     use ResetsPasswords;
      protected $redirectTo = '/homeshopper';
      /** create reset password**/
-     public function resetpassword(){
+     public function resetpassword()
+     {
      	return view('frontend.passwords.email');
      }
 }

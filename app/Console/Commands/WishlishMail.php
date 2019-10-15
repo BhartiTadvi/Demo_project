@@ -40,10 +40,8 @@ class WishlishMail extends Command
      */
     public function handle()
     {
-        //
-         $wishlist=UserWishlist::get();
-                  
-       // dd($orderdetails);
+        
+        $wishlist=UserWishlist::get();
         $email="bhartitadvi081@gmail.com";
         Mail::to($email)->send(new Wishmail($wishlist));
     }

@@ -16,7 +16,7 @@
             <div class="box-header">
              <div class="pull-right">
               @can('category-create')
-              <a href="{{ route('subcategory.create') }}" class="btn btn-success btn-sm" title="Add New Category">
+              <a href="{{ route('create.subcategory') }}" class="btn btn-success btn-sm" title="Add New Category">
                 <i class="fa fa-plus" aria-hidden="true"></i> Add Subcategory
                 </a>
                     @endcan

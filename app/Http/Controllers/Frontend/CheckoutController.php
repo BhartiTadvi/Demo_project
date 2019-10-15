@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Frontend;
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,7 @@ use App\Mail\OrderMail;
 use App\EmailTemplate;
 use App\Coupon;
 use Illuminate\Support\Facades\Mail;
+
 class CheckoutController extends Controller
 {
     /** Get cart details from cart **/
@@ -58,6 +60,7 @@ class CheckoutController extends Controller
                     ->get();
         return Response::json($countries);
     }
+
     /** Get Billing Address from database **/
     public function getBillingAddress(Request $request){
       $address_id = $request->address_id;
@@ -65,12 +68,14 @@ class CheckoutController extends Controller
       $addresses = Address::with('country','state')->where('user_id',$user_id)->get();
        return view('frontend.billing', compact('addresses'));
     }
+
     /** Get Shipping address from database **/
     public function getShippingAddress(Request $request){
       $user_id = $request->user_id;
       $addresses = Address::with('country','state')->get();
        return view('frontend.checkout', compact(''));
     }
+    
     /** store order details **/
     public function placeOrder(Request $request){
         $coupon=$request->coupon;

@@ -2,38 +2,28 @@
 namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\order_management;
+use App\Cms;
 use Illuminate\Http\Request;
-use App\Order;
-class order_managementController extends Controller
+
+class CmsController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
-
      */
     public function index(Request $request)
     {
         $keyword = $request->get('search');
         $perPage = 25;
         if (!empty($keyword)) {
-            $order_management = order_management::where('customer_details_with_address', 'LIKE', "%$keyword%")
-                ->orWhere('Ordered products', 'LIKE', "%$keyword%")
-                ->orWhere('pagecontent', 'LIKE', "%$keyword%")
+            $cms = Cms::where('name', 'LIKE', "%$keyword%")
+                ->orWhere('title', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-             $orders=Order::with('products','products.product','orderDetail')->paginate($perPage);
+            $cms = Cms::latest()->paginate($perPage);
         }
-
-        return view('order_management.index', compact('orders'));
-    }
-
-    public function orderDetail($id)
-    {
-      $orders=Order::with('products','products.product','orderDetail','address')->find($id);
-     return view('order_management.product_details',compact('orders'));
+        return view('cms.index', compact('cms'));
     }
 
     /**
@@ -43,7 +33,7 @@ class order_managementController extends Controller
      */
     public function create()
     {
-        return view('order_management.create');
+        return view('cms.create');
     }
 
     /**
@@ -55,9 +45,9 @@ class order_managementController extends Controller
      */
     public function store(Request $request)
     {
-      $requestData = $request->all();
-      order_management::create($requestData);
-      return redirect()->route('order_management.index')->with('flash_message', 'order_management added!');
+        $requestData = $request->all();
+        Cms::create($requestData);
+        return redirect()->route('cms.index')->with('success', 'Content added successfully!');
     }
 
     /**
@@ -69,8 +59,8 @@ class order_managementController extends Controller
      */
     public function show($id)
     {
-     $order_management = order_management::findOrFail($id);
-     return view('order_management.show', compact('order_management'));
+        $cm = Cms::findOrFail($id);
+        return view('cms.show', compact('cm'));
     }
 
     /**
@@ -82,8 +72,8 @@ class order_managementController extends Controller
      */
     public function edit($id)
     {
-     $order_management = order_management::findOrFail($id);
-     return view('order_management.edit', compact('order_management'));
+        $cm = Cms::findOrFail($id);
+        return view('cms.edit', compact('cm'));
     }
 
     /**
@@ -97,9 +87,9 @@ class order_managementController extends Controller
     public function update(Request $request, $id)
     {
         $requestData = $request->all();
-        $order_management = order_management::findOrFail($id);
-        $order_management->update($requestData);
-        return redirect()->route('order_management.index')->with('flash_message', 'order_management updated!');
+        $cm = Cms::findOrFail($id);
+        $cm->update($requestData);
+        return redirect()->route('cms.index')->with('success', 'content updated successfully!');
     }
 
     /**
@@ -111,7 +101,7 @@ class order_managementController extends Controller
      */
     public function destroy($id)
     {
-       order_management::destroy($id);
-       return redirect()->route('order_management.index')->with('flash_message', 'order_management deleted!');
+        Cms::destroy($id);
+        return redirect()->route('cms.index')->with('success', 'content deleted successfully!');
     }
 }

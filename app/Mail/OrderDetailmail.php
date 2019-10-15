@@ -32,8 +32,7 @@ class OrderDetailmail extends Mailable
      */
     public function build()
     {
-       $orderdetails=Order::with('user','orderDetail','products')->get();
-
+     $orderdetails=Order::with('user','orderDetail','products')->get();
         return $this->view('template',compact('orderdetails'));
     }
 }

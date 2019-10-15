@@ -26,7 +26,6 @@ class FrontendController extends Controller
         $subcategories = category::with('children')->get();
         $products = Product::with('productCategories','productCategories.category'
                 ,'categories','productImage','parentCategory')->get();
-
         $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
         $minprice=Product::min('price');
         $maxprice=Product::max('price');
@@ -53,7 +52,6 @@ class FrontendController extends Controller
          
        return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'filter'=>$filter]);
      }
-
      /** Show product on filter price**/
       public function filterPrice(Request $request)
      {
@@ -99,7 +97,6 @@ class FrontendController extends Controller
         'subject'  => $request->get('subject'),
         'message' => $request->get('message'),
         'template_key' => "contact_template_key",
-
         );
         $email="bhartitadvi081@gmail.com";
         Mail::to($email)->send(new ContactMail($contactmail));
@@ -140,9 +137,7 @@ class FrontendController extends Controller
       $products =Product::where('id','product_id')->with('wishList','productImage')->get();
       $productwish =UserWishlist::with('product')->get();   
       return view('frontend.wishlist',compact('categories','subcategories','productCounts','productwish','products'));
-
      }
-
     /** Store Wishlist into database**/
      public function wishList(Request $request) 
      {
@@ -167,7 +162,6 @@ class FrontendController extends Controller
                      'Item, '. $wishlist->product->title.' Added to your wishlist.');
      }
     }
-
     /** Remove Wish from Wishlist **/
     public function removeWishList($id) 
     {

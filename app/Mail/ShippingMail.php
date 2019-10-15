@@ -8,7 +8,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\EmailTemplate;
 
-
 class ShippingMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -33,9 +32,7 @@ class ShippingMail extends Mailable
     public function build()
     {
         $viewtemplates = EmailTemplate::where('template_key',$this->shippingorder['template_key'])->get();
-
-
-        //dd($viewtemplates);
+        
         foreach($viewtemplates as $template){
         $template = htmlspecialchars_decode($template->templatecontent);
         }
@@ -49,7 +46,6 @@ class ShippingMail extends Mailable
             {
             $template = str_replace('{{'.$key.'}}', $shipping_order,$template);     
             }
-         
             return $template;
      }
 }
