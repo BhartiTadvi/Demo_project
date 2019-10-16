@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Rolesmodel;
 
-class Rolesseeder extends Seeder
+class RoleTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,13 +13,12 @@ class Rolesseeder extends Seeder
     public function run()
     {
         //
-
-     $role=[
-	     	['role_name'=>"superadmin"],
-	     	['role_name'=>"admin"],
-	     	['role_name'=>"inventory manager"],
-	     	['role_name'=>"order manager"],
-	     	['role_name'=>"customer"]
+        $role=[
+	     	['name'=>"superadmin"],
+	     	['name'=>"admin"],
+	     	['name'=>"inventory manager"],
+	     	['name'=>"order manager"],
+	     	['name'=>"customer"]
      	];
 
         Rolesmodel::insert($role);

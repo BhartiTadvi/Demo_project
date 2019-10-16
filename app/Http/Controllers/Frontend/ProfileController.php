@@ -23,7 +23,12 @@ class ProfileController extends Controller
     /**Get user details view **/
      public function userAccount()
     {
-         $profile = User::get();
+        if(Auth::user()){
+            $profile = User::get();
+          }  
+          else{
+             return redirect()->route('loginuser')->with("success");
+          }
         return view('frontend.account',compact('profile'));
     }
 

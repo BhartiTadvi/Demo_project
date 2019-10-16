@@ -16,8 +16,7 @@ class AlterCouponsTableAddColumnQuantityAndUsedCount extends Migration
         Schema::table('coupons', function (Blueprint $table) {
             //
             $table->integer('quantity')->nullable();
-            $table->integer('used_count')->default(0);
-            $table->enum('type',[0, 1])->comment("0 = amount, 1 = percentage");
+            $table->integer('remaining_quantity');
             });
     }
 

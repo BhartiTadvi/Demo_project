@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\usersmodel;
+use App\User;
 
-
-class Usersseeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,15 +14,13 @@ class Usersseeder extends Seeder
     {
         //
         $user=[
-	     	['firstname'=>"Admin",
-	     	 'lastname'=>"admin",
+	     	['name'=>"Admin",
 	     	 'email'=>"bharti08@gmail.com",
 	     	 'password'=>bcrypt("admin123")
 	     	]
      	];
 
-        usersmodel::insert($user);
-
+        User::insert($user);
 
     }
 }
