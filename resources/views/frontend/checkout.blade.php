@@ -115,7 +115,7 @@
 										<option>-- Country--</option>
 										@foreach($countries as $country)
                         
-						            <option value={{$country->id}}>{{$country->country_name}}
+						            <option value="{{$country->id}}">{{$country->country_name}}
 									    </option>
 										@endforeach
 									</select><br/><br/>
@@ -163,7 +163,7 @@
             					  <select class="country" name="country" id="country1">
 										<option>-- Country--</option>
 										@foreach($countries as $country)
-						              <option value={{$country->id}}>{{$country->country_name}}
+						              <option value="{{$country->id}}">{{$country->country_name}}
 									    </option>
 										@endforeach
 									</select><br/><br/>

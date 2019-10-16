@@ -17,6 +17,7 @@ use App\OrderDetail;
 use App\Mail\OrderMail;
 use App\EmailTemplate;
 use App\Coupon;
+use DB;
 use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
@@ -79,6 +80,7 @@ class CheckoutController extends Controller
     /** store order details **/
     public function placeOrder(Request $request){
         $coupon=$request->coupon;
+        // dd($request->country1);
           $this->validate($request, [
             'full_name' => 'required',
             'phone' => 'required',
@@ -97,43 +99,53 @@ class CheckoutController extends Controller
             'billing_address1' => 'required',
             'billing_address2' => 'required',
             ]);
+          
+        DB::beginTransaction();
+        try {
         $countries = Country::get();
         $states = State::get();
         $user = User::get();
         $data  =  Cart::content();
-        $address = new Address();
-        $addresses = Address::get();
-        if($address->id != 0)
-         {
-         $address->name = $request->full_name;
-        $address->address1 = $request->address1;
-        $address->address2 = $request->address2;
-        $address->country_id = $request->country;
-        $address->state_id = $request->state;
-        $address->city = $request->city;
-        $address->zipcode = $request->zipcode;
-        $address->mobileno = $request->phone;
-        $address->name = $request->name;
-        $address->address1 = $request->billing_address1;
-        $address->address2 = $request->billing_address2;
-        $address->country_id = $request->country1;
-        $address->state_id = $request->state1;
-        $address->city = $request->billing_city;
-        $address->zipcode = $request->zip_code;
-        $address->mobileno = $request->phone_number;
-        $address->user_id = Auth::user()->id;
-         $address->save();
+        $addresses = Address::where('user_id',\Auth::id())->first();
+        if(!$addresses){
+        $addresses = new Address();
+        $addresses->name = $request->full_name;
+        $addresses->address1 = $request->address1;
+        $addresses->address2 = $request->address2;
+        $addresses->country_id = $request->country;
+        $addresses->state_id = $request->state;
+        $addresses->city = $request->city;
+        $addresses->zipcode = $request->zipcode;
+        $addresses->mobileno = $request->phone;
+        $addresses->name = $request->name;
+        $addresses->address1 = $request->billing_address1;
+        $addresses->address2 = $request->billing_address2;
+        $addresses->country_id = $request->country1;
+        $addresses->state_id = $request->state1;
+        $addresses->city = $request->billing_city;
+        $addresses->zipcode = $request->zip_code;
+        $addresses->mobileno = $request->phone_number;
+        $addresses->user_id = Auth::user()->id;
+        $addresses->save();
+          //dd($addresses);
+         
          }  
         $orders = new Order();
         $orders->user_id  = Auth::user()->id;
         $orders->address_id = $request->address_id;
         $orders->subtotal = $request->subtotal;
         $orders->total = $request->grandtotal;
+        $orders->order_date = now();
         $orders->shipping_charge = $request->shippingcost;
         $orders->discount_amount = $request->discount_amount;
         $orders->coupon_code_id = $request->coupon_id;
-        $orders->save(); 
-         $price=0;
+        
+        $orders->save();
+        //dd($orders);
+        //dd($orders->all());
+       
+        $price=0;
+
         $count=count($request->product_id);
         for($i=0;$i<$count;$i++)
         {
@@ -149,6 +161,7 @@ class CheckoutController extends Controller
          $codtransactionid = str_random(10);
          $orderdetails->transaction_id =$codtransactionid;
          $orderdetails->save();
+
         $coupons=Coupon::where('code',$coupon)->first();
         $coupons->remaining_quantity = $coupons->remaining_quantity -1;
         $coupons->save();
@@ -189,7 +202,11 @@ class CheckoutController extends Controller
         Mail::to(Auth::user()->email)->send(new OrderMail($order));
         $email="bhartitadvi081@gmail.com";
         Mail::to($email)->send(new OrderMail($order));
-        return redirect('thanks')->with('flash_message', 'order has been placed successfully');
+        DB::commit();
+        return redirect('thanks')->with('success', 'order has been placed successfully');
+         } catch (\Exception $e) {
+            DB::rollback();
+        }
     }
              
    /** Show success on placeorder**/

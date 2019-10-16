@@ -53,16 +53,20 @@
       <div class="form-group has-feedback">
 
         {!! Form::text('name', '', ['class' => 'form-control','placeholder'=>"Enter Name", ""]) !!}
+       <span class="glyphicon glyphicon-user form-control-feedback"></span>
        {!! $errors->first('name', '<p class="help-block"style="color:red;">:message</p>') !!}
       </div>
+
       
       <div class="form-group has-feedback">
         {!! Form::email('email', '', ['class' => 'form-control','placeholder'=>"Email", ""]) !!}
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         {!! $errors->first('email', '<p class="help-block"style="color:red;">:message</p>') !!}
       </div>
      
       <div class="form-group has-feedback">
        {!! Form::password('password', ['class' => 'form-control','placeholder'=>"Password", ""]) !!}
+       <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         {!! $errors->first('password', '<p class="help-block"style="color:red;">:message</p>') !!}
 
       </div>

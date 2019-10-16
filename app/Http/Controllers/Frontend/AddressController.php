@@ -122,7 +122,7 @@ class AddressController extends Controller
    
     public function getState(Request $request){
       $country_id =$request->country_id;
-      $countries= State::where('countryID', $country_id)
+      $countries= State::where('country_id', $country_id)
                     ->get();
         return Response::json($countries);
 

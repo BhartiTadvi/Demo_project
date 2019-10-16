@@ -90,6 +90,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
+        
         $product = Product::with('productCategories','productCategories.category'
             ,'categories','productImage','parentCategory')->findOrFail($id);
          $categories = Category::with('children')->get();

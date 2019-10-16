@@ -37,7 +37,7 @@ class OrderMail extends Mailable
         $template = htmlspecialchars_decode($template->templatecontent);
         }
         $template = $this->replace($template,$this->order);
-       return $this->from('bhartitadvi081@gmail.com')->view('mail_template')->with('template',$template);
+       return $this->from('bharti08@gmail.com')->view('mail_template')->with('template',$template);
     }
      
      public function replace($template,$order){
