@@ -23,7 +23,8 @@ class CreateUserOrdersTable extends Migration
             $table->integer('total')->nullable();
             $table->date('order_date');
             $table->integer('discount_amount');
-            $table->integer('coupon_code_id');
+            $table->integer('coupon_code_id')->unsigned()->nullable();
+            $table->foreign('coupon_code_id')->references('id')->on('coupons');
             $table->integer('shipping_charge')->nullable();
             $table->timestamps();
         });
