@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
+
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -71,6 +72,7 @@ class AddMoneyController extends Controller
      */
     public function postPaymentWithpaypal(Request $request)
     {
+       // dd($request->all());
         $order_id =$request->order_id;
         Session::put('order_id',$order_id);
        $this->validate($request, [
@@ -115,15 +117,21 @@ class AddMoneyController extends Controller
         $orders->user_id  = Auth::user()->id;
         $orders->address_id = $request->address_id;
         $orders->subtotal = $request->subtotal;
+        $orders->order_date = now();
+        $orders->discount_amount = $request->discount_amount;
         $orders->total = $request->grandtotal;
         $orders->shipping_charge = $request->shippingcost;
         $orders->save(); 
        
-        $productorders = new Product_Order();
-        $productorders->product_id = $request->product_id;
-        $productorders->order_id = $request->order_id;
-        $productorders->quantity = $request->quantity;
-        $productorders->save(); 
+        $count=count($request->product_id);
+        for($i=0;$i<$count;$i++)
+        {
+          $productorders = new Product_Order();
+          $productorders->product_id = $request->product_id[$i];
+          $productorders->order_id = $request->order_id;
+          $productorders->quantity = $request->quantity1[$i];
+          $productorders->save();
+        }
          
         $orderdetails = new OrderDetail();
         $orderdetails->order_id =$request->order_id;

@@ -14,8 +14,8 @@ Route::get('/login', function () {
     });
 
   
-Route::get('/product_attribute', 'Product_attributeController@create')->name('product_attribute');
-Route::post('/attribute/store','Product_attributeController@store')->name('store_attribute');
+Route::get('/product_attribute', 'ProductAttributeController@create')->name('product_attribute');
+Route::post('/attribute/store','ProductAttributeController@store')->name('store_attribute');
 
 Route::get('/subcategory', 'SubcategoryController@create')->name('create.subcategory');
 Route::post('/subcategory/store','SubcategoryController@store')->name('store_subcategory');
@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     
 });
 //admin routes
-Route::resource('banners', 'BannersController');
+Route::resource('banners', 'BannerController');
 Route::resource('category', 'CategoryController');
 Route::resource('posttable', 'PosttableController');
 Route::resource('products', 'ProductsController');
@@ -67,6 +67,8 @@ Route::post('/cartincrementitem/','Frontend\CartController@incrementItem')->name
 Route::post('/cartdecrementitem/','Frontend\CartController@decrementItem')->name('cart.decrement');
 
 Route::post('/applycoupon','Frontend\CartController@applyCoupon')->name('coupon');
+Route::post('/cancelcoupon','Frontend\CartController@cancelCoupon')->name('cancel.coupon');
+
 
 
  
@@ -96,7 +98,7 @@ Route::get('/user/address', function () {
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('addToWishList', 'Frontend\FrontendController@wishList')->name('add.wishlist');
-Route::get('/WishList', 'Frontend\FrontendController@View_wishList');
+Route::get('/WishList', 'Frontend\FrontendController@ViewWishList');
 Route::get('/removeWishList/{id}', 'Frontend\FrontendController@removeWishList')->name('remove.wishlist');
 
 
@@ -128,12 +130,12 @@ Route::get('demo1',function(){
 Route::resource('address', 'Frontend\AddressController');
 
 //manage email notification
-Route::resource('manage_user_contacts', 'Manage_user_contactController');
-Route::resource('manage_user_email', 'Manage_user_emailController');
+Route::resource('manage_user_contacts', 'ManageUserContactController');
+Route::resource('manage_user_email', 'ManageUserEmailController');
 
 
-Route::resource('order_management', 'Order_managementController');
-Route::get('/order-detail/{id}', 'Order_managementController@orderDetail')->name('show.orderdetail');
+Route::resource('order_management', 'OrderManagementController');
+Route::get('/order-detail/{id}', 'OrderManagementController@orderDetail')->name('show.orderdetail');
 
 Route::resource('cms', 'CmsController');
 

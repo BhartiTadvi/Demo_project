@@ -2,10 +2,10 @@
 namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Banner;
+use App\Product_image;
 use Illuminate\Http\Request;
 
-class BannersController extends Controller
+class ProducImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,15 +15,16 @@ class BannersController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 2;
+        $perPage = 25;
+
         if (!empty($keyword)) {
-            $banners = Banner::where('name', 'LIKE', "%$keyword%")
-                ->orWhere('image', 'LIKE', "%$keyword%")
+            $product_image = Product_image::where('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $banners = Banner::latest()->paginate($perPage);
+            $product_image = Product_image::latest()->paginate($perPage);
         }
-        return view('banners.index', compact('banners'));
+
+        return view('product_image.index', compact('product_image'));
     }
 
     /**
@@ -33,7 +34,7 @@ class BannersController extends Controller
      */
     public function create()
     {
-        return view('banners.create');
+        return view('product_image.create');
     }
 
     /**
@@ -45,17 +46,15 @@ class BannersController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'=>'required', 
-            'image'=>'required', 
-            ]);
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-        Banner::create($requestData);
-        return redirect()->route('banners.index')->with('success', 'New banner added successfully');
+
+        Product_image::create($requestData);
+
+        return redirect()->route('product_image.index')->with('flash_message', 'Product_image added!');
     }
 
     /**
@@ -67,8 +66,9 @@ class BannersController extends Controller
      */
     public function show($id)
     {
-        $banner = Banner::findOrFail($id);
-        return view('banners.show', compact('banner'));
+        $product_image = Product_image::findOrFail($id);
+
+        return view('product_image.show', compact('product_image'));
     }
 
     /**
@@ -80,8 +80,8 @@ class BannersController extends Controller
      */
     public function edit($id)
     {
-        $banner = Banner::findOrFail($id);
-        return view('banners.edit', compact('banner'));
+        $product_image = Product_image::findOrFail($id);
+        return view('product_image.edit', compact('product_image'));
     }
 
     /**
@@ -94,17 +94,14 @@ class BannersController extends Controller
      */
     public function update(Request $request, $id)
     {
-     $request->validate([
-            'name'=>'required', 
-             ]);
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-        $banner = Banner::findOrFail($id);
-        $banner->update($requestData);
-        return redirect()->route('banners.index')->with('success', 'Banner updated successfully');
+        $product_image = Product_image::findOrFail($id);
+        $product_image->update($requestData);
+        return redirect()->route('product_image.index')->with('flash_message', 'Product_image updated!');
     }
 
     /**
@@ -116,7 +113,7 @@ class BannersController extends Controller
      */
     public function destroy($id)
     {
-        Banner::destroy($id);
-        return redirect()->route('banners.index')->with('success', 'Banner deleted successfully');
+        Product_image::destroy($id);
+        return redirect()->route('product_image.index')->with('flash_message', 'Product_image deleted!');
     }
 }

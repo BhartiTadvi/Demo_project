@@ -6,7 +6,7 @@ use App\manage_user_email;
 use Illuminate\Http\Request;
 use App\EmailTemplate;
 
-class Manage_user_emailController extends Controller
+class ManageUserEmailController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -35,7 +35,6 @@
                         <input type="submit" name="submit" class="btn btn-primary pull-right" value="Update">
                     </div>
                 </form>
-
     </div>
   </div>
 </div>

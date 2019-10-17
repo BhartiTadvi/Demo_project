@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Cart;
 
 class LoginController extends Controller
 { 
@@ -20,20 +21,20 @@ class LoginController extends Controller
           $users = array(
           'email'  => $request->get('e-mail'),
           'password' => $request->get('password1'));
-          if(Auth::attempt($users))
-            {
-             return redirect('/');
-            }
-        else
-        {
-         return back()->with('error', 'Wrong Login Details');
-        }
+        if (Auth::attempt($users)&&Cart::content()->count() == 0) {
+          return redirect()->route('home_shopper')->with('success','Log in successfully done');
+       } elseif (Auth::attempt($users)&&Cart::content()->count() >= 1) {
+        return redirect()->route('cart')->with('success');
+       }else{
+           return back()->with('success', 'Wrong Login Details');
+      }
      }
     /** Log out **/
     public function logout(Request $request) 
         {
              Auth::logout();
-            return redirect('/loginuser');
+             return redirect()->route('loginuser')->with('success','Log out');
+            
         }
 
 }

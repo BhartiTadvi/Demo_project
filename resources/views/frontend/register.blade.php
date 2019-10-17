@@ -6,6 +6,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
+					@if ($message = Session::get('success'))
+			            <p style="color:red">{{ $message }}</p>
+                   @endif
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
 						{!! Form::open(array('route' => 'userlogin','method'=>'POST','data-parsley-validate','id'=>'login-user','enctype'=>'multipart/form-data')) !!}

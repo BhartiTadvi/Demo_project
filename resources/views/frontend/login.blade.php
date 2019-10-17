@@ -4,11 +4,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-1">
+					@if ($message = Session::get('success'))
+			            <p style="color:red">{{ $message }}</p>
+                     @endif
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
 						{!! Form::open(array('route' => 'userlogin','method'=>'POST','data-parsley-validate','id'=>'login-user','enctype'=>'multipart/form-data')) !!}
 					      {{ csrf_field() }}
-							
 
 						{!! Form::text('e-mail', null, array('placeholder' => 'Email Address', 'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter Name ')) !!}
 		       		    {!! $errors->first('e-mail',  '<p class="help-block"style="color:red;">:message</p>') !!}
@@ -29,11 +31,7 @@
 					<h2 class="or">OR</h2>
 				</div>
 				<div class="col-sm-4">
-					 @if ($message = Session::get('success'))
-			           <div class="alert alert-success">
-			            <p>{{ $message }}</p>
-			           </div>
-                     @endif
+					 
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
 					

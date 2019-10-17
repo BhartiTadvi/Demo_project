@@ -7,7 +7,7 @@ use App\Contactus;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResponseContactMail;
 
-class Manage_user_contactController extends Controller
+class ManageUserContactController extends Controller
 {
     /**
      * Display a listing of the resource.

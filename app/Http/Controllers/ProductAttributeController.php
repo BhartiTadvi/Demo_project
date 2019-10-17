@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use app\Product_attribute;
 
-class Product_attributeController extends Controller
+class ProductAttributeController extends Controller
 {
 
     /**

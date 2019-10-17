@@ -4,7 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
-class Order_managementController extends Controller
+class OrderManagementController extends Controller
 {
     
     /**

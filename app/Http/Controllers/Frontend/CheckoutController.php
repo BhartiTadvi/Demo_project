@@ -101,70 +101,66 @@ class CheckoutController extends Controller
             ]);
           
         DB::beginTransaction();
-        try {
-        $countries = Country::get();
-        $states = State::get();
-        $user = User::get();
-        $data  =  Cart::content();
-        $addresses = Address::where('user_id',\Auth::id())->first();
+      try{
+          $countries = Country::get();
+          $states = State::get();
+          $user = User::get();
+          $data  =  Cart::content();
+          $addresses = Address::where('user_id',\Auth::id())->first();
         if(!$addresses){
-        $addresses = new Address();
-        $addresses->name = $request->full_name;
-        $addresses->address1 = $request->address1;
-        $addresses->address2 = $request->address2;
-        $addresses->country_id = $request->country;
-        $addresses->state_id = $request->state;
-        $addresses->city = $request->city;
-        $addresses->zipcode = $request->zipcode;
-        $addresses->mobileno = $request->phone;
-        $addresses->name = $request->name;
-        $addresses->address1 = $request->billing_address1;
-        $addresses->address2 = $request->billing_address2;
-        $addresses->country_id = $request->country1;
-        $addresses->state_id = $request->state1;
-        $addresses->city = $request->billing_city;
-        $addresses->zipcode = $request->zip_code;
-        $addresses->mobileno = $request->phone_number;
-        $addresses->user_id = Auth::user()->id;
-        $addresses->save();
-          //dd($addresses);
-         
-         }  
-        $orders = new Order();
-        $orders->user_id  = Auth::user()->id;
-        $orders->address_id = $request->address_id;
-        $orders->subtotal = $request->subtotal;
-        $orders->total = $request->grandtotal;
-        $orders->order_date = now();
-        $orders->shipping_charge = $request->shippingcost;
-        $orders->discount_amount = $request->discount_amount;
-        $orders->coupon_code_id = $request->coupon_id;
-        
-        $orders->save();
-        //dd($orders);
-        //dd($orders->all());
-       
-        $price=0;
+                  $addresses = new Address();
+                  $addresses->name = $request->full_name;
+                  $addresses->address1 = $request->address1;
+                  $addresses->address2 = $request->address2;
+                  $addresses->country_id = $request->country;
+                  $addresses->state_id = $request->state;
+                  $addresses->city = $request->city;
+                  $addresses->zipcode = $request->zipcode;
+                  $addresses->mobileno = $request->phone;
+                  $addresses->name = $request->name;
+                  $addresses->address1 = $request->billing_address1;
+                  $addresses->address2 = $request->billing_address2;
+                  $addresses->country_id = $request->country1;
+                  $addresses->state_id = $request->state1;
+                  $addresses->city = $request->billing_city;
+                  $addresses->zipcode = $request->zip_code;
+                  $addresses->mobileno = $request->phone_number;
+                  $addresses->user_id = Auth::user()->id;
+                  $addresses->save();
+                }  
+                  $orders = new Order();
+                  $orders->user_id  = Auth::user()->id;
+                  $orders->address_id = $request->address_id;
+                  $orders->subtotal = $request->subtotal;
+                  $orders->total = $request->grandtotal;
+                  $orders->order_date = now();
+                  $orders->shipping_charge = $request->shippingcost;
+                  $orders->discount_amount = $request->discount_amount;
+                  $orders->coupon_code_id = $request->coupon_id;
+                  $orders->save();
 
-        $count=count($request->product_id);
-        for($i=0;$i<$count;$i++)
-        {
-          $productorders = new Product_Order();
-          $productorders->product_id = $request->product_id[$i];
-          $productorders->order_id = $request->order_id;
-          $productorders->quantity = $request->quantity1[$i];
-          $productorders->save();
-        }
-         $orderdetails = new OrderDetail();
-         $orderdetails->order_id =$request->order_id;
-         $orderdetails->payment_mode =$request->submit;
-         $codtransactionid = str_random(10);
-         $orderdetails->transaction_id =$codtransactionid;
-         $orderdetails->save();
+                  $price=0;
+                  $count=count($request->product_id);
+                  for($i=0;$i<$count;$i++)
+                  {
+                    $productorders = new Product_Order();
+                    $productorders->product_id = $request->product_id[$i];
+                    $productorders->order_id = $request->order_id;
+                    $productorders->quantity = $request->quantity1[$i];
+                    $productorders->save();
+                  }
+                   $orderdetails = new OrderDetail();
+                   $orderdetails->order_id =$request->order_id;
+                   $orderdetails->payment_mode =$request->submit;
+                   $codtransactionid = str_random(10);
+                   $orderdetails->transaction_id =$codtransactionid;
+                   $orderdetails->save();
 
-        $coupons=Coupon::where('code',$coupon)->first();
-        $coupons->remaining_quantity = $coupons->remaining_quantity -1;
-        $coupons->save();
+                  $coupons=Coupon::where('code',$coupon)->first();
+                  $coupons->remaining_quantity = $coupons->remaining_quantity -1;
+                  $coupons->save();
+                  DB::commit();
+
          $view = '<table border="1" cellpadding="10px" width="100%">
                     <thead>
                         <tr>
@@ -202,13 +198,11 @@ class CheckoutController extends Controller
         Mail::to(Auth::user()->email)->send(new OrderMail($order));
         $email="bhartitadvi081@gmail.com";
         Mail::to($email)->send(new OrderMail($order));
-        DB::commit();
-        return redirect('thanks')->with('success', 'order has been placed successfully');
+        return redirect()->route('cashondelivery')->with('success', 'order has been placed successfully');
          } catch (\Exception $e) {
             DB::rollback();
         }
     }
-             
    /** Show success on placeorder**/
     public function cashOnDelivery(){
       return view('frontend.thanks');

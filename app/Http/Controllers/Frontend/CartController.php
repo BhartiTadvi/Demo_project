@@ -102,7 +102,7 @@ class CartController extends Controller
         {
           $couponvalue=0;
         }
-      $coupons = Coupon::get();
+       $coupons = Coupon::get();
       if($coupons == null)
           {
              return response()->json(['coupon' =>$coupon]);
@@ -133,10 +133,14 @@ class CartController extends Controller
        $coupon =$request->coupon_code;
        $subTotal=$request->subTotal;
        $coupons = Coupon::where('code',$coupon)->first();
-      if($coupons == null)
+      
+      if($coupons == null || $subTotal < 300)
       {
-         return response()->json(['coupon' =>$coupon]);
+         $error_message ="Invalid coupon";
+        return response()->json(['error_message' =>$error_message]);
       }
+      
+     else{
       if($coupons->type == 0)
              {
               $couponamount = $subTotal-$coupons->discount; 
@@ -146,12 +150,21 @@ class CartController extends Controller
                 $couponamount =$subTotal*($coupons->discount/100);
                 $total=$subTotal-$couponamount;
                 }
-       $discounttype=$coupons->type;
-       $coupon_id=$coupons->id;
-       $discount=$coupons->discount;
+           $discounttype=$coupons->type;
+           $coupon_id=$coupons->id;
+           $discount=$coupons->discount;
                    Session::put('discounttype',$discounttype);
                    Session::put('discount',$discount);
         return response()->json(['couponamount' =>$couponamount,'total' =>$total,'total' =>$total,'discounttype' =>$discounttype,'discount' =>$discount,'coupon_id' =>$coupon_id]);
     }
+     }
+     public function cancelCoupon(Request $request)
+     {
+         $total=$request->subTotal;
+         $discountCoupon =0;
+         return response()->json(['discountCoupon' =>$discountCoupon,'total' =>$total]);
+     }
+
+      
 
 }

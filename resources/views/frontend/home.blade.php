@@ -100,7 +100,9 @@
 					
 					</div>
 				</div>
-				
+				@if ($message = Session::get('success'))
+			            <p style="color:green;margin-left:200px">{{ $message }}</p>
+                     @endif
 				<div class="col-sm-9 padding-right">
 
 					<div class="features_items"><!--features_items-->
@@ -270,12 +272,10 @@
 	</section>
 @endsection
 
-
 @section('script')
 <script>
 	$('document').ready(function()
 	{
-	
 	$('ul.product_category li').click(function(e)
 		{
 	 var category_id =$(this).attr("data-id"); 

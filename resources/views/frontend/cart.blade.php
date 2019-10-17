@@ -81,21 +81,19 @@
       <div class="row">
         <div class="col-sm-6">
            <div class="chose_area">
-              @if ($message = Session::get('message_error'))
-                 <p class="error-message" style="margin-left: 43px;">
-                 {{ $message }}</p>
-             @endif
+                
             <ul class="user_option">
               <li>
-
-                <input type="hidden" id="coupon_id" name="coupon_id">
+              <input type="hidden" id="coupon_id" name="coupon_id">
                <label>Use Coupon Code</label><br/>
-               @if($total>300)
                <input type="text" class="coupon_code" name="coupon"/>
-               @endif
               </li>
             </ul>
-            <input type="button" class="btn btn-default update coupon" value=" Apply coupon">
+            <span class="error-message" id="invalid_coupon" style="margin-left: 43px;">
+                </span><br/>
+            <input type="button" class="btn btn-default update coupon" value="Apply coupon">
+
+            <input type="button" class="btn btn-danger" id="cancelcode" value="Cancel" style="display:none">
           </div>
         </div>
         <div class="col-sm-6">
@@ -200,7 +198,6 @@
 
                     $('#discountamount').text(response.couponvalue);
                     $('#grandTotal').empty();
-
                     $('#grandTotal').text(response.total);
                     //$('#grandTotal').text(response.total);
                     $('#grandTotal1').val(response.total);
@@ -231,8 +228,11 @@
         });
         
         $('.coupon').click(function(){
-            var coupon_code =$('.coupon_code').val();
-            var subTotal = $('#subTotal').text(); 
+
+          $('.coupon').hide();
+          $('#cancelcode').show();
+          var coupon_code =$('.coupon_code').val();
+          var subTotal = $('#subTotal').text();
           $.ajax({
            
            data: {'coupon_code':coupon_code,'subTotal':subTotal},
@@ -242,20 +242,52 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
             success:function(response){
+              console.log(response);
+            var invalidCoupon = response.error_message;
+            if(invalidCoupon){
+               $('#invalid_coupon').text(response.error_message);
+            }else{
+
          $('#discountamount').text(0);
          $('#discountamount').empty();
          $('#discountamount').append(response.discount);
-        
          $('#grandTotal').empty();
          $('#grandTotal').append(response.total<500 ? response.total+50 :response.total);
          $('#grandTotal1').val(response.total<500 ? response.total+50 :response.total);
          $('#coupon_id').val(response.coupon_id);
          $('#discounttype').val(response.discounttype);
          $('#discountvalue').val(response.discount);
-            
+
+            }
           }
         });
         });
+
+        $('#cancelcode').click(function(){
+
+          $('.coupon').show();
+          $('#cancelcode').hide();
+          var subTotal = $('#subTotal').text();
+          $.ajax({
+           data: {'subTotal':subTotal},
+           type: 'post',
+           url: "{{route('cancel.coupon')}}",
+           headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+            success:function(response){
+              console.log(response);
+              $('#grandTotal').empty();
+              $('#grandTotal').text(response.total<500 ? response.total+50 :response.total);
+              $('#discountamount').text(response.discountCoupon);
+
+
+       }
+        });
+      });
+         
+        
+
   });
 </script>
   @endsection

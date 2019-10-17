@@ -35,7 +35,7 @@ class UserController extends Controller
             'roles' => 'required',
             'image' => 'required'
         ]);
-         $input = $request->all();
+        $input = $request->all();
          if ($request->hasFile('image')) {
         $input['image'] = $request->file('image')
                             ->store('uploads', 'public');

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Coupon;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Coupon;

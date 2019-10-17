@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Frontend;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Banner;
@@ -130,7 +131,7 @@ class FrontendController extends Controller
      }
  
      /**Wishlist View**/
-     public function View_wishList()
+     public function ViewWishList()
      {
       $categories = Category::where('parent_id','=', 0)->get();
       $subcategories = category::with('children')->get();
@@ -142,7 +143,6 @@ class FrontendController extends Controller
     /** Store Wishlist into database**/
      public function wishList(Request $request) 
      {
-      $user_id = Auth::user()->id;
       $categories = Category::where('parent_id','=', 0)->get();
       $subcategories = Category::with('children')->get();
       $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
@@ -156,11 +156,11 @@ class FrontendController extends Controller
      else
      {
         $wishList = new UserWishlist;
-        $wishList->user_id = $user_id;
+        $wishList->user_id = Auth::user()->id;
         $wishList->product_id = $request->product_id;
         $wishList->save();
-        return redirect()->back()->with('flash_message',
-                     'Item, '. $wishlist->product->title.' Added to your wishlist.');
+        return redirect()->back()->with('success',
+                     'Item, '. $wishList->product->title.' Added to your wishlist.');
      }
     }
     /** Remove Wish from Wishlist **/

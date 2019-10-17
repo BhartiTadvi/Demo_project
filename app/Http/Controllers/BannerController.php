@@ -2,10 +2,10 @@
 namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Product_image;
+use App\Banner;
 use Illuminate\Http\Request;
 
-class Product_imageController extends Controller
+class BannerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +15,15 @@ class Product_imageController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 25;
-
+        $perPage = 2;
         if (!empty($keyword)) {
-            $product_image = Product_image::where('image', 'LIKE', "%$keyword%")
+            $banners = Banner::where('name', 'LIKE', "%$keyword%")
+                ->orWhere('image', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $product_image = Product_image::latest()->paginate($perPage);
+            $banners = Banner::latest()->paginate($perPage);
         }
-
-        return view('product_image.index', compact('product_image'));
+        return view('banners.index', compact('banners'));
     }
 
     /**
@@ -34,7 +33,7 @@ class Product_imageController extends Controller
      */
     public function create()
     {
-        return view('product_image.create');
+        return view('banners.create');
     }
 
     /**
@@ -46,15 +45,17 @@ class Product_imageController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'=>'required', 
+            'image'=>'required', 
+            ]);
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-
-        Product_image::create($requestData);
-
-        return redirect()->route('product_image.index')->with('flash_message', 'Product_image added!');
+        Banner::create($requestData);
+        return redirect()->route('banners.index')->with('success', 'New banner added successfully');
     }
 
     /**
@@ -66,9 +67,8 @@ class Product_imageController extends Controller
      */
     public function show($id)
     {
-        $product_image = Product_image::findOrFail($id);
-
-        return view('product_image.show', compact('product_image'));
+        $banner = Banner::findOrFail($id);
+        return view('banners.show', compact('banner'));
     }
 
     /**
@@ -80,8 +80,8 @@ class Product_imageController extends Controller
      */
     public function edit($id)
     {
-        $product_image = Product_image::findOrFail($id);
-        return view('product_image.edit', compact('product_image'));
+        $banner = Banner::findOrFail($id);
+        return view('banners.edit', compact('banner'));
     }
 
     /**
@@ -94,14 +94,17 @@ class Product_imageController extends Controller
      */
     public function update(Request $request, $id)
     {
+     $request->validate([
+            'name'=>'required', 
+             ]);
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
                 ->store('uploads', 'public');
         }
-        $product_image = Product_image::findOrFail($id);
-        $product_image->update($requestData);
-        return redirect()->route('product_image.index')->with('flash_message', 'Product_image updated!');
+        $banner = Banner::findOrFail($id);
+        $banner->update($requestData);
+        return redirect()->route('banners.index')->with('success', 'Banner updated successfully');
     }
 
     /**
@@ -113,7 +116,7 @@ class Product_imageController extends Controller
      */
     public function destroy($id)
     {
-        Product_image::destroy($id);
-        return redirect()->route('product_image.index')->with('flash_message', 'Product_image deleted!');
+        Banner::destroy($id);
+        return redirect()->route('banners.index')->with('success', 'Banner deleted successfully');
     }
 }
