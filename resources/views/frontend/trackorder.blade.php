@@ -19,14 +19,16 @@
            <p class="trackorder">Track order</p>
       <div class="col-md-2"></div>
     <div class="profile-content col-md-6">
-        <form method="POST" action="{{ route('order.status') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('order.status') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data" data-parsley-validate="parsley">
                             {{ csrf_field() }}
                     <div class="form-group col-md-12">
-                        <input type="text" name="emailId" class="form-control"  placeholder="Email ID">
+                        <input type="email" name="emailId" class="form-control"  placeholder="Email ID"
+                        data-parsley-required="true" data-parsley-required-message ="Please enter email">
                         {!! $errors->first('emailId', '<p class="help-block">:message</p>') !!}
                     </div>
                      <div class="form-group col-md-12">
-                        <input type="text" name="orderId" class="form-control" placeholder="Order ID">
+                        <input type="text" name="orderId" class="form-control" placeholder="Order ID" data-parsley-required="true"
+                        data-parsley-type="digits" data-parsley-required-message ="Please enter order id">
                         {!! $errors->first('orderId', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="form-group col-md-12">

@@ -128,7 +128,7 @@
 												<h2>RS {{$product->price}}</h2>
 												<p></p>
 												<a href="{{
-												route('product.details', ['id'=>$product->id])}}"id="add" class="btn btn-default" style="margin-top: -25px;color:#FE980F;"><i class="add-to-cart"></i>Product_details</a>
+												route('product.details', ['id'=>$product->id])}}"id="add" class="btn btn-default" style="margin-top: -25px;color:#FE980F;"><i class="add-to-cart"></i>Product Details</a>
 												<a href="{{route('add.cart', ['id'=>$product->id]) }}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>

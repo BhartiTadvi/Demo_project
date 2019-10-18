@@ -93,7 +93,7 @@
                 </span><br/>
             <input type="button" class="btn btn-default update coupon" value="Apply coupon">
 
-            <input type="button" class="btn btn-danger" id="cancelcode" value="Cancel" style="display:none">
+            <input type="button" class="btn btn-default update" id="cancelcode" value="Cancel" style="display:none">
           </div>
         </div>
         <div class="col-sm-6">
@@ -229,8 +229,7 @@
         
         $('.coupon').click(function(){
 
-          $('.coupon').hide();
-          $('#cancelcode').show();
+         
           var coupon_code =$('.coupon_code').val();
           var subTotal = $('#subTotal').text();
           $.ajax({
@@ -247,7 +246,9 @@
             if(invalidCoupon){
                $('#invalid_coupon').text(response.error_message);
             }else{
-
+              
+         $('.coupon').hide();
+         $('#cancelcode').show();
          $('#discountamount').text(0);
          $('#discountamount').empty();
          $('#discountamount').append(response.discount);
@@ -257,6 +258,8 @@
          $('#coupon_id').val(response.coupon_id);
          $('#discounttype').val(response.discounttype);
          $('#discountvalue').val(response.discount);
+         $('#invalid_coupon').text('');
+
 
             }
           }

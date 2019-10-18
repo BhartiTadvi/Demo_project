@@ -19,6 +19,7 @@ use App\EmailTemplate;
 use App\Coupon;
 use DB;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\CheckoutRequest;
 
 class CheckoutController extends Controller
 {
@@ -34,7 +35,7 @@ class CheckoutController extends Controller
         $coupon=$request->coupon;
         $discount_amount=$request->discountvalue;
         $coupon_id=$request->coupon_id;
-        $count=count($product_name);
+        $count=$product_name ? count($product_name) : 0;
         for($i=0;$i<$count;$i++)
         {
             $cart[]= array('product_id'=> $request->product_id[$i],'product_name' => $request->product_name[$i],'product_price'=> $request->product_price[$i],
@@ -78,28 +79,27 @@ class CheckoutController extends Controller
     }
     
     /** store order details **/
-    public function placeOrder(Request $request){
+    public function placeOrder(CheckoutRequest $request){
         $coupon=$request->coupon;
-        // dd($request->country1);
-          $this->validate($request, [
-            'full_name' => 'required',
-            'phone' => 'required',
-            'zipcode' => 'required',
-            'country' => 'required',
-            'state' => 'required',
-            'city' => 'required',
-            'address1' => 'required',
-            'address2' => 'required',
-            'name' => 'required',
-            'phone_number' => 'required',
-            'zip_code' => 'required',
-            'country1' => 'required',
-            'billing_city' =>'required',
-            'state1' => 'required',
-            'billing_address1' => 'required',
-            'billing_address2' => 'required',
-            ]);
-          
+          // $this->validate($request, [
+          //   'full_name' => 'required',
+          //   'phone' => 'required',
+          //   'zipcode' => 'required',
+          //   'country' => 'required',
+          //   'state' => 'required',
+          //   'city' => 'required',
+          //   'address1' => 'required',
+          //   'address2' => 'required',
+          //   'name' => 'required',
+          //   'phone_number' => 'required',
+          //   'phone' =>'required',
+          //   'zip_code' => 'required',
+          //   'country1' => 'required',
+          //   'billing_city' =>'required',
+          //   'state1' => 'required',
+          //   'billing_address1' => 'required',
+          //   'billing_address2' => 'required',
+          //   ]);
         DB::beginTransaction();
       try{
           $countries = Country::get();
@@ -107,7 +107,7 @@ class CheckoutController extends Controller
           $user = User::get();
           $data  =  Cart::content();
           $addresses = Address::where('user_id',\Auth::id())->first();
-        if(!$addresses){
+        if(!$request->address_id){
                   $addresses = new Address();
                   $addresses->name = $request->full_name;
                   $addresses->address1 = $request->address1;
@@ -117,20 +117,32 @@ class CheckoutController extends Controller
                   $addresses->city = $request->city;
                   $addresses->zipcode = $request->zipcode;
                   $addresses->mobileno = $request->phone;
-                  $addresses->name = $request->name;
-                  $addresses->address1 = $request->billing_address1;
-                  $addresses->address2 = $request->billing_address2;
-                  $addresses->country_id = $request->country1;
-                  $addresses->state_id = $request->state1;
-                  $addresses->city = $request->billing_city;
-                  $addresses->zipcode = $request->zip_code;
-                  $addresses->mobileno = $request->phone_number;
                   $addresses->user_id = Auth::user()->id;
+                   dd($request->all());
                   $addresses->save();
+
+                  
+                  $address = new Address();
+                  $address->name = $request->name;
+                  $address->address1 = $request->billing_address1;
+                  $address->address2 = $request->billing_address2;
+                  $address->country_id = $request->country1;
+                  $address->state_id = $request->state1;
+                  $address->city = $request->billing_city;
+                  $address->zipcode = $request->zip_code;
+                  $address->mobileno = $request->phone_number;
+                  $address->user_id = Auth::user()->id;
+                  $address->save();
+                  $addresses->id= $addresses->id;
+                   // dd($addresses->id);
                 }  
+
                   $orders = new Order();
                   $orders->user_id  = Auth::user()->id;
-                  $orders->address_id = $request->address_id;
+                  if( $request->address_id){
+                   $orders->address_id = $request->address_id;
+                  }
+                  $orders->address_id = $addresses->id;
                   $orders->subtotal = $request->subtotal;
                   $orders->total = $request->grandtotal;
                   $orders->order_date = now();
@@ -138,7 +150,6 @@ class CheckoutController extends Controller
                   $orders->discount_amount = $request->discount_amount;
                   $orders->coupon_code_id = $request->coupon_id;
                   $orders->save();
-
                   $price=0;
                   $count=count($request->product_id);
                   for($i=0;$i<$count;$i++)

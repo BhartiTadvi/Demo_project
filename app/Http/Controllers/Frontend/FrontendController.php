@@ -53,22 +53,7 @@ class FrontendController extends Controller
          
        return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'filter'=>$filter]);
      }
-     /** Show product on filter price**/
-      public function filterPrice(Request $request)
-     {
-        $minprice = $request->min_price;
-        $maxprice = $request->max_price;
-        $filter = Product::whereBetween('price',[$minprice,$maxprice])->get();
-        $minprice=Product::min('price');
-        $maxprice=Product::max('price');
-        $sliders = Banner::get();
-        $products = Product::get();
-        $categories = Category::where('parent_id','=', 0)->get();
-        $productCounts = Category::where('parent_id','!=', 0)->with('productCategories','children')->get();
-        $subcategories = category::with('children')->get();
-         return view('frontend.home',compact('filter','sliders','categories','subcategories','products','productCounts','minprice','maxprice','products'));
-     }
- 
+     
     /** Get dynamic contacts info content from database**/
       public function contact()
       {

@@ -12,7 +12,7 @@
 						{!! Form::open(array('route' => 'userlogin','method'=>'POST','data-parsley-validate','id'=>'login-user','enctype'=>'multipart/form-data')) !!}
 					      {{ csrf_field() }}
 
-						{!! Form::text('e-mail', null, array('placeholder' => 'Email Address', 'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter Name ')) !!}
+						{!! Form::text('e-mail', null, array('placeholder' => 'Email Address', 'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter email ')) !!}
 		       		    {!! $errors->first('e-mail',  '<p class="help-block"style="color:red;">:message</p>') !!}
 
 		       		    {!! Form::password('password1', ['class' => 'form-control','placeholder'=>"Password", "",'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter Password ']) !!}

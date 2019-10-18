@@ -22,20 +22,18 @@
            <p class="trackorder">Change password</p>
       <div class="col-md-2"></div>
     <div class="profile-content col-md-6">
-
-
        {!! Form::open(array('route' => 'changepassword','method'=>'POST','data-parsley-validate','id'=>'login-user','enctype'=>'multipart/form-data')) !!}
                     {{ csrf_field() }}
                      <div class="form-group col-md-12">
-                        <input type="password" name="current_password" class="form-control"  placeholder="Current Password" value="">
+                        <input type="password" name="current_password" class="form-control"  placeholder="Current Password" data-parsley-required="true" data-parsley-required-message ="Please enter password">
                         {!! $errors->first('current_password', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="form-group col-md-12">
-                        <input type="password" name="new_password" class="form-control"  placeholder="New Password" value="">
+                        <input type="password" name="new_password" class="form-control" id="newPassword"  placeholder="New Password" data-parsley-required="true" data-parsley-required-message ="Please enter new password">
                         {!! $errors->first('new_password', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="form-group col-md-12">
-                        <input type="password" name="confirm_password" class="form-control" placeholder=" Confirm Password" value="">
+                        <input type="password" name="confirm_password" class="form-control" placeholder=" Confirm Password" data-parsley-required="true" data-parsley-required-message ="Please enter confirm password" data-parsley-equalto="#newPassword">
                         {!! $errors->first('confirm_password', '<p class="help-block">:message</p>') !!}
                     </div>
                                          

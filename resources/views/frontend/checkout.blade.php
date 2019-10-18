@@ -17,7 +17,6 @@
 				<h3></h3>
 				<ul class="nav">
 					<li>
-           
               <table class="table">
                                 <thead>
                                     <tr id="address">
@@ -71,10 +70,8 @@
 					<div class="col-sm-3">
 						<div class="shopper-info">
 							<p>Shopper Information</p>
-							<form >
-								<input type="text" placeholder="Display Name" value="{{Auth::user()->name}}">
-								<input type="text" placeholder="email" value="{{Auth::user()->email}}" >
-							</form>
+								<input type="text" placeholder="Display Name" value="{{Auth::user()->name}}" class="form">
+								<input type="text" placeholder="email" value="{{Auth::user()->email}}">
 						</div>
 					</div>
 					<div class="col-sm-9 clearfix">
@@ -84,8 +81,6 @@
 							<form id="billing" method="POST" action="{{ route('placeorder.store') }}">
                          {{ csrf_field() }}
                    <input type="hidden" name ="user_id" value="{{Auth::user()->id}}">
-                   
-                
                    
                    <input type="text" placeholder="Name" name="name" class="name">
                                      {!! $errors->first('name', '<span class="error-message">:message</span>') !!}
@@ -136,7 +131,7 @@
 		          @endif
 							<div class="form-two">
 								<p id="top">Shipping Address</p>
-							
+
 									  {{ csrf_field() }}
 							       <input type="text" class="form" placeholder="Name" name="full_name" id="fullname">
 							          {!! $errors->first('full_name', '<span class="error-message">:message</span>') !!}
@@ -177,7 +172,6 @@
 						<div class="order-message">
 							<label><input type="checkbox" class="shipping"> Shipping to bill address</label>
 						</div>	
-					
 				</div>
 			</div>
 			<div class="review-payment">
@@ -196,8 +190,8 @@
               <td></td>
             </tr>
           </thead>
-          
      
+          
           @foreach($cart as $item)
           <tbody id="updateQuantity">
             <tr>

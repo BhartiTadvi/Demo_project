@@ -18,9 +18,11 @@ class LoginController extends Controller
         $this->validate($request, [
           'e-mail' => 'required',
           'password1' => 'required']);
+          
           $users = array(
           'email'  => $request->get('e-mail'),
           'password' => $request->get('password1'));
+          
         if (Auth::attempt($users)&&Cart::content()->count() == 0) {
           return redirect()->route('home_shopper')->with('success','Log in successfully done');
        } elseif (Auth::attempt($users)&&Cart::content()->count() >= 1) {

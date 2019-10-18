@@ -35,7 +35,6 @@ Route::resource('banners', 'BannerController');
 Route::resource('category', 'CategoryController');
 Route::resource('posttable', 'PosttableController');
 Route::resource('products', 'ProductsController');
-Route::resource('product_image', 'Product_imageController');
 Route::get('/get/subcategories','CategoryController@getSubCategory')->name('getSubCategory');
 Route::resource('admin/posts', 'Admin\\PostsController');
 Route::resource('coupon/coupon', 'Coupon\\CouponController');
@@ -57,6 +56,7 @@ Route::resource('coupon/coupon', 'Coupon\\CouponController');
 Route::get('/productscateory/','Frontend\FrontendController@productCategory');
 Route::get('/get/states/','Frontend\AddressController@getState')->name('getState');
 
+Route::post('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
 
 //cart route
 Route::get('/cart', 'Frontend\CartController@index')->name('cart');
@@ -69,13 +69,12 @@ Route::post('/cartdecrementitem/','Frontend\CartController@decrementItem')->name
 Route::post('/applycoupon','Frontend\CartController@applyCoupon')->name('coupon');
 Route::post('/cancelcoupon','Frontend\CartController@cancelCoupon')->name('cancel.coupon');
 
-
-
  
 //checkout
-Route::post('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
+// Route::get('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
 Route::get('/states/','Frontend\CheckoutController@getState')->name('get.state');
 
+Route::get('/test','Frontend\CheckoutController@test');
 Route::get('/getbillingaddress/','Frontend\CheckoutController@getBillingAddress')->name('getBillingAddress');
 Route::get('/getshippingaddress/','Frontend\CheckoutController@getShippingAddress')->name('getshippingAddress');
 
@@ -105,6 +104,11 @@ Route::get('/removeWishList/{id}', 'Frontend\FrontendController@removeWishList')
 //userprofile
 Route::get('/profile', 'Frontend\ProfileController@index')->name('profile');
 Route::get('/myAccount', 'Frontend\ProfileController@userAccount')->name('user.account');
+
+Route::post('/updateProfile/{id}', 'Frontend\ProfileController@updateProfile')->name('profile.update');
+
+Route::post('/profileChange/{id}', 'Frontend\ProfileController@showUserProfile')->name('change.profile');
+
 Route::get('/trackOrder', 'Frontend\ProfileController@trackOrder')->name('track.order');
 Route::get('/order', 'Frontend\ProfileController@getOrder')->name('user.order');
 Route::get('/show-order/{id}', 'Frontend\ProfileController@showOrder')->name('show.order');
@@ -144,3 +148,5 @@ Route::resource('report', 'ReportController');
 Route::get('report', 'ReportController@index')->name('report.index');
 Route::get('/customer-report', 'ReportController@showCustomer')->name('customer.index');
 
+
+// Route::post('/placeorder/store','Frontend\CheckoutController@placeOrderNew')->name('placeorder.store');

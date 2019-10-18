@@ -31,7 +31,30 @@ class ProfileController extends Controller
           }
         return view('frontend.account',compact('profile'));
     }
+    
+      /**Edit user profile **/
+     public function showUserProfile($id)
+     {
+        $user = User::findOrFail($id);
+        return view('frontend.editprofile');
+     }
+    
+    /**Update user profile **/
+     public function updateProfile(Request $request,$id)
+     {
+        //dd($request->all());
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required'
+            ]);
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+           return redirect()->route('user.account')->with('success', 'Change profile!');
+     }
 
+    
      /**Create trackorder view **/
      public function trackOrder()
     {
@@ -97,16 +120,16 @@ class ProfileController extends Controller
     public function orderStatus(Request $request)
     {
          $this->validate($request, [
-        'emailId'=>'required',
-        'orderId'=>'required' ]);
+        'emailId'=>'required|email',
+        'orderId'=>'required|numeric' ]);
          $email=$request->emailId;
-         $orderid=$request->orderId;
+         $orderId=$request->orderId;
          $users=User::where('email',$email)->get();
          foreach($users as $user)
          {
             $user_id =$user->id;
          }
-        $orders =Order::with('orderStatus')->where('user_id',$user_id)->where('id',$orderid)->get();
+        $orders =Order::with('orderStatus')->where('user_id',$user_id)->where('id',$orderId)->get();
          Session::put('orders',$orders);
          return redirect()->route('get.status')->with('success', 'Track order!');
     }
