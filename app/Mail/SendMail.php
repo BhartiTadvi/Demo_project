@@ -23,11 +23,7 @@ class SendMail extends Mailable
     {
         //
          $this->Userdata = $Userdata;
-      
-
-
     }
-
     /**
      * Build the message.
      *
@@ -35,7 +31,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-       
+
       $viewtemplates = EmailTemplate::where('template_key',$this->Userdata['template_key'])->get();
         foreach($viewtemplates as $template)
         {
@@ -45,12 +41,12 @@ class SendMail extends Mailable
        return $this->from('bhartitadvi081@gmail.com')->view('mail_template')->with('template',$template);
 
     }
-    
-    public function replace($template,$Userdata){
+    public function replace($template,$Userdata)
+    {
             foreach( $Userdata as $key => $data)
             {
             $template = str_replace('{{'.$key.'}}', $data,$template);     
             }
             return $template;
-        }
+    }
 }

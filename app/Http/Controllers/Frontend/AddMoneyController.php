@@ -99,45 +99,45 @@ class AddMoneyController extends Controller
         $data  =  Cart::content();
         $address = new Address();
         $addresses = Address::get();
-        if($address->id != 0)
-         {
-         $address->name = $request->full_name;
-        $address->address1 = $request->address1;
-        $address->address2 = $request->address2;
-        $address->country_id = $request->country;
-        $address->state_id = $request->state;
-        $address->city = $request->city;
-        $address->zipcode = $request->zipcode;
-        $address->mobileno = $request->phone;
-        $address->user_id = Auth::user()->id;
-         $address->save();
-         }  
+        if($address->id != 0){
+            $address->name = $request->full_name;
+            $address->address1 = $request->address1;
+            $address->address2 = $request->address2;
+            $address->country_id = $request->country;
+            $address->state_id = $request->state;
+            $address->city = $request->city;
+            $address->zipcode = $request->zipcode;
+            $address->mobileno = $request->phone;
+            $address->user_id = Auth::user()->id;
+            $address->save();
+          }  
        
-        $orders = new Order();
-        $orders->user_id  = Auth::user()->id;
-        $orders->address_id = $request->address_id;
-        $orders->subtotal = $request->subtotal;
-        $orders->order_date = now();
-        $orders->discount_amount = $request->discount_amount;
-        $orders->total = $request->grandtotal;
-        $orders->shipping_charge = $request->shippingcost;
-        $orders->save(); 
+           $orders = new Order();
+           $orders->user_id  = Auth::user()->id;
+           $orders->address_id = $request->address_id;
+           $orders->subtotal = $request->subtotal;
+           $orders->order_date = now();
+           $orders->discount_amount = $request->discount_amount;
+           $orders->total = $request->grandtotal;
+           $orders->shipping_charge = $request->shippingcost;
+            $orderId =$orders->id;
+           $orders->save(); 
        
         $count=count($request->product_id);
         for($i=0;$i<$count;$i++)
         {
-          $productorders = new Product_Order();
-          $productorders->product_id = $request->product_id[$i];
-          $productorders->order_id = $request->order_id;
-          $productorders->quantity = $request->quantity1[$i];
-          $productorders->save();
+          $productOrders = new Product_Order();
+          $productOrders->product_id = $request->product_id[$i];
+          $productOrders->order_id = $orderId;
+          $productOrders->quantity = $request->quantity1[$i];
+          $productOrders->save();
         }
          
-        $orderdetails = new OrderDetail();
-        $orderdetails->order_id =$request->order_id;
-        $orderdetails->payment_mode =$request->submit;
-        $orderdetails->save();
-        
+          $orderDetails = new OrderDetail();
+          $orderDetails->order_id =$orderId;
+          $orderDetails->payment_mode =$request->submit;
+          $orderDetails->save();
+            
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         
@@ -218,10 +218,10 @@ class AddMoneyController extends Controller
         
         if ($result->getState() == 'approved') { 
           $order_id= Session::get('order_id');
-          $orderdetails =new OrderDetail();
-          $orderdetails->order_id =$order_id;
-          $orderdetails->transaction_id = $result->id;
-          $orderdetails->save();
+          $orderDetails =new OrderDetail();
+          $orderDetails->order_id =$order_id;
+          $orderDetails->transaction_id = $result->id;
+          $orderDetails->save();
          
             \Session::put('success','Payment success');
             return Redirect::route('addmoney.paywithpaypal');

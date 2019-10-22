@@ -24,21 +24,25 @@
       <div class="col-md-2"></div>
     <div class="profile-content col-md-12">
         <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Address1</th>
-                                        <th>Address2</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($address as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td><td>{{ $item->address1 }}</td><td>{{ $item->address2 }}</td>
-                                        <td>
+           <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Address1</th>
+                  <th>Address2</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                   <tbody>
+                      @foreach($address as $item)
+                         <tr>
+                           <td>{{ $loop->iteration }}</td>
+                             <td>{{ $item->name }}</td>
+                                 <td style="width:200p">
+                                  ]{{ $item->address1 }}</td>
+                                    <td style="width:200px">
+                                      {{ $item->address2 }}</td>
+                                      <td>
                                             <a href="{{ route('address.show', ['id'=>$item->id] ) }}" title="View address"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ route('address.edit', ['id'=>$item->id] )}}"
                                              title="View address"><button class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
@@ -53,14 +57,9 @@
                                 @endforeach
                                 </tbody>
                             </table>
-
-       
-
-    </div>
-  </div>
-</div>
-</section>
- 
-
+                       </div>
+                      </div>
+                    </div>
+        </section>
 
 @endsection

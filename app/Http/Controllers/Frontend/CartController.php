@@ -30,14 +30,14 @@ class CartController extends Controller
      $sliders = Banner::get();
      $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->get();
      $categories = Category::where('parent_id','=', 0)->get();
-     $subcategories = category::with('children')->get();
+     $subCategories = category::with('children')->get();
      $productCounts = Category::where('parent_id','!=', 0)->with('productCategories','children')->get();
      $minprice=Product::min('price');
      $maxprice=Product::max('price');
-     $filter = Product::whereBetween('price',[$minprice,$maxprice])->get();
+    
      return view('frontend.home',[
          'data' => Cart::content()
-       ,'sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'filter'=>$filter]);
+       ,'sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subCategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice]);
      }
 
      /** Show cart details **/
@@ -63,29 +63,29 @@ class CartController extends Controller
        $productPrice = $request->priceu;
        $qty++;
        $subTotal = $subTotal+$productPrice;
-       $coupontype=$request->coupontype;
-       $couponvalue=$request->couponvalue;
-        if($couponvalue == null)
+       $couponType=$request->coupontype;
+       $couponValue=$request->couponvalue;
+        if($couponValue == null)
         {
-          $couponvalue=0;
+          $couponValue=0;
         }
         $coupons = Coupon::get();
       if($coupons == null)
       {
          return response()->json(['coupon' =>$coupon]);
       }
-           if($coupontype == 0)
+           if($couponType == 0)
              {
-              $couponamount = $subTotal-$couponvalue; 
-               $total=$couponamount;
+              $couponAmount = $subTotal-$couponValue; 
+               $total=$couponAmount;
              }
             else{
-                $couponamount =$subTotal*($couponvalue/100);
-                $total=$subTotal-$couponamount;
+                $couponAmount =$subTotal*($couponValue/100);
+                $total=$subTotal-$couponAmount;
                 }
        $update = Cart::update($rowId, $qty);
        $updateprice= $update->subtotal();
-         return response()->json(['quantity' =>$update,'updateprice' =>$updateprice, 'subTotal' => $subTotal,'couponvalue' => $couponvalue,'couponamount' =>$couponamount,'total' =>$total]);
+         return response()->json(['quantity' =>$update,'updateprice' =>$updateprice, 'subTotal' => $subTotal,'couponvalue' => $couponValue,'couponamount' =>$couponAmount,'total' =>$total]);
     }
         
      /** Decrement Quantity of product **/
@@ -96,30 +96,30 @@ class CartController extends Controller
        $productPrice = $request->priceu;
        $qty--;
        $subTotal = $subTotal-$productPrice;
-       $coupontype=$request->coupontype;
-       $couponvalue=$request->couponvalue;
-       if($couponvalue == null)
+       $couponType=$request->coupontype;
+       $couponValue=$request->couponvalue;
+       if($couponValue == null)
         {
-          $couponvalue=0;
+          $couponValue=0;
         }
        $coupons = Coupon::get();
       if($coupons == null)
           {
              return response()->json(['coupon' =>$coupon]);
           }
-           if($coupontype == 0)
+           if($couponType == 0)
              {
-              $couponamount = $subTotal-$couponvalue; 
-               $total=$couponamount;
+              $couponAmount = $subTotal-$couponValue; 
+               $total=$couponAmount;
              }
             else{
-                $couponamount =$subTotal*($couponvalue/100);
-                $total=$subTotal-$couponamount;
+                $couponAmount =$subTotal*($couponValue/100);
+                $total=$subTotal-$couponAmount;
                 }
       $update = Cart::updateDecrement($rowId, $qty);
       $updateprice= $update->subtotal();
-      return response()->json(['quantity' =>$update,'updateprice' =>$updateprice,'subTotal' => $subTotal,'couponvalue' => $couponvalue,'couponamount' =>$couponamount,'total' =>$total]);
-    }
+      return response()->json(['quantity' =>$update,'updateprice' =>$updateprice,'subTotal' => $subTotal,'couponvalue' => $couponValue,'couponamount' =>$couponAmount,'total' =>$total]);
+     }
     
     /** Remove cart details form cart **/
     public function removeItem($id){
@@ -143,19 +143,21 @@ class CartController extends Controller
      else{
       if($coupons->type == 0)
              {
-              $couponamount = $subTotal-$coupons->discount; 
-              $total=$couponamount;
+              $couponAmount = $subTotal-$coupons->discount; 
+              $total=$couponAmount;
              }
             else{
-                $couponamount =$subTotal*($coupons->discount/100);
-                $total=$subTotal-$couponamount;
+                $couponAmount =$subTotal*($coupons->discount/100);
+                $total=$subTotal-$couponAmount;
                 }
            $discounttype=$coupons->type;
            $coupon_id=$coupons->id;
            $discount=$coupons->discount;
-                   Session::put('discounttype',$discounttype);
-                   Session::put('discount',$discount);
-        return response()->json(['couponamount' =>$couponamount,'total' =>$total,'total' =>$total,'discounttype' =>$discounttype,'discount' =>$discount,'coupon_id' =>$coupon_id]);
+           Session::put('discounttype',$discounttype);
+           Session::put('discount',$discount);
+           Session::put('total',$total);
+           Session::put('coupon_id',$coupon_id);
+        return response()->json(['couponamount' =>$couponAmount,'total' =>$total,'discounttype' =>$discounttype,'discount' =>$discount,'coupon_id' =>$coupon_id]);
     }
      }
      public function cancelCoupon(Request $request)

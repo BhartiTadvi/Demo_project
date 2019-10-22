@@ -1,6 +1,11 @@
 @extends('frontend.layouts.master')
-
+ <?php 
+  $total=Session::get('total');
+  $discountAmount =Session::get('discount');
+  $couponId=Session::get('coupon_id');
+  ?>
 @section('content')
+<form id="billing" method="POST" action="{{ route('placeorder.store') }}" data-parsley-validate="parsley">
 <section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -9,7 +14,6 @@
 				  <li class="active">Check out</li>
 				</ol>
 			</div><!--/breadcrums-->
-
 			<div class="step-one">
 				<h2 class="heading"></h2>
 			</div>
@@ -40,6 +44,8 @@
                                       <td class="address">
                                     <input type="radio" name="address" class="billing" data-id="{{$address->id}}">
                                     <input type="hidden" name ="address_id" value="{{$address->id}}">
+                                     <input type="hidden" name ="country_id" class="country_id" value="{{$address->country_id}}">
+                                     <input type="hidden" name ="state_id" class="state_id" value="{{$address->state_id}}">
                                          </td>
                                         <td class="name">{{$address->name}}</td>
                                         <td class="mobileno">{{$address->mobileno}}</td>
@@ -53,7 +59,6 @@
                                 </tbody>
                                 @endforeach 
                                 </table>
-
 					          </li>
 					<!-- <li>
 						<a href=""><i class="fa fa-times"></i>Cancel</a>
@@ -71,49 +76,49 @@
 						<div class="shopper-info">
 							<p>Shopper Information</p>
 								<input type="text" placeholder="Display Name" value="{{Auth::user()->name}}" class="form">
-								<input type="text" placeholder="email" value="{{Auth::user()->email}}">
+								<input type="text" placeholder="email" value="{{Auth::user()->email}}"  class="form">
 						</div>
 					</div>
 					<div class="col-sm-9 clearfix">
+           
 						<div class="bill-to">
 							<p>Billing Address</p>
-							<div class="form-one" id="billing" >
-							<form id="billing" method="POST" action="{{ route('placeorder.store') }}">
+							<div class="form-one" id="billing">
                          {{ csrf_field() }}
                    <input type="hidden" name ="user_id" value="{{Auth::user()->id}}">
-                   
-                   <input type="text" placeholder="Name" name="name" class="name">
-                                     {!! $errors->first('name', '<span class="error-message">:message</span>') !!}
+
+                   <input type="text" placeholder="Name" name="name" class="name form" data-parsley-required="true">
+                   {!! $errors->first('name', '<span class="error-message">:message</span>') !!}
 									
-								    <input type="text" placeholder="Phone number" name="phone_number" class="phone">
+								    <input type="text" placeholder="Phone number" name="phone_number" class="phone form" data-parsley-required="true"  data-parsley-type="digits" data-parsley-minlength="10" data-parsley-maxlength="10">
 								     {!! $errors->first('phone_number', '<span class="error-message">:message</span>') !!}
             					   
-            					    <input type="text" name="zip_code" placeholder="Zip / Postal Code *"
-            					   class="zip">
-            					    {!! $errors->first('zip_code', '<span class="error-message">:message</span>') !!}
+            				 <input type="text" name="zip_code" placeholder="Zip / Postal Code *" class="zip form" data-parsley-required="true"  data-parsley-type="digits" data-parsley-minlength="6" data-parsley-maxlength="6">
+            				 {!! $errors->first('zip_code', '<span class="error-message">:message</span>') !!}
                                   
-                                    <input type="text" placeholder="city *"name="billing_city" class="city">
-									 {!! $errors->first('billing_city', '<span class="error-message">:message</span>') !!}
+                      <input type="text" placeholder="city *"name="billing_city" class="city form" data-parsley-required="true">
 
-                                     <input type="text" placeholder="address1 *"name="billing_address1" class="addreessline1">
-									 {!! $errors->first('billing_address1', '<span class="error-message">:message</span>') !!}
+									   {!! $errors->first('billing_city', '<span class="error-message">:message</span>') !!}
+
+                     <input type="text" placeholder="address1 *"name="billing_address1" class="addreessline1 form" data-parsley-required="true">
+
+									  {!! $errors->first('billing_address1', '<span class="error-message">:message</span>') !!}
 									
-									 <input type="text" placeholder="Address2 *"name="billing_address2"  class="addreessline2">
+									 <input type="text" placeholder="Address2 *"name="billing_address2"  class="addreessline2 form" data-parsley-required="true">
 									
 									 {!! $errors->first('billing_address2', '<span class="error-message">:message</span>') !!}
 									 
-                    <select class="country" name="country1" id="country">
-										<option>-- Country--</option>
+                    <select class="country" name="country1" id="country" data-parsley-required="true">
+                      <option >-- Country--</option>
 										@foreach($countries as $country)
-                        
 						            <option value="{{$country->id}}">{{$country->country_name}}
 									    </option>
 										@endforeach
 									</select><br/><br/>
 									 {!! $errors->first('country', '<span class="error-message">:message</span>') !!}
 
-									<select name="state1" class="state" id="state">
-								
+									<select name="state1" class="state" id="state" data-parsley-required="true">
+								  <option value="">States</option>
 									<option value="{{$country->id}}" class="state" ></option>
 									</select>
 									 {!! $errors->first('state', '<span class="error-message">:message</span>') !!}
@@ -133,26 +138,26 @@
 								<p id="top">Shipping Address</p>
 
 									  {{ csrf_field() }}
-							       <input type="text" class="form" placeholder="Name" name="full_name" id="fullname">
+							     <input type="text" class="form" placeholder="Name" name="full_name" id="fullname" data-parsley-required="true">
 							          {!! $errors->first('full_name', '<span class="error-message">:message</span>') !!}
 
-									<input type="text" class="form" placeholder="Phone number" name="phone" id="Phone_number">
+									<input type="text" class="form" placeholder="Phone number" name="phone" id="Phone_number" data-parsley-required="true"  data-parsley-type="digits" data-parsley-minlength="10" data-parsley-maxlength="10">
 									 {!! $errors->first('phone', '<span class="error-message">:message</span>') !!}
-									<input type="text" class="form" placeholder="Zip / Postal Code *"name="zipcode" id="zipcode">
+									<input type="text" class="form" placeholder="Zip / Postal Code *"name="zipcode" id="zipcode" data-parsley-required="true" data-parsley-type="digits" data-parsley-minlength="6" data-parsley-maxlength="6">
 									 {!! $errors->first('zipcode', '<span class="error-message">:message</span>') !!}
 									
-									<input type="text" class="form" placeholder="city *"name="city" id="city">
+									<input type="text" class="form" placeholder="city *"name="city" id="city" data-parsley-required="true">
 									
 									 {!! $errors->first('city', '<span class="error-message">:message</span>') !!}
 									
-									 <input type="text" class="form" placeholder="Address1 *"name="address1" id="address1">
+									 <input type="text" class="form" placeholder="Address1 *"name="address1" id="address1" data-parsley-required="true">
 									
 									 {!! $errors->first('address1', '<span class="error-message">:message</span>') !!}
-									 <input type="text" class="form" placeholder="Address2 *"name="address2" id="address2">
+									 <input type="text" class="form" placeholder="Address2 *"name="address2" id="address2" data-parsley-required="true">
 									
 									 {!! $errors->first('address2', '<span class="error-message">:message</span>') !!}
-            					  <select class="country" name="country" id="country1">
-										<option>-- Country--</option>
+            			 <select class="country1" name="country" id="country1" data-parsley-required="true">
+										<option value="">-- Country--</option>
 										@foreach($countries as $country)
 						              <option value="{{$country->id}}">{{$country->country_name}}
 									    </option>
@@ -160,7 +165,8 @@
 									</select><br/><br/>
 									 {!! $errors->first('country', '<span class="error-message">:message</span>') !!}
 									
-									<select name="state" class="state1" id="state1">
+									<select name="state" class="state1" id="state1"data-parsley-required="true">
+                    <option value="">States</option>
 									<option value="{{$states[0]->id}}"></option>
 									</select>
 									 {!! $errors->first('state', '<span class="error-message">:message</span>') !!}
@@ -168,7 +174,6 @@
 						</div>
 					</div>
 					<div class=col-sm-8></div>
-
 						<div class="order-message">
 							<label><input type="checkbox" class="shipping"> Shipping to bill address</label>
 						</div>	
@@ -190,47 +195,39 @@
               <td></td>
             </tr>
           </thead>
-     
           
-          @foreach($cart as $item)
+          @foreach(Cart::content() as $item)
           <tbody id="updateQuantity">
             <tr>
               <td class="cart_product">
                 <a href="">
               
                  <a href="">
-                <img src="{{$item['product_image']}}" height="84" width="85" 
+                <img src="{{asset('uploads/'.$item->options->product_image)}}" height="84" width="85" 
                   alt="img">
                 </a>
                 </a>
               </td>
               <td class="cart_description">
-                <h4><a href="">{{$item['product_name']}}</a></h4>
-               coupon
-                <input type="hidden" name="product_id[]" value="{{$item['product_id']}}">
-                 <input type="hidden" name="productname[]" value="{{$item['product_name']}}">
-
+                <h4><a href="">{{$item->name}}</a></h4>
+                <input type="hidden" name="product_id[]" value="{{$item->id}}">
+                 <input type="hidden" name="productname[]" value="{{$item->name}}">
               </td>
               <td class="cart_price">
-              <input type="hidden" name="price" value="{{$item['product_price']}}">
-
-                <p>{{$item['product_price']}}</p>
+              <input type="hidden" name="price" value="{{$item->price}}">
+                <p>{{$item->price}}</p>
               </td>
               <td class="cart_quantity">
-               
-
-               <div class="cart_quantity_button">
-
-          
+             <div class="cart_quantity_button">
             <label class="cart_up" for="disabled">+</label><br>
-             <input type="hidden" name="quantity1[]" value=" {{$item['quantity']}}">
-              <input class="cart_quantity_input" type="text" name="quantity" value="{{$item['quantity']}}" autocomplete="off" size="1" min="1" disabled>
+             <input type="hidden" name="quantity1[]" value=" {{$item->qty}}">
+              <input class="cart_quantity_input" type="text" name="quantity" value="{{$item->qty}}" autocomplete="off" size="1" min="1" disabled>
                <label class="cart_down" for="disabled">-</label><br>
                 </div>
               </td>
               <td class="cart_total">
                 <p class="cart_total_price">
-                  {{$item['product_price']*$item['quantity']}}
+                  {{$item->price*$item->qty}}
                  </p>
               </td>
               <td class="cart_delete">
@@ -246,20 +243,18 @@
 				<div class="col-sm-6">
 	          	 <div class="total_area">
 	            <ul>
-	                   <li>Cart Sub Total<span id="subTotal">{{$subTotal}}</span>
-                      <input type="hidden" name ="subtotal" value="{{$subTotal}}">    
+	                   <li>Cart Sub Total<span id="subTotal">{{Cart::total()}}</span>
+                      <input type="hidden" name ="subtotal" value="{{Cart::total()}}">    
                      </li>
-               <li>Shipping Cost <span id="shippingCost">${{$ShippingCost}}</span>
-               <input type="hidden" name="discount_amount" value="{{$discount_amount}}">
-                <input type="hidden" name="coupon_id" value="{{$coupon_id}}">
+               <li>Shipping Cost <span id="shippingCost">{{$total<500 ? 50 : 0}}</span>
+               <input type="hidden" name="discount_amount" value="{{$discountAmount}}">
+               <input type="hidden" name="coupon_id" value="{{$couponId}}">
 
-                <input type="hidden" name ="shippingcost" value="{{$subTotal<500 ? 50 : 0}}">  
+                <input type="hidden" name ="shippingcost" value="{{$total<500 ? 50 : 0}}">  
                 </li>
-               <input type="hidden" name ="coupon" value="                {{$coupon}}">  
-
                 <li>Total <span id="grandTotal">
-                  ${{$grandTotal}}</span>
-                   <input type="hidden" name ="grandtotal" value="{{$grandTotal}}">  
+                  ${{$total}}</span>
+                   <input type="hidden" name ="grandtotal" value="{{$total}}">  
                 </li>
 	            </ul>
 	          </div>
@@ -275,18 +270,17 @@
 					<span>
 						<label>
             <input type="hidden" name="paymentmode1" value="paypal" />
-  
               <input type="radio" name="payment"  id ="paypal"> Paypal</label>
 					</span>
-
 			
-			<input type="submit" id="hideplaceorder" name="submit" class="check_out btn-block"style="width: 101px;" value="placeorder"/>
+			<input type="submit" id="hideplaceorder" name="submit" class="check_out btn-block"style="width: 101px;" value="Placeorder"/>
 			<button type="submit" value="1" id="showcod" name="submit" class="check_out btn-block"style="width: 150px;"> Cash on delivery </button>
       <button  id="showpaypal" class="btn btn-primary btn-md" value="0" formaction="{{route('addmoney.paypal')}}" id="formButton" name="submit" style="margin-left:50px;margin-bottom:10px;" formmethod="POST">Pay with Paypal</button>
-   			</form>
+   	
 				</div>
 			</div>
 	</section> <!--/#cart_items-->
+</form>
 @endsection
 
 @section('script')
@@ -295,7 +289,6 @@
   $(document).ready(function(){
 
        $('.billing').on('click', function(e) {
-
        	  var $row = $(this).closest("tr");    
           var $name = $row.find(".name").text(); 
           var $mobileno = $row.find(".mobileno").text();
@@ -303,22 +296,21 @@
           var $zipcode = $row.find(".zipcode").text(); 
           var $address1 = $row.find(".address1").text(); 
           var $address2= $row.find(".address2").text(); 
-          var $country= $row.find(".country").text(); 
-          var $state= $row.find(".state").text(); 
-          //alert($state);   
+          var $country= $row.find(".country_id").val();
+          var $state= $row.find(".state_id").val(); 
+          // alert($state);  
          if($(this).is(":checked"))
          {
-     
-         	//alert('hi');
            var name = $('.name').val($name);
            var mobileno = $('.phone').val($mobileno);
            var city = $('.city').val($city);
            var zipcode = $('.zip').val($zipcode);
            var address1 = $('.addreessline1').val($address1);
            var address2 = $('.addreessline2').val($address2);
-           var country =$('.country :selected').text($country);
-           var state = $('.state :selected').text($state);
-
+           //var country =$('.country :selected').val($country);
+           $(".country option[value="+$country+"]").attr('selected', 'selected');
+           $(".state option[value="+$state+"]").attr('selected', 'selected');
+           //var state = $('.state :selected').val($state);
          }
           else{
            var name = $('.name').val();
@@ -342,10 +334,10 @@
            var shippingzip = $('.zip').val();
            var shippingaddress1 = $('.addreessline1').val();
            var shippingaddress2 = $('.addreessline2').val();
-           var shippingcountry = $('.country :selected').text();
-           var shippingstate = $('.state :selected').text();
+           var shippingcountry = $('.country :selected').val();
+           var shippingstate = $('.state :selected').val();
 
-           //alert(shippingname);
+           // alert(shippingcountry);
 
            if($(this).is(":checked"))
            {
@@ -355,8 +347,8 @@
            var zipcode = $('#zipcode').val(shippingzip);
            var address1 = $('#address1').val(shippingaddress1);
            var address2 = $('#address2').val(shippingaddress2);
-           var country =$('.country1 :selected').text(shippingcountry);
-           var state = $('.state1 :selected').text(shippingstate);
+            $(".country1 option[value="+shippingcountry+"]").attr('selected', 'selected');
+            $(".state1 option[value="+shippingstate+"]").attr('selected', 'selected');
            }
            else{
            var name = $('#fullname').val();
@@ -368,7 +360,6 @@
            var country =$('.country1 :selected').text();
            var state = $('.state1 :selected').text();
            }
-
          });
         $('#country1').on('change', function(e){
       
@@ -383,15 +374,13 @@
      });
    });
     
-  //    $("#CartMsg").hide();
-    //$('#CartTotal').hide();
-    $('#showcod').hide();
-		$('#cod').click(function() {
-		
-		$('#showcod').show();
-		$('#showpaypal').hide(); 
+      $('#showcod').hide();
+  		$('#cod').click(function() {
+  		
+  		$('#showcod').show();
+  		$('#showpaypal').hide(); 
 
-		});
+  		});
 		 $('#cod').click(function(){
        $('#hidecod').hide();
        });
@@ -407,14 +396,11 @@
        $('#showpaypal').show();
        $('#showcod').hide();
        $('#hideplaceorder').hide();
-
-
        });
 
      $('#country').on('change', function(e){
       
     var country_id = e.target.value;
-      // alert('hi');
     console.log(country_id);
     $.get('/get/states/?country_id=' + country_id, function(response){
     $('#state').empty();
@@ -423,16 +409,42 @@
       });
      });
    });
+
+    $('.billing').click(function(e){
+    var country_id = $('.country_id').val();
+    var state_id =$('.state_id').val();
+    $.get('/get/states/?country_id=' + country_id, function(response){
+    $('#state').empty();
+    $.each(response, function(index, stateObj){
+      if(state_id == stateObj.id)
+      {
+         $('#state').append('<option value="'+ stateObj.id +'" selected>'+ stateObj.state_name+'</option>');
+      }
+      else{
+        $('#state').append('<option value="'+ stateObj.id +'">'+ stateObj.state_name+'</option>');
+      }
      
+      });
+     });
 
+     });
+    $('.shipping').click(function(e){
+     var country_id = $('.country :selected').val();
+     var state_id =$('.state :selected').val();
+      $.get('/get/states/?country_id=' + country_id, function(response){
+          $('#state1').empty();
+          $.each(response, function(index, stateObj){
+         if(state_id == stateObj.id){
+         $('#state1').append('<option value="'+ stateObj.id +'" selected>'+ stateObj.state_name+'</option>');
+         }
+      else{
+        $('#state1').append('<option value="'+ stateObj.id +'">'+ stateObj.state_name+'</option>');
+      }
+     
+      });
+     });
+
+     });
 });
-
-   
-
-
-
-       
-   
-  
   </script>
 @endsection

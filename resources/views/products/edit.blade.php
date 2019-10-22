@@ -16,7 +16,7 @@
                     <option value="">Select Category</option>
                     @foreach($categories as $category)
                     @if($category->parent_id == 0)
-                    <option value={{$category->id}}@if($product->categories[0]->parent_id == $category->id) selected="selected" @endif>
+                    <option value="{{$category->id}}"@if($product->categories[0]->parent_id == $category->id) selected="selected" @endif>
                         {{$category->name}}
                     </option>
                     @endif

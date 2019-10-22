@@ -21,7 +21,9 @@
                                 @foreach($address as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td><td>{{ $item->address1 }}</td><td>{{ $item->address2 }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td style="width:300px">{{ $item->address1 }}</td>
+                                        <td style="width:300px">{{ $item->address2 }}</td>
                                         <td>
                                             <a href="{{ url('/address/' . $item->id) }}" title="View address"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/address/' . $item->id . '/edit') }}" title="Edit address"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

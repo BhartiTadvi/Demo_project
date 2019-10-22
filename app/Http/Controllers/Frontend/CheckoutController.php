@@ -24,6 +24,27 @@ use App\Http\Requests\CheckoutRequest;
 class CheckoutController extends Controller
 {
     /** Get cart details from cart **/
+    public function test()
+    {
+      if(Auth::user()){
+      $total=0;
+      foreach(Cart::content() as $item)
+         {
+            $total=$total+($item->qty*$item->price);
+         }
+      $countries = Country::get();
+      $states = State::get();
+      $user = User::get();
+      $orders  =  Order::get();
+      $user_id = Auth::user()->id;
+      $orders  =  Order::get();
+      $addresses = Address::with('country','state')->where('user_id',$user_id)->get();
+       }else{
+             return view('frontend.login');
+          }
+       return view('frontend.checkout',compact('countries','user','states','addresses','orders'));
+
+    }
     public function index(Request $request)
     {
         if(Auth::user())
@@ -80,26 +101,8 @@ class CheckoutController extends Controller
     
     /** store order details **/
     public function placeOrder(CheckoutRequest $request){
-        $coupon=$request->coupon;
-          // $this->validate($request, [
-          //   'full_name' => 'required',
-          //   'phone' => 'required',
-          //   'zipcode' => 'required',
-          //   'country' => 'required',
-          //   'state' => 'required',
-          //   'city' => 'required',
-          //   'address1' => 'required',
-          //   'address2' => 'required',
-          //   'name' => 'required',
-          //   'phone_number' => 'required',
-          //   'phone' =>'required',
-          //   'zip_code' => 'required',
-          //   'country1' => 'required',
-          //   'billing_city' =>'required',
-          //   'state1' => 'required',
-          //   'billing_address1' => 'required',
-          //   'billing_address2' => 'required',
-          //   ]);
+        $coupon_id=$request->coupon_id;
+        
         DB::beginTransaction();
       try{
           $countries = Country::get();
@@ -118,10 +121,9 @@ class CheckoutController extends Controller
                   $addresses->zipcode = $request->zipcode;
                   $addresses->mobileno = $request->phone;
                   $addresses->user_id = Auth::user()->id;
-                   dd($request->all());
+                  // dd($request->all());
                   $addresses->save();
 
-                  
                   $address = new Address();
                   $address->name = $request->name;
                   $address->address1 = $request->billing_address1;
@@ -134,9 +136,7 @@ class CheckoutController extends Controller
                   $address->user_id = Auth::user()->id;
                   $address->save();
                   $addresses->id= $addresses->id;
-                   // dd($addresses->id);
                 }  
-
                   $orders = new Order();
                   $orders->user_id  = Auth::user()->id;
                   if( $request->address_id){
@@ -150,27 +150,31 @@ class CheckoutController extends Controller
                   $orders->discount_amount = $request->discount_amount;
                   $orders->coupon_code_id = $request->coupon_id;
                   $orders->save();
+                  $orderId =$orders->id;
                   $price=0;
+          
                   $count=count($request->product_id);
+                  
                   for($i=0;$i<$count;$i++)
                   {
                     $productorders = new Product_Order();
                     $productorders->product_id = $request->product_id[$i];
-                    $productorders->order_id = $request->order_id;
+                    $productorders->order_id = $orderId;
                     $productorders->quantity = $request->quantity1[$i];
                     $productorders->save();
                   }
                    $orderdetails = new OrderDetail();
-                   $orderdetails->order_id =$request->order_id;
+                   $orderdetails->order_id =$orderId;
                    $orderdetails->payment_mode =$request->submit;
                    $codtransactionid = str_random(10);
                    $orderdetails->transaction_id =$codtransactionid;
                    $orderdetails->save();
-
-                  $coupons=Coupon::where('code',$coupon)->first();
-                  $coupons->remaining_quantity = $coupons->remaining_quantity -1;
-                  $coupons->save();
-                  DB::commit();
+                   
+                   $coupons=Coupon::where('id',$coupon_id)->first();
+                 
+                   $coupons->remaining_quantity = $coupons->remaining_quantity -1;
+                   $coupons->save();
+                   DB::commit();
 
          $view = '<table border="1" cellpadding="10px" width="100%">
                     <thead>

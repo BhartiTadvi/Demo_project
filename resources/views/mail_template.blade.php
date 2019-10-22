@@ -6,14 +6,8 @@
 
 <body>
 	<?php
-	//echo $template;exit;
     echo htmlspecialchars_decode($template);
-?>
-
-
-
-
-	
+   ?>
 </body>
 
 </html>

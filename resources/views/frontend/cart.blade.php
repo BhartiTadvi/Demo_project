@@ -1,12 +1,10 @@
   <?php 
   $total=Session::get('total');
   ?>
-  @extends('frontend.layouts.master')
+@extends('frontend.layouts.master')
 
 @section('content')
- <form  method="POST" action="{{ route('create.checkout') }}">
   <section id="cart_items">
-    {{ csrf_field() }}
     <div class="container">
       <div class="breadcrumbs">
         <ol class="breadcrumb">
@@ -110,9 +108,10 @@
                 <li>Total <span id="grandTotal">
                   {{$total<500 ? $total+50 : $total}}</span></li>
             </ul>
-           <input type="submit" name="checkout" class="btn btn-default check_out" value="Checkout">
+             <a href="{{route('checkout.test') }}">
+           <input type="submit" name="checkout" class="btn btn-default check_out" value="Checkout"></a>
             </div>
-                </form>
+                
         </div>
       </div>
     </div>
@@ -259,8 +258,6 @@
          $('#discounttype').val(response.discounttype);
          $('#discountvalue').val(response.discount);
          $('#invalid_coupon').text('');
-
-
             }
           }
         });

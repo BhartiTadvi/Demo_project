@@ -48,7 +48,11 @@ class AddressController extends Controller
             'name'=>'required',
             'address1'=>'required',
             'address2'=>'required',
-            'mobileno'=>'required|max:50'
+            'mobileno'=>'required',
+            'country'=>'required',
+            'state'=>'required',
+            'city'=>'required',
+            'zipcode'=>'required',
             ]);
         $address = new Address();
         $address->name = $request->name;

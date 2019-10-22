@@ -7,14 +7,7 @@
               <div class="card">
                  <div class="title text-center">Create New address</div>
                     <div class="card-body">
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-                        <form method="POST" action="{{ url('/address') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/address') }}" accept-charset="UTF-8" class="form-horizontal"  data-parsley-validate="parsley" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include ('frontend.address.form', ['formMode' => 'create'])

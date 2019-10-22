@@ -56,7 +56,7 @@ Route::resource('coupon/coupon', 'Coupon\\CouponController');
 Route::get('/productscateory/','Frontend\FrontendController@productCategory');
 Route::get('/get/states/','Frontend\AddressController@getState')->name('getState');
 
-Route::post('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
+// Route::post('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
 
 //cart route
 Route::get('/cart', 'Frontend\CartController@index')->name('cart');
@@ -71,10 +71,11 @@ Route::post('/cancelcoupon','Frontend\CartController@cancelCoupon')->name('cance
 
  
 //checkout
-// Route::get('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
+Route::get('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
+
 Route::get('/states/','Frontend\CheckoutController@getState')->name('get.state');
 
-Route::get('/test','Frontend\CheckoutController@test');
+Route::get('/test','Frontend\CheckoutController@test')->name('checkout.test');
 Route::get('/getbillingaddress/','Frontend\CheckoutController@getBillingAddress')->name('getBillingAddress');
 Route::get('/getshippingaddress/','Frontend\CheckoutController@getShippingAddress')->name('getshippingAddress');
 

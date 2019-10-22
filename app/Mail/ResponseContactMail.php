@@ -44,5 +44,5 @@ class ResponseContactMail extends Mailable
             $template = str_replace('{{'.$key.'}}', $response_mail,$template);     
             }
             return $template;
-        }
+       }
 }

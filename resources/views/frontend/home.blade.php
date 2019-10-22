@@ -80,8 +80,6 @@
 									@endforeach
 								</ul>
 							</div>
-							
-							
 						</div><!--/brands_products-->
 						
 						<div class="price-range"><!--price-range-->
@@ -102,13 +100,13 @@
 				</div>
 				@if ($message = Session::get('success'))
 			            <p style="color:green;margin-left:200px">{{ $message }}</p>
-                     @endif
+                @endif
 				<div class="col-sm-9 padding-right">
 
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
 						<!-- $productwish
- -->                        @foreach($products as $product)
+ -->                    @foreach($products as $product)
                         @foreach($product->productImage as $image)
                         @endforeach
 						<div class="col-sm-4">
@@ -119,9 +117,7 @@
 											<img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=190px width=121px;/>
 											<h2><i class="fa fa-inr"></i> {{$product->price}} </h2>
 											<p>{{$product->productname}} </p>
-
-
-											<a href="{{ route('add.cart', ['id'=>$product->id])}}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+											
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
@@ -140,8 +136,9 @@
 									<input type="hidden" name="product_id" value="{{$product->id}}">
 									<ul class="nav nav-pills nav-justified">
 										<li>
-									<button class="btn btn-default add-to-cart" ><i class="fa fa-plus-square"></i>Add to wishlist</button>		
-										
+
+								<button class="btn btn-default add-to-cart"><a href="{{ route('add.cart', ['id'=>$product->id])}}" id="add" style="color:currentColor;font-size:13px" ><i class="fa fa-shopping-cart"></i>Add to cart</a></button>
+								<button class="btn btn-default add-to-cart"style="font-size:13px"><i class="fa fa-plus-square"></i>Add to wishlist</button>
 									</ul>
 								</div>
 								</form>
