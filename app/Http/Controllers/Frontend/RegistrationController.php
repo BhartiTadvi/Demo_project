@@ -51,7 +51,7 @@ class RegistrationController extends Controller
         'template_key' => "email_template_key");
         $email="bhartitadvi081@gmail.com";
        Mail::to($email)->send(new SendMail($Userdata1));
-       return redirect()->route('loginuser')->with('success','Registration done successfully');
+       return redirect()->route('login')->with('success-message','Registration done successfully');
    }
     /**
      * Display the specified resource.

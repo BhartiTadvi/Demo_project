@@ -41,13 +41,20 @@
 </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12">
+<div class="form-group {{ $errors->has('quantity') ? 'has-error' : ''}}">
+    <label for="type" class="control-label">{{ 'Remaining Quantity' }}</label>
+    <input class="form-control" name="remaining_quantity" type="text" id="quantity" data-parsley-required="true" data-parsley-required-message = "Please enter remaining quantity"   value="{{ isset($coupon->remaining_quantity) ? $coupon->remaining_quantity : ''}}" >
+    {!! $errors->first('remaining_quantity', '<p class="help-block">:message</p>') !!}
+</div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12">
 <div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
     <label for="type" class="control-label">{{ 'Type' }}</label>
      <select class="form-control" name="type" id="type"data-parsley-required="true" data-parsley-required-message = "Please enter type">
         
      <option value="">Select type</option>
-     <option value="0" @if($coupon->type == 0) selected="selected" @endif>Amount</option>
-     <option value="1" @if($coupon->type == 1) selected="selected" @endif>percentage</option>
+     <option value="amount">Amount</option>
+     <option value="percentage">Percentage</option>
      </select>
    {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
 </div>

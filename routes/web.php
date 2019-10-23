@@ -9,9 +9,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/login', function () {
+Route::get('/admin/login', function () {
     return view('login');
-    });
+    })->name('admin.login');
 
   
 Route::get('/product_attribute', 'ProductAttributeController@create')->name('product_attribute');
@@ -41,7 +41,7 @@ Route::resource('coupon/coupon', 'Coupon\\CouponController');
 
  //frontend routes
  Route::get('/','Frontend\FrontendController@index')->name('home_shopper');
- Route::get('/loginuser','Frontend\RegistrationController@create')->name('loginuser');
+ Route::get('/login','Frontend\RegistrationController@create')->name('login');
  Route::post('/register/store','Frontend\RegistrationController@store')->name('user.store');
  Route::post('/userlogin','Frontend\LoginController@login')->name('userlogin');
  Route::post('/logoutuser','Frontend\LoginController@logout')->name('logoutuser');
@@ -71,11 +71,9 @@ Route::post('/cancelcoupon','Frontend\CartController@cancelCoupon')->name('cance
 
  
 //checkout
-Route::get('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
-
 Route::get('/states/','Frontend\CheckoutController@getState')->name('get.state');
 
-Route::get('/test','Frontend\CheckoutController@test')->name('checkout.test');
+Route::get('/checkout','Frontend\CheckoutController@test')->name('checkout.test');
 Route::get('/getbillingaddress/','Frontend\CheckoutController@getBillingAddress')->name('getBillingAddress');
 Route::get('/getshippingaddress/','Frontend\CheckoutController@getShippingAddress')->name('getshippingAddress');
 
@@ -138,9 +136,11 @@ Route::resource('address', 'Frontend\AddressController');
 Route::resource('manage_user_contacts', 'ManageUserContactController');
 Route::resource('manage_user_email', 'ManageUserEmailController');
 
-
+//order management
 Route::resource('order_management', 'OrderManagementController');
 Route::get('/order-detail/{id}', 'OrderManagementController@orderDetail')->name('show.orderdetail');
+Route::get('/edit/order/{id}', 'OrderManagementController@editOrder')->name('edit.order');
+
 
 Route::resource('cms', 'CmsController');
 
@@ -151,3 +151,5 @@ Route::get('/customer-report', 'ReportController@showCustomer')->name('customer.
 
 
 // Route::post('/placeorder/store','Frontend\CheckoutController@placeOrderNew')->name('placeorder.store');
+
+Route::resource('coupon-procedure', 'CouponProcedureController');

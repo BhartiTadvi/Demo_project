@@ -298,7 +298,7 @@
           var $address2= $row.find(".address2").text(); 
           var $country= $row.find(".country_id").val();
           var $state= $row.find(".state_id").val(); 
-          // alert($state);  
+          
          if($(this).is(":checked"))
          {
            var name = $('.name').val($name);
@@ -307,10 +307,10 @@
            var zipcode = $('.zip').val($zipcode);
            var address1 = $('.addreessline1').val($address1);
            var address2 = $('.addreessline2').val($address2);
-           //var country =$('.country :selected').val($country);
+          
            $(".country option[value="+$country+"]").attr('selected', 'selected');
            $(".state option[value="+$state+"]").attr('selected', 'selected');
-           //var state = $('.state :selected').val($state);
+           
          }
           else{
            var name = $('.name').val();
@@ -337,7 +337,7 @@
            var shippingcountry = $('.country :selected').val();
            var shippingstate = $('.state :selected').val();
 
-           // alert(shippingcountry);
+          
 
            if($(this).is(":checked"))
            {
@@ -364,7 +364,7 @@
         $('#country1').on('change', function(e){
       
     var country_id = e.target.value;
-      // alert('hi');
+      
     console.log(country_id);
     $.get('/get/states/?country_id=' + country_id, function(response){
     $('#state1').empty();

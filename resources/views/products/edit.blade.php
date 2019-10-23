@@ -22,7 +22,7 @@
                     @endif
                     @endforeach
                     </select>
-                    <!-- <input class="form-control" name="categoryname" type="text" id="productname" value="{{$product->productCategories->category->name}}" > -->
+                    
                     {!! $errors->first('productname', '<p class="help-block">:message</p>') !!}
                 </div>
                 </div>

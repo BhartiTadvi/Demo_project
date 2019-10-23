@@ -62,7 +62,7 @@ class LoginController extends Controller
 
          if($finduser){
                 Auth::login($finduser);
-                return redirect('/home');
+                return redirect('/');
                  }
 
             else{
@@ -88,7 +88,7 @@ class LoginController extends Controller
    Public function logout()
    {
        Auth::logout();
-     return redirect('/login');
+      return redirect()->route('admin.login');
    }
     
 

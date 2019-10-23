@@ -29,12 +29,12 @@ class CartController extends Controller
             'options' => ['product_image'=> $product->productImage[0]->image]]);
      $sliders = Banner::get();
      $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->get();
-     $categories = Category::where('parent_id','=', 0)->get();
+     $categories = Category::where(['parent_id'=>0,'status'=>1])->get();
      $subCategories = category::with('children')->get();
-     $productCounts = Category::where('parent_id','!=', 0)->with('productCategories','children')->get();
-     $minprice=Product::min('price');
+     $productCounts = Category::where('parent_id','!=', 0)->
+                      where('status',1)->with('productCategories','children')->get();
+     $minprice=0;
      $maxprice=Product::max('price');
-    
      return view('frontend.home',[
          'data' => Cart::content()
        ,'sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subCategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice]);
@@ -56,33 +56,38 @@ class CartController extends Controller
     }
    
     /** Increment Quantity of product **/
-    public function incrementItem(Request $request){
+    public function incrementItem(Request $request)
+    {
+        
        $rowId = $request->rowId;
        $qty =$request->cart_qty;
        $subTotal=$request->subTotal;
        $productPrice = $request->priceu;
-       $qty++;
+        if($qty == null ||$rowId == null){
+          $quantityError = "sorry quantity is empty";
+        return response()->json(['quantityError' =>$quantityError]);
+        }
+        if(!empty($qty)){
+        $qty++;
+       }
        $subTotal = $subTotal+$productPrice;
        $couponType=$request->coupontype;
        $couponValue=$request->couponvalue;
-        if($couponValue == null)
-        {
+        if($couponValue == null){
           $couponValue=0;
         }
         $coupons = Coupon::get();
-      if($coupons == null)
-      {
-         return response()->json(['coupon' =>$coupon]);
-      }
-           if($couponType == 0)
-             {
+        if($coupons == null){
+           return response()->json(['coupon' =>$coupon]);
+        }
+        if($couponType == 0){
               $couponAmount = $subTotal-$couponValue; 
                $total=$couponAmount;
-             }
-            else{
+        }
+        else{
                 $couponAmount =$subTotal*($couponValue/100);
                 $total=$subTotal-$couponAmount;
-                }
+            }
        $update = Cart::update($rowId, $qty);
        $updateprice= $update->subtotal();
          return response()->json(['quantity' =>$update,'updateprice' =>$updateprice, 'subTotal' => $subTotal,'couponvalue' => $couponValue,'couponamount' =>$couponAmount,'total' =>$total]);
@@ -90,11 +95,19 @@ class CartController extends Controller
         
      /** Decrement Quantity of product **/
     public function decrementItem(Request $request){
+
        $rowId = $request->rowId;
        $qty =$request->cart_qty;
        $subTotal=$request->subTotal;
        $productPrice = $request->priceu;
-       $qty--;
+        if($qty == null ||$rowId == null){
+          $quantityError = "sorry quantity is empty";
+        return response()->json(['quantityError' =>$quantityError]);
+        }
+        if(!empty($qty)){
+        $qty--;
+       }
+
        $subTotal = $subTotal-$productPrice;
        $couponType=$request->coupontype;
        $couponValue=$request->couponvalue;
@@ -136,7 +149,7 @@ class CartController extends Controller
       
       if($coupons == null || $subTotal < 300)
       {
-         $error_message ="Invalid coupon";
+         $error_message ="Coupon is invalid";
         return response()->json(['error_message' =>$error_message]);
       }
       

@@ -35,7 +35,7 @@ class Order extends Model
    
     public function address() 
    {   
-    return $this->hasMany('App\address','id','address_id');
+    return $this->hasMany('App\Address','id','address_id');
    }
    
 

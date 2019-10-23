@@ -25,8 +25,8 @@
                                         <td> {{ $coupon->type }} </td>
                                     </tr>
                                     <tr>
-                                        <th> Type </th>
-                                        <td> {{ $coupon->type }} </td>
+                                        <th> Quantity </th>
+                                        <td> {{ $coupon->quantity }} </td>
                                     </tr>
                                 </tbody>
                             </table>

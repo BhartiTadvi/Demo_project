@@ -197,6 +197,7 @@ class CheckoutController extends Controller
                 '<td>'.$row->qty*$row->price.'</td></tr>';
                 }
         $view .=    '</tbody></table>';
+        
          $order= array(
         'email'  => Auth::user()->email, 
         'product_no'  => $request->get('product_id'),

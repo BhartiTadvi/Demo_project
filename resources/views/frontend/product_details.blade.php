@@ -111,24 +111,15 @@
 						
 						<div class="col-sm-7">
 							<div class="product-information">
-
 								<!--/product-information-->
 								<img src="" class="newarrival" alt="" />
 								<h2>{{$products->productname}}</h2>
 								<p>ID-{{$products->id}}</p>
-								
 								<img src="images/product-details/rating.png" alt="" />
 								<span>
-									<span>{{$products->price}}</span>
-									<label>Quantity</label>
-
-									<input type="text" value="3" />
-
+									<span><i class="fa fa-inr"></i> {{$products->price}}</span>
 								<a href="{{ route('add.cart', ['id'=>$products->id]) }}" id="add" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 								</span>
-								<!-- <p><b>Availability:</b> In Stock</p>
-								<p><b>Condition:</b> New</p>
-								<p><b>Brand:</b> E-SHOPPER</p> -->
 								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 							</div><!--/product-information-->
 						</div>

@@ -12,6 +12,7 @@
           <li class="active">Shopping Cart</li>
         </ol>
       </div>
+      <span id="quantityerror" style="color:red;font-size:20px;margin-left: 425px;"></span>
       @if(Cart::content()->count()!=0)
       <div class="table-responsive cart_info">
         <table class="table table-condensed">
@@ -179,6 +180,10 @@
             },
             success:function(response){
                  console.log(response);
+                 var quantityEmpty = response.quantityError;
+                  if(quantityEmpty){
+                     $('#quantityerror').text(response.quantityError)
+                  }else{
                  var newSubTotal = response.subTotal;
                  var grandTotal = 0;
                  var shippingCost = 50;
@@ -198,13 +203,12 @@
                     $('#discountamount').text(response.couponvalue);
                     $('#grandTotal').empty();
                     $('#grandTotal').text(response.total);
-                    //$('#grandTotal').text(response.total);
                     $('#grandTotal1').val(response.total);
-
-
                     $('#test'+id).val(response.quantity.qty);
                     $('#priceu'+id).text(response.updateprice);
+                    
               }
+            }
             });
       }  
     

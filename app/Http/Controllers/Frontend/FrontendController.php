@@ -23,15 +23,13 @@ class FrontendController extends Controller
      public function index()
      {
         $sliders = Banner::get();
-        $categories = Category::where('parent_id','=', 0)->get();
+        $categories = Category::where(['parent_id'=>0,'status'=>1])->get();
         $subcategories = category::with('children')->get();
-        $products = Product::with('productCategories','productCategories.category'
-                ,'categories','productImage','parentCategory')->get();
+        $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->get();
         $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
-        $minprice=Product::min('price');
+        $minprice=0;
         $maxprice=Product::max('price');
-        $filter = Product::whereBetween('price',[$minprice,$maxprice])->get();
-        return view('frontend.home',compact('sliders','categories','subcategories','products','productCounts','product','minprice','maxprice','filter'));
+        return view('frontend.home',compact('sliders','categories','subcategories','products','productCounts','product','minprice','maxprice'));
      }
     
      /**Show all products on home page**/
@@ -45,13 +43,9 @@ class FrontendController extends Controller
              {
                 $q->where('category_id',$id);
              })->with('productImage')->get();
-        $minprice=Product::min('price');
+        $minprice=0;
         $maxprice=Product::max('price');
-             
-         
-         $filter = Product::whereBetween('price',[$minprice,$maxprice])->get();
-         
-       return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'filter'=>$filter]);
+       return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice]);
      }
      
     /** Get dynamic contacts info content from database**/

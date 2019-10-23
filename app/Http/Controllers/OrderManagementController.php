@@ -4,6 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
+use App\OrderDetail;
+
 class OrderManagementController extends Controller
 {
     
@@ -33,4 +35,10 @@ class OrderManagementController extends Controller
      return view('order_management.product_details',compact('orders'));
     }
     
+    public function editOrder($id)
+    {
+        $orderDetails=OrderDetail::find($id);
+       
+        return view('order_management.editorder',compact('orderDetails'));
+    }
 }

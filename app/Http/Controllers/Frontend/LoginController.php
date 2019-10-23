@@ -15,7 +15,7 @@ class LoginController extends Controller
     /** Get log in details for log in **/
      public function login(Request $request)
      {   
-        $this->validate($request, [
+         $this->validate($request, [
           'e-mail' => 'required',
           'password1' => 'required']);
           
@@ -26,7 +26,7 @@ class LoginController extends Controller
         if (Auth::attempt($users)&&Cart::content()->count() == 0) {
           return redirect()->route('home_shopper')->with('success','Log in successfully done');
        } elseif (Auth::attempt($users)&&Cart::content()->count() >= 1) {
-        return redirect()->route('cart')->with('success');
+        return redirect()->route('cart');
        }else{
            return back()->with('success', 'Wrong Login Details');
       }
@@ -35,7 +35,7 @@ class LoginController extends Controller
     public function logout(Request $request) 
         {
              Auth::logout();
-             return redirect()->route('loginuser')->with('success','Log out');
+             return redirect()->route('login');
             
         }
 

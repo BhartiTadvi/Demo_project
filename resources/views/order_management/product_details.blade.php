@@ -92,7 +92,7 @@
                                         <th class="order">Total</th>
                                     </tr>
                                 </thead>
-                                  @foreach($orders->products as $productdetail)
+                                  
                                 <tbody>
                                     <tr>
                                         <td class="order">
@@ -106,9 +106,10 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                @endforeach
+                                
                       </table>
                       <a href="{{ route('order_management.index') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                       
                             <div class="pagination-wrapper">   </div>
                         </div>
                     </div>

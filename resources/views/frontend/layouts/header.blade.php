@@ -44,7 +44,7 @@
 								
 							<li><a href="{{route('cart')}}"><span class="badge">{{Cart::content()->count()}}</span><i class="fa fa-shopping-cart"></i>Cart </a></li>
 								@guest
-								<li><a href="{{route('loginuser')}}"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{{route('login')}}"><i class="fa fa-lock"></i> Login</a></li>
                              @else
               			  <li>
                              <!-- {{ Auth::user()->name }}

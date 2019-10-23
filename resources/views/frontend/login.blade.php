@@ -31,7 +31,9 @@
 					<h2 class="or">OR</h2>
 				</div>
 				<div class="col-sm-4">
-					 
+					 @if ($message = Session::get('success-message'))
+			            <p style="color:red">{{ $message }}</p>
+                     @endif
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
 					
