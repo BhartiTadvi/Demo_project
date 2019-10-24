@@ -15,9 +15,11 @@
           <div class="box">
             <div class="box-header">
              <div class="pull-right">
+              @can('coupon-create')
               <a href="{{ route('coupon.create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
                <i class="fa fa-plus" aria-hidden="true"></i> Add New
               </a>
+              @endcan
                </div><br/><br/>
             </div>
           @if ($message = Session::get('success'))
@@ -63,14 +65,19 @@
                                         <td>{{ $item->discount }}</td>
 
                                         <td>
+                                            @can('coupon-show')
                                             <a href="{{ route('coupon.show',$item->id) }}" title="View Coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            @endcan
+                                            @can('coupon-edit')
                                             <a href="{{ route('coupon.edit',$item->id) }}" title="Edit Coupon"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-
+                                            @endcan
+                                            @can('coupon-delete')
                                             <form method="POST" action="{{ route('coupon.destroy',$item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Delete Coupon" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

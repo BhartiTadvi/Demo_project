@@ -23,20 +23,23 @@
         <ul class="nav navbar-nav">
           
           <li class="dropdown user user-menu">
-            
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                @if(Auth::user()->image)
               <img src="{{asset('storage/'.Auth::user()->image )}}" class="user-image" alt="User Image">
+                @else
+                 <img src="dist/img/dummy.jpeg" class="img-circle" alt="User Image" height=20px>
+                 @endif
               <span class="hidden-xs"></span>
             </a>
-            
-
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
+                @if(Auth::user()->image)
                 <img src="{{asset('storage/'.Auth::user()->image )}}" class="img-circle" alt="User Image">
+                @else
+                 <img src="dist/img/dummy.jpeg" class="img-circle" alt="User Image">
+                 @endif
 
-
-                
                 <p>
                   {{ Auth::user()->name }}
                   <!-- <small>Member since Nov. 2012</small> -->

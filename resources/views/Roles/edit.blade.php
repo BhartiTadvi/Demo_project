@@ -23,7 +23,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Permission:</strong>
+            <strong>Permission:</strong><br/>
+             <input type="checkbox" class="checkbox1"  id="checkboxall" /> 
+           <label>Select all</label>
             <br/>
             @foreach($permission as $value)
                 <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
@@ -44,4 +46,15 @@
 </div>
 </div>
 </div>
+@endsection
+@section('script')
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#checkboxall").click(function () {
+$('input:checkbox').not(this).prop('checked', this.checked);
+});
+  });
+</script>
+
 @endsection

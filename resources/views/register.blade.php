@@ -35,7 +35,11 @@
   <div class="register-logo">
     <a href="../../index2.html"><b>Admin</b>Register</a>
   </div>
-
+  @if ($message = Session::get('success'))
+          <div class="alert alert-success">
+            <p>{{ $message }}</p>
+          </div>
+  @endif
   <div class="register-box-body">
     <p class="login-box-msg">Register a new membership</p>
 
@@ -43,12 +47,6 @@
        -->
       <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
-<!-- 
-      <div class="form-group has-feedback">
-
-        {!! Form::text('firstname', '', ['class' => 'form-control','placeholder'=>"First Name", ""]) !!}
-       {!! $errors->first('firstname', '<p class="help-block"style="color:red;">:message</p>') !!}
-      </div> -->
 
       <div class="form-group has-feedback">
 
@@ -103,7 +101,7 @@
         Google+</a>
     </div> -->
 
-    <a href="{{ route('login')}}" class="text-center">I already have a membership</a>
+    <a href="{{ route('admin.login')}}" class="text-center">I already have a membership</a>
   </div>
   <!-- /.form-box -->
 </div>

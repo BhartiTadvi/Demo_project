@@ -30,7 +30,26 @@
   <link rel="stylesheet" type="text/css" href="https://parsleyjs.org/src/parsley.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  
 </head>
+ <style type="text/css">
+ .error-message{
+                 color:red;
+               }
+.delete{
+          color: red;
+          font-size: 20px;
+          margin-left: 376px;
+      }
+.success{
+        color: green;
+            font-size: 20px;
+            margin-left: 376px;
+            }
+           .check-error{
+                  color:red;
+                  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
  

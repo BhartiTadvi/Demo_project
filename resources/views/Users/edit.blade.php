@@ -28,9 +28,14 @@
              {!! $errors->first('email', '<span class="error-message">:message</span>') !!}
         </div>
     </div>
+    
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
+            @if($user->image)
            <img src="{{asset('storage/'.$user->image)}}" style="width:80px; height:auto;">
+           @else
+           <img src="{{asset('dist/img/dummy.jpeg')}}" class="img-circle" style="width:80px; height:auto;">
+           @endif
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -43,6 +48,18 @@
             <strong>Status:<span class="check-error">*</span></strong><br/>
             <input type="radio" value="Active" name="Active" checked><label>Active</label>
             <input type="radio" value="Inactive" name="Inactive"><label>Inactive</label>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+        <strong>Password:<span class="check-error">*</span></strong>
+         {!! Form::password('password',array('placeholder' => 'Password','class' => 'form-control password','id' => 'password1')) !!}
+        </div>
+    </div>
+     <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Confirm Password:<span class="check-error">*</span></strong>
+            {!! Form::password('confirmPassword', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -67,6 +84,9 @@
  @section('script')
 <script type="text/javascript">
     $(document).ready(function(){
+          $('password').on('blur',function(){
+            alert('sdff');
+          });
       });
 </script>
 @endsection

@@ -112,7 +112,7 @@ class ProductsController extends Controller
         $products->price = $request->price;
         $products->description = $request->description;
 
-     if($request->hasFile('image')){
+       if($request->hasFile('image')){
        $imageName=Product_image::select('image')->where('product_id',$id)->get();
        foreach ($imageName as $img) {
         unlink(public_path('/uploads').'/'.$img->image);

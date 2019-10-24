@@ -43,7 +43,6 @@
                                         </td>
                                      <td>
                                             @can('banner-list')
-
                                             <a href="{{ route('banners.show',$item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @endcan
                                             @can('banner-edit')

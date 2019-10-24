@@ -6,6 +6,7 @@ use App\Rolesmodel;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
+use Auth;
         
 class UserController extends Controller
 {
@@ -13,8 +14,10 @@ class UserController extends Controller
       Display a listing of the user.
      **/
      public function index(Request $request)
-    {
-      $data = User::orderBy('id','DESC')->paginate(5);
+    { 
+      
+      $data = User::where('id','!=',Auth::user()->id)->orderBy('id','DESC')->paginate(5);
+     
       return view('Users.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
     /** Create User **/
@@ -31,7 +34,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
-             'confirm-password' => 'required|same:password',
+            'confirm-password' => 'required|same:password',
             'roles' => 'required',
             'image' => 'required'
         ]);
@@ -69,17 +72,27 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
-        $input = $request->all();
+
+        $name = $request->name;
+        $email = $request->email;
+        $image = $request->image;
+         $input = $request->all();
+
          if ($request->hasFile('image')) 
         {
             $input['image'] = $request->file('image')
                         ->store('uploads', 'public');
         }
         $user = User::find($id);
-        $user->update($input);
+    
+        if($request->password == null){
+         $user->update($request->except('password','confirmPassword'));
+         } 
+         else{
+             $user->update($request->except('confirmPassword'));
+         }
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->input('roles'));
         return redirect()->route('Users.index')

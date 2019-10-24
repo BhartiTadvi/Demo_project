@@ -44,13 +44,19 @@
                                         <td>{{ $item->subject }}</td>
                                         <td>{{ $item->message }}</td>
                                         <td>
+                                            @can('contactus-show')
                                             <a href="{{ route('manage_user_contacts.show',$item->id) }}" title="View manage_user_contact"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            @endcan
+                                            @can('contactus-edit')
                                             <a href="{{ route('manage_user_contacts.edit',$item->id) }}" title="Edit manage_user_contact"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            @endcan
+                                            @can('contactus-delete')
                                             <form method="POST" action="{{ route('manage_user_contacts.destroy',$item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Delete manage_user_contact" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
                                             </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

@@ -13,13 +13,13 @@
                 <div class="box">
                     <div class="box-header"></div>
                     <div class="box-body">
-{!! Form::open(array('route' => 'Users.store','method'=>'POST','data-parsley-validate','id'=>'create_user','class'=>'col-sm-12','enctype'=>'multipart/form-data')) !!}
+{!! Form::open(array('route' => 'Users.store','method'=>'POST','id'=>'create_user','class'=>'col-sm-12','enctype'=>'multipart/form-data')) !!}
 {{ csrf_field() }}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Name: <span class="check-error">*</span></strong>
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control', 'data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please enter Name ')) !!}
+            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
            {!! $errors->first('name', '<span class="error-message">:message</span>') !!}
         </div>
     </div>

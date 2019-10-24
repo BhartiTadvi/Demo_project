@@ -15,18 +15,31 @@
                 <div class="box">
             <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group" style="margin: 57px;">
+            <div class="form-group" style="margin-left: 54px;
+    margin-top: 11px;">
             <strong>Name:</strong>
             {{ $user->name }}
             </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group" style="margin-top: -39px;
-    margin-left: 56px;">
+        <div class="form-group" style="margin-left: 56px;">
+            <strong>Image:</strong>
+            <img src="{{asset('storage/'.Auth::user()->image )}}" class="user-image" alt="User Image" height=77px>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group" style="margin-left: 56px;">
             <strong>Email:</strong>
             {{ $user->email }}
         </div>
     </div>
+     <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group" style="margin-left: 56px;">
+            <strong>Passsword</strong>
+            {{ $user->password }}
+        </div>
+    </div>
+
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group" style="margin-top: -5px;
     margin-left: 56px;">

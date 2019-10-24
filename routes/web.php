@@ -153,3 +153,4 @@ Route::get('/customer-report', 'ReportController@showCustomer')->name('customer.
 // Route::post('/placeorder/store','Frontend\CheckoutController@placeOrderNew')->name('placeorder.store');
 
 Route::resource('coupon-procedure', 'CouponProcedureController');
+Route::resource('permission', 'PermissionController');

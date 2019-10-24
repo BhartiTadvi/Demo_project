@@ -18,17 +18,23 @@
       </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
+     
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="#">
+           @can('menu-list')
+          <a href="{{route('home')}}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
+           @endcan
+
         </li>
+
         <li class="treeview">
+           @can('user-index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>User management</span>
@@ -39,8 +45,10 @@
           <ul class="treeview-menu">     
         <li><a href="{{route('Users.index')}}"><i class="fa fa-circle-o"></i> Users</a></li>
          </ul>
+         @endcan
         </li>
          <li class="treeview">
+          @can('role-list')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Role management</span>
@@ -52,8 +60,23 @@
             
             <li><a href="{{route('Roles.index')}}"><i class="fa fa-circle-o"></i>Roles</a></li>
          </ul>
+         @endcan
+        </li>
+          <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>Permission management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            
+            <li><a href="{{route('permission.index')}}"><i class="fa fa-circle-o"></i>Permissions</a></li>
+         </ul>
         </li>
         <li class="treeview">
+          @can('banner-list')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Banner management</span>
@@ -66,9 +89,11 @@
             
             <!-- -->
         </ul>
+        @endcan
         </li>
 
          <li class="treeview">
+           @can('category-list')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Category management</span>
@@ -79,9 +104,11 @@
           <ul class="treeview-menu">
             <li><a href="{{route('category.index')}}"><i class="fa fa-circle-o"></i>categories</a></li>
            </ul>
+           @endcan
         </li>
        
          <li class="treeview">
+           @can('product-list')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Product management</span>
@@ -92,8 +119,10 @@
           <ul class="treeview-menu">
             <li><a href="{{route('products.index')}}"><i class="fa fa-circle-o"></i>Products</a></li>
            </ul>
+            @endcan
         </li>
         <li class="treeview">
+           @can('coupon-list')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Coupon Management</span>
@@ -104,9 +133,11 @@
           <ul class="treeview-menu">
             <li><a href="{{route('coupon.index')}}"><i class="fa fa-circle-o"></i>Coupons</a></li>
            </ul>
+           @endcan
         </li>
 
           <li class="treeview">
+            @can('contactus-index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Manage User Contacts</span>
@@ -117,8 +148,10 @@
           <ul class="treeview-menu">
             <li><a href="{{route('manage_user_contacts.index')}}"><i class="fa fa-circle-o"></i>Contacts</a></li>
            </ul>
+           @endcan
         </li>
          <li class="treeview">
+           @can('emailtemplate.index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Manage User mails</span>
@@ -129,6 +162,7 @@
           <ul class="treeview-menu">
             <li><a href="{{route('manage_user_email.index')}}"><i class="fa fa-circle-o"></i>Manage Mails</a></li>
            </ul>
+           @endcan
         </li>
          <li class="treeview">
           <a href="#">
@@ -143,6 +177,7 @@
            </ul>
         </li>
          <li class="treeview">
+           @can('order.index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Order Management</span>
@@ -153,6 +188,7 @@
           <ul class="treeview-menu">
             <li><a href="{{route('order_management.index')}}"><i class="fa fa-circle-o"></i>Manage Order</a></li>
            </ul>
+           @endcan
         </li>
          <li class="treeview">
           <a href="#">
@@ -206,6 +242,7 @@
         </li>
         
       </ul>
+     
     </section>
     <!-- /.sidebar -->
   </aside>

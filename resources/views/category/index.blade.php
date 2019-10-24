@@ -28,11 +28,6 @@
                 </a>
               </div>
              </div>
-          @if ($message = Session::get('success'))
-          <div class="alert alert-success">
-            <p>{{ $message }}</p>
-          </div>
-          @endif
           <form method="GET" action="{{ route('category.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
           <div class="input-group">
            <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
@@ -88,7 +83,7 @@
                                              <a href="{{ route('category.show', $item->id) }}" title="View Category">
                                               <button class="btn btn-success btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> </button>
                                             </a>
-                                    @endcan
+                                      @endcan
                                         </td>
                                     </tr>
                                 @endforeach
