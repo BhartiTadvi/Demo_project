@@ -22,19 +22,17 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-           @can('menu-list')
+          
           <a href="{{route('home')}}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-           @endcan
-
         </li>
 
         <li class="treeview">
-           @can('user-index')
+           @can('user_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>User management</span>
@@ -48,7 +46,7 @@
          @endcan
         </li>
          <li class="treeview">
-          @can('role-list')
+          @can('role_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Role management</span>
@@ -76,7 +74,7 @@
          </ul>
         </li>
         <li class="treeview">
-          @can('banner-list')
+          @can('banner_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Banner management</span>
@@ -93,7 +91,7 @@
         </li>
 
          <li class="treeview">
-           @can('category-list')
+           @can('category_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Category management</span>
@@ -108,7 +106,7 @@
         </li>
        
          <li class="treeview">
-           @can('product-list')
+           @can('product_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Product management</span>
@@ -122,7 +120,7 @@
             @endcan
         </li>
         <li class="treeview">
-           @can('coupon-list')
+           @can('coupon_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Coupon Management</span>
@@ -137,7 +135,7 @@
         </li>
 
           <li class="treeview">
-            @can('contactus-index')
+            @can('contact_us_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Manage User Contacts</span>
@@ -151,7 +149,7 @@
            @endcan
         </li>
          <li class="treeview">
-           @can('emailtemplate.index')
+           @can('email_template_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Manage User mails</span>
@@ -177,7 +175,7 @@
            </ul>
         </li>
          <li class="treeview">
-           @can('order.index')
+           @can('order_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Order Management</span>

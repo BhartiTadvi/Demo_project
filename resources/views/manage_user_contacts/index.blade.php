@@ -6,7 +6,6 @@
                 <div class="box">
                     <div class="box-header">Manage_user_contacts</div>
                     <div class="box-body">
-
                         <form method="GET" action="{{ route('manage_user_contacts.index') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
                                 <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
@@ -17,12 +16,11 @@
                                     </button>
                                 </span>
                         </form>
-
-          @if ($message = Session::get('success'))
-          <div class="alert alert-success">
-            <p>{{ $message }}</p>
-          </div>
-          @endif
+                      @if ($message = Session::get('success'))
+                      <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                      </div>
+                      @endif
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -44,18 +42,11 @@
                                         <td>{{ $item->subject }}</td>
                                         <td>{{ $item->message }}</td>
                                         <td>
-                                            @can('contactus-show')
+                                            @can('contact_us_show')
                                             <a href="{{ route('manage_user_contacts.show',$item->id) }}" title="View manage_user_contact"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @endcan
-                                            @can('contactus-edit')
+                                            @can('contact_us_edit')
                                             <a href="{{ route('manage_user_contacts.edit',$item->id) }}" title="Edit manage_user_contact"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                                            @endcan
-                                            @can('contactus-delete')
-                                            <form method="POST" action="{{ route('manage_user_contacts.destroy',$item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                {{ method_field('DELETE') }}
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete manage_user_contact" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                                            </form>
                                             @endcan
                                         </td>
                                     </tr>

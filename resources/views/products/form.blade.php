@@ -50,7 +50,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
     <label for="image" class="control-label">{{ 'Image' }}</label>
-    <input class="form-control" name="image[]" type="file" id="image" value="{{ isset($product_image->image) ? $product_image->image : ''}}" data-parsley-required="true"  accept="image/*" /  multiple>
+    <input class="form-control" name="image[]" type="file" id="image" value="{{ isset($product_image->image) ? $product_image->image : ''}}" data-parsley-required="true" style="border: hidden;" accept="image/*" /  multiple>
     {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
  </div>  
  </div> 

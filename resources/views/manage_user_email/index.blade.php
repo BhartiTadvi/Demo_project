@@ -6,7 +6,7 @@
                 <div class="box">
                     <div class="box-header">Manage_user_email</div>
                     <div class="box-body">
-                        @can('emailtemplate.create')
+                        @can('email_template_create')
                         <a href="{{ route('manage_user_email.create') }}" class="btn btn-success btn-sm" title="Add New manage_user_email">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
@@ -40,10 +40,10 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->mailsubject }}</td>
                                         <td>
-                                            @can('emailtemplate-show')
+                                            @can('email_template_show')
                                             <a href="{{ route('manage_user_email.show',$item->id) }}" title="View manage_user_email"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @endcan
-                                            @can('emailtemplate.delete')
+                                            @can('email_template_edit')
                                             <a href="{{ route('manage_user_email.edit',$item->id) }}" title="Edit manage_user_email"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             @endcan
                                         </td>

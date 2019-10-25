@@ -21,7 +21,7 @@
           <div class="box">
             <div class="box-header">
               <div class="pull-right">
-                    @can('role-create')
+                    @can('role_create')
                     <a class="btn btn-success" href="{{ route('Roles.create') }}"> 
                      Create New Role</a>
                     @endcan
@@ -38,10 +38,14 @@
         <td>{{ ++$i }}</td>
         <td>{{ $role->name }}</td>
         <td> 
+           @can('role_show')
           <a class="btn btn-info" href="{{ route('Roles.show',$role->id) }}">Show
           </a>
+          @endcan
+           @can('role_edit')
            <a class="btn btn-success" href="{{ route('Roles.edit',$role->id) }}">Edit</a>
-            @can('role-delete')
+           @endcan
+            @can('role_delete')
                 {!! Form::open(['method' => 'DELETE','route' => ['Roles.destroy', $role->id],'style'=>'display:inline']) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                 {!! Form::close() !!}

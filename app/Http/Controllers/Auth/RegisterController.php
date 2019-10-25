@@ -73,9 +73,7 @@ class RegisterController extends Controller
         ]);
          $role = Rolesmodel::where('name', 'customer')->first();
          $user->assignRole('customer');
-        
          return $user;
-           
     }
     public function showRegistrationForm()
     {

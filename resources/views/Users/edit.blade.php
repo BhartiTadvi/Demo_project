@@ -40,7 +40,7 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
     <label for="image" class="control-label">{{ 'Image' }}<span class="check-error">*</span></label>
-    <input class="form-control" name="image" type="file" id="image">
+    <input class="form-control" name="image" type="file" id="image" style="border: hidden;">
     {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">

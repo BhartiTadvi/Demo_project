@@ -82,7 +82,7 @@ class FrontendController extends Controller
         $email="bhartitadvi081@gmail.com";
         Mail::to($email)->send(new ContactMail($contactmail));
         if($result){
-             return view('frontend.contactus');
+           return redirect()->back()->with('success','Contact done successfully');
                  }
      }
     

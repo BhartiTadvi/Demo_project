@@ -20,9 +20,9 @@
           <div class="box">
             <div class="box-header">
              <div class="pull-right">
-           @can('role-create')
+          
             <a class="btn btn-success" href="{{ route('Users.create') }}"> Create New User</a>
-            @endcan
+           
             </div>
              </div>
             <!-- /.box-header -->
@@ -53,13 +53,19 @@
                         @endif
                </td>
                <td>
+                 @can('user_show')
                   <a class="btn btn-info" id=show_{{$user->id}}_button href="{{ route('Users.show',$user->id) }}">Show</a>
+                  @endcan
+                  @can('user_edit')
                   <a class="btn btn-success" id={{$user->id}}_edit href="{{ route('Users.edit',$user->id) }}">Edit
                   </a>
+                  @endcan
+                  @can('user_delete')
                      {!! Form::open(['method' => 'DELETE','route' => ['Users.destroy',$user->id],'style'=>'display:inline']) !!}
                       {!!Form::submit('Delete',
                        ['class' => 'btn btn-danger','id'=>'sub-id'.$user->id]) !!}
                    {!! Form::close() !!}
+                   @endcan
               </td>
             </tr>
                  @endforeach

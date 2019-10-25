@@ -65,22 +65,18 @@
                 </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    @if(!empty($product->productImage))
-                    <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
-                      <img src="dist/img/user2-160x160.jpg" height="100px" width="100px">  
-                </div>
-                @else
+                   
                 <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                     @foreach($product->productImage as $image)
                       <img src="{{asset('uploads/'.$image->image)}}" height="100px" width="100px">  
                     @endforeach
                 </div>
-                @endif
+               
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group {{ $errors->has('image') ? 'has-error' : ''}}">
                     <label for="image" class="control-label">{{ 'Image' }}</label>
-                    <input class="form-control" name="image[]" type="file" id="image" value="{{ isset($product_image->image) ? $product_image->image : ''}}"  accept="image/*" /  multiple>
+                    <input class="form-control" name="image[]" type="file" id="image" value="{{ isset($product_image->image) ? $product_image->image : ''}}" style="border: hidden;"  accept="image/*" /  multiple>
                     {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
                  </div>  
                  </div> 

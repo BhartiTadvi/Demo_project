@@ -16,7 +16,7 @@
                                     <td>{{ $cm->id }}</td>
                                     </tr>
                                     <tr><th> Name </th><td> {{ $cm->name }} </td></tr><tr><th> Title </th><td> {{ $cm->title }} </td></tr><tr><th> Pagecontent </th>
-                                    <td> {{ $cm->pagecontent }} </td></tr>
+                                    <td> {!! $cm->pagecontent !!} </td></tr>
                                 </tbody>
                             </table>
                         </div>

@@ -9,7 +9,7 @@
                   <div class="box-header">products</div>
                       <div class="box-body">
                         <div class="pull-right">
-                          @can('product-create')
+                          @can('product_create')
                         <a href="{{ route('products.create') }}" class="btn btn-success   btn-sm" title="Add New Product">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                       </a>
@@ -51,14 +51,14 @@
                                         </td>
                                        
                                         <td>
-                                            @can('product-create')
+                                            @can('product_show')
                                             <a href="{{ route('products.show', $item->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @endcan
-                                            @can('product-edit')
+                                            @can('product_edit')
                                             <a href="{{ route('products.edit', $item->id) }}" title="Edit Product"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             @endcan
                                             
-                                            @can('product-delete')
+                                            @can('product_delete')
                                             <form method="POST" action="{{ route('products.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}

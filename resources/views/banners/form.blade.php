@@ -9,7 +9,7 @@
 	<div class="form-group">
 
     <label for="image" class="control-label">{{ 'Image' }}</label>
-    <input class="form-control" name="image" type="file" id="image" value="{{ isset($banner->image) ? $banner->image : ''}}" >
+    <input class="form-control" name="image" type="file" id="image" value="{{ isset($banner->image) ? $banner->image : ''}}" style="border: hidden;">
     {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
 </div>
 </div>

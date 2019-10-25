@@ -41,4 +41,8 @@ class OrderManagementController extends Controller
        
         return view('order_management.editorder',compact('orderDetails'));
     }
+    public function updateOrder(Request $request,$id)
+    {
+        dd($request->all());
+    }
 }

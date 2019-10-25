@@ -98,9 +98,6 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
   <script src="https://parsleyjs.org/dist/parsley.min.js"></script>
    <script src="{{asset('/vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
-   
-
-
 @yield('script')
 </body>
 </html>

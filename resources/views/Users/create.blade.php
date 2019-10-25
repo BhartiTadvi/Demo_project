@@ -33,7 +33,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
             <strong>Image:<span class="check-error">*</span></strong>
     
-    <input class="form-control" name="image" type="file" id="image">
+    <input class="form-control" name="image" type="file" id="image" style="border: hidden;">
     {!! $errors->first('image', '<span class="error-message">:message</span>') !!}
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">

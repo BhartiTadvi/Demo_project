@@ -9,6 +9,11 @@
     		<div class="row">  	
 	    		<div class="col-sm-8">
 	    			<div class="contact-form">
+	    				 @if ($message = Session::get('success'))
+				           <div class="alert alert-success">
+				            <p>{{ $message }}</p>
+				           </div>
+				         @endif
 	    				<h2 class="title text-center">Contact Us</h2>
 	    				<div class="status alert alert-success" style="display: none"></div>
 	    				{!! Form::open(array('route' => 'contact.store','method'=>'POST','data-parsley-validate','class'=>'contact-form row','name'=>'contact-form',

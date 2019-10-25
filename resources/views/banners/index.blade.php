@@ -7,9 +7,11 @@
                   <div class="box-header">banners</div>
                     <div class="box-body">
                       <div class="pull-right">
+                      @can('banner_create')
                       <a href="{{ route('banners.create') }}" class="btn btn-success   btn-sm" title="Add New Banner">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                       </a>
+                      @endcan
                  </div>
                   <form method="GET" action="{{ route('banners.index') }}"  accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                  <div class="input-group">
@@ -21,16 +23,17 @@
                   </button>
               </span>
              </form>
-             @if ($message = Session::get('success'))
-          <div class="alert alert-success">
-            <p>{{ $message }}</p>
-          </div>
-          @endif
+               @if ($message = Session::get('success'))
+              <div class="alert alert-success">
+                <p>{{ $message }}</p>
+              </div>
+              @endif
               <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Banner Name</th><th>Image</th><th>Actions</th>
+                                        <th>#</th><th>Banner Name</th>
+                                        <th>Image</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,14 +45,14 @@
                                         <img src="{{asset('storage/'.$item->image)}}" height="50" width="80">
                                         </td>
                                      <td>
-                                            @can('banner-list')
+                                            @can('banner_show')
                                             <a href="{{ route('banners.show',$item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @endcan
-                                            @can('banner-edit')
+                                            @can('banner_edit')
                                             <a href="{{ route('banners.edit',$item->id) }}" title="Edit Banner"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             @endcan
 
-                                            @can('banner-delete')
+                                            @can('banner_delete')
 
                                             <form method="POST" action="{{ route('banners.destroy', $item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}

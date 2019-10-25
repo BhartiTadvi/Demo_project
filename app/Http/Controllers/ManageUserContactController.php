@@ -20,10 +20,6 @@ class ManageUserContactController extends Controller
         $perPage = 25;
         if (!empty($keyword)) {
             $manage_user_contacts = Contactus::where('name', 'LIKE', "%$keyword%")
-                ->orWhere('address1', 'LIKE', "%$keyword%")
-                ->orWhere('address2', 'LIKE', "%$keyword%")
-                ->orWhere('city', 'LIKE', "%$keyword%")
-                ->orWhere('zipcode', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
             $manage_user_contacts = Contactus::latest()->paginate($perPage);
@@ -85,16 +81,4 @@ class ManageUserContactController extends Controller
         return redirect()->route('manage_user_contacts.index')->with('success', 'Message reply updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function destroy($id)
-    {
-        Contactus::destroy($id);
-        return redirect()->route('manage_user_contacts.index')->with('success', 'Message deleted successfully!');
-    }
 }

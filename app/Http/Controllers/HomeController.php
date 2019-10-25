@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        auth()->user()->givePermissionTo('role-create');
+        auth()->user()->givePermissionTo('role_create');
          $ordersCount = Order::get();
          $userCount = User::get();
          $couponCount = Coupon::get();

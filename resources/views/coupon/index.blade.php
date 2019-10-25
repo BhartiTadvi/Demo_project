@@ -15,7 +15,7 @@
           <div class="box">
             <div class="box-header">
              <div class="pull-right">
-              @can('coupon-create')
+              @can('coupon_create')
               <a href="{{ route('coupon.create') }}" class="btn btn-success btn-sm" title="Add New Coupon">
                <i class="fa fa-plus" aria-hidden="true"></i> Add New
               </a>
@@ -65,13 +65,13 @@
                                         <td>{{ $item->discount }}</td>
 
                                         <td>
-                                            @can('coupon-show')
+                                            @can('coupon_show')
                                             <a href="{{ route('coupon.show',$item->id) }}" title="View Coupon"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             @endcan
-                                            @can('coupon-edit')
+                                            @can('coupon_edit')
                                             <a href="{{ route('coupon.edit',$item->id) }}" title="Edit Coupon"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             @endcan
-                                            @can('coupon-delete')
+                                            @can('coupon_delete')
                                             <form method="POST" action="{{ route('coupon.destroy',$item->id) }}" accept-charset="UTF-8" style="display:inline">
                                                 {{ method_field('DELETE') }}
                                                 {{ csrf_field() }}

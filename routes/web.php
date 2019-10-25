@@ -140,7 +140,7 @@ Route::resource('manage_user_email', 'ManageUserEmailController');
 Route::resource('order_management', 'OrderManagementController');
 Route::get('/order-detail/{id}', 'OrderManagementController@orderDetail')->name('show.orderdetail');
 Route::get('/edit/order/{id}', 'OrderManagementController@editOrder')->name('edit.order');
-
+Route::post('/update/order/{id}','OrderManagementController@updateOrder')->name('update.order');
 
 Route::resource('cms', 'CmsController');
 
