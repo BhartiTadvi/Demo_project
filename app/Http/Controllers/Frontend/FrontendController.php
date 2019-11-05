@@ -20,32 +20,58 @@ class FrontendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
+     public function index(Request $request)
      {
+        $keyword = $request->get('search');
+        $perPage = 9;
+
+       if (!empty($keyword)) {
+
+            $products = Product::where('productname', 'LIKE', "%$keyword%")->orWhereHas('productCategories.category',function($q) use($keyword){
+                $q->where('name', 'LIKE', "%$keyword%");
+             })->with('productImage')->paginate($perPage); 
+
+        } else {
+            $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->paginate($perPage);
+        }
         $sliders = Banner::get();
         $categories = Category::where(['parent_id'=>0,'status'=>1])->get();
         $subcategories = category::with('children')->get();
-        $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->get();
         $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
+        $productCategory = Category::where('parent_id','!=', 0)->first();
+          $product_id = $productCategory->id;
+          $productlist = Product::whereHas('productCategories',function($q) use($product_id)
+         {
+            $q->where('category_id',$product_id);
+         })->with('productImage')->get();
         $minprice=0;
+        $recommendationProduct = $products->chunk(3);
         $maxprice=Product::max('price');
-        return view('frontend.home',compact('sliders','categories','subcategories','products','productCounts','product','minprice','maxprice'));
+        return view('frontend.home',compact('sliders','categories','subcategories','products','productCounts','product','minprice','maxprice','recommendationProduct','productlist','productlist'));
+
      }
     
      /**Show all products on home page**/
       public function showProduct($id)
      {
+        $perPage = 9;
         $sliders = Banner::get();
         $categories = Category::where('parent_id','=', 0)->get();
         $subcategories = category::with('children')->get();
         $productCounts = Category::where('parent_id','!=', 0)->with('productCategories','children')->get();
+
         $products = Product::whereHas('productCategories',function($q) use($id)
              {
                 $q->where('category_id',$id);
-             })->with('productImage')->get();
+             })->with('productImage')->paginate($perPage);
+        $productslist = Product::whereHas('productCategories',function($q) use($id)
+             {
+                $q->where('category_id',$id);
+             })->with('productImage')->first(4);
         $minprice=0;
         $maxprice=Product::max('price');
-       return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice]);
+        $recommendationProduct = $products->chunk(3);
+       return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'recommendationProduct'=>$recommendationProduct]);
      }
      
     /** Get dynamic contacts info content from database**/
@@ -89,11 +115,11 @@ class FrontendController extends Controller
     /** Show product details **/
      public function productDetails($id)
      {
-        $products = Product::with('productCategories','productCategories.category'
+         $products = Product::with('productCategories','productCategories.category'
             ,'categories','productImage','parentCategory')->find($id);
          $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
-          $categories = Category::where('parent_id','=', 0)->get();
-           $subcategories = category::with('children')->get();
+         $categories = Category::where('parent_id','=', 0)->get();
+         $subcategories = category::with('children')->get();
          
         return view('frontend.product_details',compact('products','productCounts','categories','subcategories'));
      }
@@ -106,6 +132,7 @@ class FrontendController extends Controller
          {
             $q->where('category_id',$category_id);
          })->with('productImage')->get();
+        
        return view('frontend.product', compact('products'));
      }
  

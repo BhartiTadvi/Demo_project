@@ -27,9 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        auth()->user()->givePermissionTo('role_create');
+         auth()->user()->givePermissionTo('role_create');
          $ordersCount = Order::get();
-         $userCount = User::get();
+         $userCount = User::role('customer')->get();
          $couponCount = Coupon::get();
          $productCount = Product::get();
         return view('home',compact('ordersCount','userCount','couponCount','productCount'));

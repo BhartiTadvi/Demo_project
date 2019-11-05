@@ -23,9 +23,10 @@ class LoginController extends Controller
           'email'  => $request->get('e-mail'),
           'password' => $request->get('password1'));
           
-        if (Auth::attempt($users)&&Cart::content()->count() == 0) {
+        if (Auth::attempt($users) && Cart::content()->count() == 0) {
           return redirect()->route('home_shopper')->with('success','Log in successfully done');
-       } elseif (Auth::attempt($users)&&Cart::content()->count() >= 1) {
+          
+       } elseif (Auth::attempt($users) && Cart::content()->count() >= 1) {
         return redirect()->route('cart');
        }else{
            return back()->with('success', 'Wrong Login Details');

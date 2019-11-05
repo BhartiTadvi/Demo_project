@@ -32,8 +32,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Banner Name</th>
-                                        <th>Image</th><th>Actions</th>
+                                        <th>#</th>
+                                        <th>Banner Name</th>
+                                        <th>Image</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

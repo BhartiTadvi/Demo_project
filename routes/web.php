@@ -40,7 +40,7 @@ Route::resource('admin/posts', 'Admin\\PostsController');
 Route::resource('coupon/coupon', 'Coupon\\CouponController');
 
  //frontend routes
- Route::get('/','Frontend\FrontendController@index')->name('home_shopper');
+ Route::get('/','Frontend\\FrontendController@index')->name('home_shopper');
  Route::get('/login','Frontend\RegistrationController@create')->name('login');
  Route::post('/register/store','Frontend\RegistrationController@store')->name('user.store');
  Route::post('/userlogin','Frontend\LoginController@login')->name('userlogin');
@@ -148,9 +148,5 @@ Route::resource('cms', 'CmsController');
 Route::resource('report', 'ReportController');
 Route::get('report', 'ReportController@index')->name('report.index');
 Route::get('/customer-report', 'ReportController@showCustomer')->name('customer.index');
-
-
-// Route::post('/placeorder/store','Frontend\CheckoutController@placeOrderNew')->name('placeorder.store');
-
 Route::resource('coupon-procedure', 'CouponProcedureController');
 Route::resource('permission', 'PermissionController');

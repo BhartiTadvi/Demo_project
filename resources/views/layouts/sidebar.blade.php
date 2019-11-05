@@ -175,7 +175,7 @@
            </ul>
         </li>
          <li class="treeview">
-           @can('order_index')
+           @can('order_detail_index')
           <a href="#">
             <i class="fa fa-laptop"></i>
             <span>Order Management</span>

@@ -105,9 +105,12 @@
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+						<form method="GET" action="{{ route('home_shopper') }}"  accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                 		<div class="search_box pull-right">
+							<input type="text" placeholder="Search" name="search" />
 						</div>
+            		 </form>						
+						
 					</div>
 				</div>
 			</div>

@@ -1,3 +1,4 @@
+
 @foreach($products as $product)
 <div class="col-sm-3">
 	<div class="product-image-wrapper">

@@ -47,9 +47,6 @@
                                           @can('order_detail_show') 
                                           <a href="{{ route('show.orderdetail', $order->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Order Details</button></a> 
                                           @endcan
-                                          @can('order_detail_edit')
-                                          <a href="{{ route('edit.order',$order->id) }}" title="Edit"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Order</button></a>
-                                          @endcan
                                         </td>
                                     </tr>
                                     @endforeach

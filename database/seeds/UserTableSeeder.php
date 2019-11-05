@@ -16,7 +16,7 @@ class UserTableSeeder extends Seeder
         $user=[
 	     	['name'=>"Admin",
 	     	 'email'=>"bharti08@gmail.com",
-	     	 'password'=>bcrypt("admin123")
+	     	 'password'=>bcrypt("Admin123")
 	     	]
      	];
 

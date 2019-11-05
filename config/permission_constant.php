@@ -63,128 +63,128 @@ return[
          ],
          'bannerIndex'=>[
                'name'=>'banner_index',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'bannerCreate'=>[
                'name'=>'banner_create',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'bannerShow'=>[
                'name'=>'banner_show',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'bannerEdit'=>[
                'name'=>'banner_edit',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'bannerDeleted'=>[
                'name'=>'banner_delete',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          
          'categoryIndex'=>[
                'name'=>'category_index',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'categoryCreate'=>[
                'name'=>'category_create',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'categoryShow'=>[
                'name'=>'category_show',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'categoryEdit'=>[
                'name'=>'category_edit',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'categoryDeleted'=>[
                'name'=>'category_delete',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
           'productIndex'=>[
                'name'=>'product_index',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'productCreate'=>[
                'name'=>'product_create',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'productShow'=>[
                'name'=>'product_show',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'productEdit'=>[
                'name'=>'product_edit',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'productDeleted'=>[
                'name'=>'product_delete',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'couponIndex'=>[
                'name'=>'coupon_index',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'couponCreate'=>[
                'name'=>'coupon_create',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'couponShow'=>[
                'name'=>'coupon_show',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'couponEdit'=>[
                'name'=>'coupon_edit',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'couponDeleted'=>[
                'name'=>'coupon_delete',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'emailTemplateIndex'=>[
                'name'=>'email_template_index',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'emailTemplateCreate'=>[
                'name'=>'email_template_create',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'emailTemplateShow'=>[
                'name'=>'email_template_show',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'emailTemplateEdit'=>[
                'name'=>'email_template_edit',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'emailTemplateDeleted'=>[
                'name'=>'email_template_delete',
-               'role_name'=>['superadmin','admin','inventory manager']
+               'role_name'=>['superadmin','admin','inventory_manager']
          ],
          'orderDetailIndex'=>[
                'name'=>'order_detail_index',
-               'role_name'=>['superadmin','admin','order manager']
+               'role_name'=>['superadmin','admin','order_manager']
          ],
          'orderDetailShow'=>[
                'name'=>'order_detail_show',
-               'role_name'=>['superadmin','admin','order manager']
+               'role_name'=>['superadmin','admin','order_manager']
          ],
          'orderDetailEdit'=>[
                'name'=>'order_detail_edit',
-               'role_name'=>['superadmin','admin','order manager']
+               'role_name'=>['superadmin','admin','order_manager']
          ],
          'contactUsIndex'=>[
                'name'=>'contact_us_index',
-               'role_name'=>['superadmin','admin','order manager']
+               'role_name'=>['superadmin','admin','order_manager']
          ],
          'contactUsShow'=>[
                'name'=>'contact_us_show',
-               'role_name'=>['superadmin','admin','order manager']
+               'role_name'=>['superadmin','admin','order_manager']
          ],
          'contactUsEdit'=>[
                'name'=>'contact_us_edit',
-               'role_name'=>['superadmin','admin','order manager']
+               'role_name'=>['superadmin','admin','order_manager']
          ],
     ],    
 ];

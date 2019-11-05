@@ -17,7 +17,7 @@ class RoleController extends Controller
     function __construct()
     {
          // $this->middleware('permission:role-list');
-          $this->middleware('permission:role-create', ['only' => ['create','store']]);
+          $this->middleware('permission:role_create', ['only' => ['create','store']]);
     }
     /**
      * Display a listing of the resource.

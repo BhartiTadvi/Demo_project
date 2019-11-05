@@ -45,7 +45,7 @@ class Product extends Model
 
    public function productCategories() 
    {   
-    return $this->hasOne('App\Products_categories');
+    return $this->hasOne('App\Products_categories','product_id');
    }
 
     public function parentCategory() 

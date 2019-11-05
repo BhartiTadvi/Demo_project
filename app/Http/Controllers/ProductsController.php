@@ -21,8 +21,8 @@ class ProductsController extends Controller
             $products = Product::where('productname', 'LIKE', "%$keyword%")
                 ->orWhere('price', 'LIKE', "%$keyword%")
                 ->orWhere('description', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage)
-                ->with('productCategories','productCategories.category');
+                ->latest()->paginate($perPage);
+
         } else {
             $products = Product::with('productCategories','productCategories.category')->paginate($perPage);
         }

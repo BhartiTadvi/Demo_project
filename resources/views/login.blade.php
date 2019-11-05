@@ -32,10 +32,6 @@
     <p class="login-box-msg">Sign in to start your session</p>
 
     <form class="margin-bottom-0" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-
-   <!-- {!! Form::open(array('route' => 'login', 'class' => 'margin-bottom-0','method'=>'POST','enctype' => 'multipart/form-data')) !!} -->
-
        {{ csrf_field() }}
       <div class="form-group has-feedback">
        {!! Form::email('email', '', ['class' => 'form-control','placeholder'=>"Email", ""]) !!}
@@ -66,7 +62,7 @@
     </form>
     <!-- /.social-auth-links -->
 
-    <a href="{{ route('password.request')}}">I forgot my password</a><br>
+  <!--   <a href="{{ route('password.request')}}">I forgot my password</a><br> -->
     <a href="{{ route('register')}}" class="text-center">Register a new membership</a>
 
   </div>

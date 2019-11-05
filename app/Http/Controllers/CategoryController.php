@@ -18,8 +18,10 @@ class CategoryController extends Controller
         $keyword = $request->get('search');
         $perPage =5;
     if (!empty($keyword)) {
+
             $category = Category::where('name', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
+            $categories = Category::where('parent_id',0)->get();
         } else {
          $category = Category::latest()->paginate($perPage);
          $categories = Category::where('parent_id',0)->get();

@@ -30,7 +30,9 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th><th>Name</th><th>Title</th>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Title</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

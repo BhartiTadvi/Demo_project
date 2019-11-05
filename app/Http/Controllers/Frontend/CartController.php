@@ -20,6 +20,7 @@ class CartController extends Controller
 
     /** Add item into cart **/
     public function addItem($id){
+      $perPage = 9;
      $product = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->find($id);
      $add = Cart::add([
             'id' => $product->id, 
@@ -28,16 +29,17 @@ class CartController extends Controller
             'qty' => 1,
             'options' => ['product_image'=> $product->productImage[0]->image]]);
      $sliders = Banner::get();
-     $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->get();
+     $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->paginate($perPage);
      $categories = Category::where(['parent_id'=>0,'status'=>1])->get();
      $subCategories = category::with('children')->get();
      $productCounts = Category::where('parent_id','!=', 0)->
                       where('status',1)->with('productCategories','children')->get();
      $minprice=0;
      $maxprice=Product::max('price');
+     $recommendationProduct = $products->chunk(3);
      return view('frontend.home',[
          'data' => Cart::content()
-       ,'sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subCategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice]);
+       ,'sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subCategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'recommendationProduct'=>$recommendationProduct]);
      }
 
      /** Show cart details **/
