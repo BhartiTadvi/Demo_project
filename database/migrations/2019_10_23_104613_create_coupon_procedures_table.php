@@ -22,7 +22,6 @@ class CreateCouponProceduresTable extends Migration
             $table->integer('remaining_quantity')->nullable();
             $table->timestamps();
             });
-
          DB::unprepared("CREATE PROCEDURE InsertCoupons(IN var_title varchar(255), IN var_type varchar(255), IN var_code varchar(255), IN var_quantity int,IN var_remaining_quantity int, IN var_discount int)
          BEGIN
          INSERT INTO coupon_procedures(title,type,code,discount,quantity,remaining_quantity) VALUES(var_title,var_code,var_type,var_quantity,var_remaining_quantity,var_discount);

@@ -16,8 +16,11 @@
                                     </button>
                             </span>
                         </form>
-                        <br/>
-                        <br/>
+                         @if ($message = Session::get('success'))
+                      <div class="alert alert-success">
+                      <p>{{ $message }}</p>
+                      </div>
+                       @endif
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -25,7 +28,7 @@
                                         <th>Order Id</th>
                                         <th>Date</th>
                                          <th>Order Status</th>
-                                        <th>Order Details</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,7 +50,13 @@
                                           @can('order_detail_show') 
                                           <a href="{{ route('show.orderdetail', $order->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Order Details</button></a> 
                                           @endcan
+                                      
+                                          @can('order_detail_edit') 
+                                          <a href="{{route('edit.order',$order->id) }}" title="edit Product"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Order Edit</button></a> 
+                                          @endcan
                                         </td>
+                                        
+
                                     </tr>
                                     @endforeach
                                 </tbody>

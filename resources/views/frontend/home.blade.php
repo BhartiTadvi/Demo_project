@@ -123,7 +123,7 @@
 												<p></p>
 												<a href="{{
 												route('product.details', ['id'=>$product->id])}}"id="add" class="btn btn-default" style="margin-top: -25px;color:#FE980F;"><i class="add-to-cart"></i>Product Details</a>
-												<a href="{{route('add.cart', ['id'=>$product->id]) }}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
 
@@ -198,7 +198,7 @@
 													
 											       <h2><i class="fa fa-inr"></i>  {{$item->price}} </h2>
 											         <p>{{$item->productname}} </p>
-													<a href="{{route('add.cart', ['id'=>$product->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="{{route('add.cart', ['id'=>$item->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>

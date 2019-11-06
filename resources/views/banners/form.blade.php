@@ -14,6 +14,11 @@
 </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-12">
+	 <label style="margin-left: 18px;}"> Active </label>
+                     <input type="radio" name="status" value="1" class="minimal-red" checked>
+                             <label> Inactive </label>
+                     <input type="radio" name="status" value="0" class="minimal-red"></div>
+                     <div class="col-xs-12 col-sm-12 col-md-12">
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
 
 <a href="{{ route('banners.index') }}" title="Back" class="btn btn-warning"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>

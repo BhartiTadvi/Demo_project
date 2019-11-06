@@ -34,7 +34,7 @@ class FrontendController extends Controller
         } else {
             $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->paginate($perPage);
         }
-        $sliders = Banner::get();
+        $sliders = Banner::where('status',1)->get();
         $categories = Category::where(['parent_id'=>0,'status'=>1])->get();
         $subcategories = category::with('children')->get();
         $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
@@ -105,7 +105,7 @@ class FrontendController extends Controller
         'ip' => $request->ip(),
         'template_key' => "contact_template_key",
         );
-        $email="bhartitadvi081@gmail.com";
+        $email="bharti08@gmail.com";
         Mail::to($email)->send(new ContactMail($contactmail));
         if($result){
            return redirect()->back()->with('success','Contact done successfully');
@@ -139,11 +139,12 @@ class FrontendController extends Controller
      /**Wishlist View**/
      public function ViewWishList()
      {
+    
       $categories = Category::where('parent_id','=', 0)->get();
       $subcategories = category::with('children')->get();
       $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
       $products =Product::where('id','product_id')->with('wishList','productImage')->get();
-      $productwish =UserWishlist::with('product')->get();   
+      $productwish =UserWishlist::with('product')->get(); 
       return view('frontend.wishlist',compact('categories','subcategories','productCounts','productwish','products'));
      }
     /** Store Wishlist into database**/

@@ -31,15 +31,22 @@ class CartController extends Controller
      $sliders = Banner::get();
      $products = Product::with('productCategories','productCategories.category','categories','productImage','parentCategory')->paginate($perPage);
      $categories = Category::where(['parent_id'=>0,'status'=>1])->get();
+     $productCategory = Category::where('parent_id','!=', 0)->first();
+     $product_id = $productCategory->id;
+     $productList = Product::whereHas('productCategories',function($q) use($product_id)
+         {
+            $q->where('category_id',$product_id);
+         })->with('productImage')->get();
      $subCategories = category::with('children')->get();
      $productCounts = Category::where('parent_id','!=', 0)->
                       where('status',1)->with('productCategories','children')->get();
      $minprice=0;
      $maxprice=Product::max('price');
+
      $recommendationProduct = $products->chunk(3);
      return view('frontend.home',[
          'data' => Cart::content()
-       ,'sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subCategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'recommendationProduct'=>$recommendationProduct]);
+       ,'sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subCategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'recommendationProduct'=>$recommendationProduct,'productlist'=>$productList]);
      }
 
      /** Show cart details **/

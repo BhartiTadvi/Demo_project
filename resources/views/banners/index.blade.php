@@ -35,6 +35,7 @@
                                         <th>#</th>
                                         <th>Banner Name</th>
                                         <th>Image</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -43,9 +44,15 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name}}</td>
+
                                         <td>
                                         <img src="{{asset('storage/'.$item->image)}}" height="50" width="80">
                                         </td>
+                                          @if($item->status== 1)
+                                    <td>Active</td>
+                                     @else
+                                    <td>Inactive</td>
+                                        @endif
                                      <td>
                                             @can('banner_show')
                                             <a href="{{ route('banners.show',$item->id) }}" title="View Banner"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

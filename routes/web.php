@@ -28,8 +28,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('Roles','RoleController');
     Route::resource('Users','UserController');
-    
 });
+
 //admin routes
 Route::resource('banners', 'BannerController');
 Route::resource('category', 'CategoryController');
@@ -55,8 +55,6 @@ Route::resource('coupon/coupon', 'Coupon\\CouponController');
  Route::get('/productdetails/{id}','Frontend\FrontendController@productDetails')->name('product.details');
 Route::get('/productscateory/','Frontend\FrontendController@productCategory');
 Route::get('/get/states/','Frontend\AddressController@getState')->name('getState');
-
-// Route::post('/checkout','Frontend\CheckoutController@index')->name('create.checkout');
 
 //cart route
 Route::get('/cart', 'Frontend\CartController@index')->name('cart');
@@ -137,7 +135,8 @@ Route::resource('manage_user_contacts', 'ManageUserContactController');
 Route::resource('manage_user_email', 'ManageUserEmailController');
 
 //order management
-Route::resource('order_management', 'OrderManagementController');
+Route::get('/order_management', 'OrderManagementController@index')->name('order_management.index');
+
 Route::get('/order-detail/{id}', 'OrderManagementController@orderDetail')->name('show.orderdetail');
 Route::get('/edit/order/{id}', 'OrderManagementController@editOrder')->name('edit.order');
 Route::post('/update/order/{id}','OrderManagementController@updateOrder')->name('update.order');
@@ -150,3 +149,4 @@ Route::get('report', 'ReportController@index')->name('report.index');
 Route::get('/customer-report', 'ReportController@showCustomer')->name('customer.index');
 Route::resource('coupon-procedure', 'CouponProcedureController');
 Route::resource('permission', 'PermissionController');
+// 'pending','processing','dispatched','delivered','cancelled'
