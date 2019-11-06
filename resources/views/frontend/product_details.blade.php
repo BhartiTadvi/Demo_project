@@ -68,31 +68,34 @@
 							<div class="view-product">
 								@foreach($products->productImage as $image)
 								@endforeach
-								<img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=190px width=121px;/>
+								<img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=190px width=121px; class="zoom"/>
 											<h2></h2>
 								
-								<h3>ZOOM</h3>
 							</div>
 							<div id="similar-product" class="carousel slide" data-ride="carousel">
 								
 								  <!-- Wrapper for slides -->
 								    <div class="carousel-inner">
 										<div class="item active">
-										  <a href="">
+										 
 										 @foreach($products->productImage as $image)
-								        <img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=70px width=60px;/></a>
+										  <a href="Javascript:Void(0);">
+								        <img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=70px width=80px; class="productImage" name="{{$image->image}}"/></a>
 								         @endforeach
 										</div>
 										<div class="item">
-										  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+										  <a href="Javascript:Void(0);">
 										  @foreach($products->productImage as $image)
-								        <img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=70px width=60px;/>
+								        <img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=70px width=80px;  class="productImage"/ name="{{$image->image}}">
+								         </a>
 								         @endforeach
 										</div>
 										<div class="item">
-										 <!--  <a href=""><img src="images/product-details/similar1.jpg" alt=""></a> -->
+										
 										  @foreach($products->productImage as $image)
-								        <img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=70px width=60px;/>
+										 <a href="javascript:void(0);"> 
+								        <img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=70px width=80px;  id="productImage"/>
+								        </a>
 								         @endforeach
 										</div>
 									</div>
@@ -378,4 +381,19 @@
 			</div>
 		</div>
 </section>
+@endsection
+@section('script')
+<script>
+	$('document').ready(function(){
+		$('.productImage').click(function(){
+        var image = $(this).attr("name");
+         $('.zoom').attr("src",'/uploads/'+image);
+		});
+    });
+    // function closeImage(){
+    // 	$('.appear_image').remove();
+    // }
+
+	</script>
+
 @endsection

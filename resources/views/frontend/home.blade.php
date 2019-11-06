@@ -167,7 +167,7 @@
 											<img src="{{asset('uploads/'.$image->image)}}" alt="" width="208" height="180" />
 												<h2>${{$product->price}}</h2>
 												<p>{{$product->productname}}</p>
-								        	<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+								        	<a href="{{route('add.cart', ['id'=>$product->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
 																	
 								</div>
@@ -193,11 +193,12 @@
 											<div class="single-products">
 												<div class="productinfo text-center">
 													@foreach($item->productImage as $image)
-													<img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=208px width=127px;/>
 													@endforeach
+													<img src="{{asset('uploads/'.$image->image)}}" alt="product-image" height=208px width=127px;/>
+													
 											       <h2><i class="fa fa-inr"></i>  {{$item->price}} </h2>
 											         <p>{{$item->productname}} </p>
-													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+													<a href="{{route('add.cart', ['id'=>$product->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 												</div>
 											</div>
 										</div>

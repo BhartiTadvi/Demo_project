@@ -126,3 +126,8 @@ ol.progtrckr li.progtrckr-todo:before {
     height: 31px;
   margin-left: 45px;}
   .help-block{color:red;}
+  .zoom:hover {
+  -ms-transform: scale(1.5); 
+  -webkit-transform: scale(1.5); 
+  transform: scale(1.5); 
+}
