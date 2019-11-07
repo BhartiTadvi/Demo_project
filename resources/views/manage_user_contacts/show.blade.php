@@ -30,7 +30,7 @@
                                     </tr>
                                      <tr>
                                         <th> Message </th>
-                                        <td> {{ $manage_user_contact->message }} </td>
+                                        <td> <p Style="word-break: break-all;">{{ $manage_user_contact->message }} </p></td>
                                     </tr>
                                 </tbody>
                             </table>

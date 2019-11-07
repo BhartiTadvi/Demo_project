@@ -45,9 +45,8 @@ class OrderManagementController extends Controller
         return view('order_management.editorder',compact('orderDetails'));
     }
     public function updateOrder(Request $request,$id)
-    {
+    { 
         $orderDetails = Order::where('id',$id)->with('address','user','orderDetail')->first();
-        // dd($orderDetails->orderDetail[0]->payment_mode);
         foreach($orderDetails->address as $address)
         {
           $address1 = $address->address1;
@@ -56,27 +55,23 @@ class OrderManagementController extends Controller
           $zipcode = $address->zipcode;
         }
         $email = $orderDetails->user->email;
+        $name = $orderDetails->user->name;
         foreach($orderDetails->orderDetail as $paymentMode)
         {
              if($paymentMode->payment_mode == 1){
-               $payment = "Cash on delivery";
+               $payment = "CASH ON DELIVERY";
              }
              else{
-          $payment = "Paypal";
+          $payment = "PAYPAL";
         }
         }
-       
-        
-        $payment_mode =
-        //$users = Order::where('id',$id)->with('user')->get();
-        // dd($orderDetails);
-        $tracking_code = str_random(12);
         $orders = OrderDetail::where('order_id',$id)->first();
         $orders->transaction_status = $request->order_status;
         $orders->save();
          $orderStatus= array(
+        'name' => $name,
+        'order_id' => $id, 
         'status'  => $request->get('order_status'),
-        'tracking_code' => $tracking_code,
         'billing_address' =>$address1,
         'billing_city' =>$city,
         'billing_zipcode' =>$zipcode,

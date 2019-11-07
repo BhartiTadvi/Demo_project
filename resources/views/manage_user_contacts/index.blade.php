@@ -29,7 +29,6 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Subject</th>
-                                        <th>Message</th>
                                          <th>Action</th>
                                     </tr>
                                 </thead>
@@ -40,7 +39,6 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->subject }}</td>
-                                        <td>{{ $item->message }}</td>
                                         <td>
                                             @can('contact_us_show')
                                             <a href="{{ route('manage_user_contacts.show',$item->id) }}" title="View manage_user_contact"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

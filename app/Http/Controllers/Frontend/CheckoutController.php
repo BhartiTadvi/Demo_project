@@ -102,7 +102,6 @@ class CheckoutController extends Controller
     /** store order details **/
     public function placeOrder(CheckoutRequest $request){
         $coupon_id=$request->coupon_id;
-        
         DB::beginTransaction();
       try{
           $countries = Country::get();
@@ -197,9 +196,11 @@ class CheckoutController extends Controller
                 '<td>'.$row->qty*$row->price.'</td></tr>';
                 }
         $view .=    '</tbody></table>';
+        $view .= '<div style="float:right">'.'Total:'.$row->total.'</div>';
         
          $order= array(
         'email'  => Auth::user()->email, 
+        'name' => Auth::user()->name,
         'product_no'  => $request->get('product_id'),
         'product'  => $request->get('productname'),
         'quantity' => $request->get('quantity1'),
@@ -216,9 +217,10 @@ class CheckoutController extends Controller
         'created_at'  => $request->get('created_at'), 
         'paymentmode' => $request->get('paymentmode'),
         'template_key' => "order_template_key",
+        'order_id' => $orders->id,
         'view' =>$view);
         Mail::to(Auth::user()->email)->send(new OrderMail($order));
-        $email="bhartitadvi081@gmail.com";
+        $email="bharti08@gmail.com";
         Mail::to($email)->send(new OrderMail($order));
         return redirect()->route('cashondelivery')->with('success', 'order has been placed successfully');
          } catch (\Exception $e) {

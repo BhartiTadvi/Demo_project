@@ -23,7 +23,7 @@ table, td, th {
                         <th>productname</th>
                           <th>Transaction_id</th>
                           <th>Date and time</th>
-                          <th>Total</th>
+                          <th>Subtotal</th>
                     </tr>
                        </thead>
                            <tbody>

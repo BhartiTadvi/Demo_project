@@ -56,6 +56,11 @@ Route::resource('coupon/coupon', 'Coupon\\CouponController');
 Route::get('/productscateory/','Frontend\FrontendController@productCategory');
 Route::get('/get/states/','Frontend\AddressController@getState')->name('getState');
 
+//google Login
+
+Route::get('auth/google', 'Frontend\LoginController@redirectToGoogle');
+Route::get('auth/google/callback', 'Frontend\LoginController@handleGoogleCallback');
+
 //cart route
 Route::get('/cart', 'Frontend\CartController@index')->name('cart');
 Route::get('/shopping-cart-add/{id}', 'Frontend\CartController@addItem')->name('add.cart'); 

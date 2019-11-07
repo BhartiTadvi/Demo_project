@@ -38,8 +38,8 @@
                          <tr>
                            <td>{{ $loop->iteration }}</td>
                              <td>{{ $item->name }}</td>
-                                 <td style="width:200p">
-                                  ]{{ $item->address1 }}</td>
+                                 <td style="width:200px">
+                                  {{ $item->address1 }}</td>
                                     <td style="width:200px">
                                       {{ $item->address2 }}</td>
                                       <td>

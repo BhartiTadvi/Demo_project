@@ -22,7 +22,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td style="width:300px">{{ $item->address1 }}</td>
+                                        <td style="width:300px">{{ $item->address2 }}</td>
                                         <td style="width:300px">{{ $item->address2 }}</td>
                                         <td>
                                             <a href="{{ url('/address/' . $item->id) }}" title="View address"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

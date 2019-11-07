@@ -264,12 +264,12 @@
 			<div class="payment-options">
 					<span>
 				 <label>
-          <input type="hidden" name="paymentmode" value="cash on delivery" />
+          <input type="hidden" name="paymentmode" value="CASH ON DELIVERY" />
           <input type="radio" name="payment" id="cod"> Cash On Delivery</label>
 					</span>
 					<span>
 						<label>
-            <input type="hidden" name="paymentmode1" value="paypal" />
+            <input type="hidden" name="paymentmode1" value="PAYPAL" />
               <input type="radio" name="payment"  id ="paypal"> Paypal</label>
 					</span>
 			

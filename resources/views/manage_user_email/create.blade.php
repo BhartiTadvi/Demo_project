@@ -25,6 +25,7 @@
 @endsection
 @section('script')
  <script>
+        CKEDITOR.addCss( 'body {word-break:break-all;}' );
         CKEDITOR.replace( 'template_content' );
     </script>
 @endsection
