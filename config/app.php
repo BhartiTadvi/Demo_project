@@ -185,15 +185,6 @@ return [
         Skovmand\Mailchimp\MailchimpServiceProvider::class,
         Unisharp\Ckeditor\ServiceProvider::class,
 
-
-
-
-
-
-        
-
-
-
     ],
 
     /*

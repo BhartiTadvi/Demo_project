@@ -4,15 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cms extends Model
+class Privecy extends Model
 {
-    //
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'cms';
+    protected $table = 'privecies';
 
     /**
     * The database primary key value.
@@ -26,5 +25,7 @@ class Cms extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'title', 'pagecontent'];
+    protected $fillable = ['type', 'description', 'status'];
+
+    
 }

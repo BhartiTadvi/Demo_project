@@ -36,9 +36,8 @@ class ContactMail extends Mailable
         {
         $template = htmlspecialchars_decode($template->templatecontent);
         }
-        
         $template = $this->replace($template,$this->contactmail);
-       return $this->from('bhartitadvi081@gmail.com')->view('mail_template')->with('template',$template);
+       return $this->from('bharti08@gmail.com')->view('mail_template')->with('template',$template);
     }
 
     public function replace($template,$contactmail){

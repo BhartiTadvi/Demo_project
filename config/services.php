@@ -39,7 +39,7 @@ return [
 
     'client_secret' => 'hKFYEwNTU871gS77qAnwnHkV',
 
-       'redirect' => 'http://localhost:8000/google/callback',
+       'redirect' => 'http://127.0.0.1:8000/login/google/callback',
 
     ],
     

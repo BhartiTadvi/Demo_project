@@ -3,12 +3,6 @@
     <input class="form-control" name="title" type="text" id="title" value="{{ isset($couponprocedure->title) ? $couponprocedure->title : ''}}" >
     {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 </div>
-<div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
-    <label for="type" class="control-label">{{ 'Type' }}</label>
-    <input class="form-control" name="type" type="text" id="type" value="{{ isset($couponprocedure->type) ? $couponprocedure->type : ''}}" >
-    {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
-</div>
-
 <div class="form-group {{ $errors->has('code') ? 'has-error' : ''}}">
     <label for="code" class="control-label">{{ 'Code' }}</label>
     <input class="form-control" name="code" type="text" id="code" value="{{ isset($couponprocedure->code) ? $couponprocedure->code : ''}}" >
@@ -28,6 +22,11 @@
     <label for="remaining_quantity" class="control-label">{{ 'Remaining Quantity' }}</label>
     <input class="form-control" name="remaining_quantity" type="number" id="remaining_quantity" value="{{ isset($couponprocedure->remaining_quantity) ? $couponprocedure->remaining_quantity : ''}}" >
     {!! $errors->first('remaining_quantity', '<p class="help-block">:message</p>') !!}
+</div>
+<div class="form-group {{ $errors->has('type') ? 'has-error' : ''}}">
+    <label for="type" class="control-label">{{ 'Type' }}</label>
+    <input class="form-control" name="type" type="text" id="type" value="{{ isset($couponprocedure->type) ? $couponprocedure->type : ''}}" >
+    {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
 </div>
 
 

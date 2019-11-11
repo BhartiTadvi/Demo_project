@@ -15,10 +15,10 @@ class CreateFaqs extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('question_no')->nullable();
-            $table->string('question')->nullable();
+            $table->integer('question_no')->unique();
+            $table->string('question')->unique();
             $table->string('answer')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default(1);
             $table->timestamps();
         });
     }

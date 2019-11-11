@@ -197,13 +197,24 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('report')}}"><i class="fa fa-circle-o"></i>Sales Report</a></li>
-            <li><a href="{{url('/customer-report')}}"><i class="fa fa-circle-o"></i>Customers Report</a></li>
+            <li><a href="{{route('report.index')}}"><i class="fa fa-circle-o"></i>Sales Report</a></li>
+            <li><a href="{{route('customer.index')}}"><i class="fa fa-circle-o"></i>Customers Report</a></li>
            </ul>
            
         </li>
-       
-       
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-laptop"></i>
+            <span>FAQ's</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('faqs')}}"><i class="fa fa-circle-o"></i>Faqs</a></li>
+           </ul>
+           
+        </li>
         </li>
         <li class="treeview">
           <a href="#">

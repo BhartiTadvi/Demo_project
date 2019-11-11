@@ -3,10 +3,12 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-11">
-                <div class="box">
-                    <div class="box-header">Couponprocedure</div>
-                    <div class="box-body">
+            @include('admin.sidebar')
+
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">Couponprocedure</div>
+                    <div class="card-body">
                         <a href="{{ url('/coupon-procedure/create') }}" class="btn btn-success btn-sm" title="Add New CouponProcedure">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
@@ -28,27 +30,14 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Title</th>
-                                        <th>Code</th>
-                                        <th>Type</th>
-                                        <th>Quantity</th>
-                                        <th>Remaining Quantity</th>
-                                        <th>Discount</th>
-                                        <th>Actions</th>
+                                        <th>#</th><th>Title</th><th>Code</th><th>Discount</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($couponprocedure as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->title }}</td>
-                                        <td>{{ $item->code }}</td>
-                                        <td>{{ $item->type }}</td>
-                                        <td>{{ $item->quantity }}</td>
-                                        <td>{{ $item->remaining_quantity }}</td>
-
-                                        <td>{{ $item->discount }}</td>
+                                        <td>{{ $item->title }}</td><td>{{ $item->code }}</td><td>{{ $item->discount }}</td>
                                         <td>
                                             <a href="{{ url('/coupon-procedure/' . $item->id) }}" title="View CouponProcedure"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/coupon-procedure/' . $item->id . '/edit') }}" title="Edit CouponProcedure"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
@@ -63,7 +52,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="pagination-wrapper"> </div>
+                            <div class="pagination-wrapper"> {!! $couponprocedure->appends(['search' => Request::get('search')])->render() !!} </div>
                         </div>
 
                     </div>

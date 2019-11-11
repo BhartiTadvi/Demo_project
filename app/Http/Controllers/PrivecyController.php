@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Cm;
+use App\Privecy;
 use Illuminate\Http\Request;
 
-class CmsController extends Controller
+
+class PrivecyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,15 +22,14 @@ class CmsController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $cms = Cm::where('type', 'LIKE', "%$keyword%")
+            $privecy = Privecy::where('type', 'LIKE', "%$keyword%")
                 ->orWhere('description', 'LIKE', "%$keyword%")
                 ->orWhere('status', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $cms = Cm::latest()->paginate($perPage);
+            $privecy = Privecy::latest()->paginate($perPage);
         }
-
-        return view('cms.index', compact('cms'));
+        return view('privecy.index', compact('privecy'));
     }
 
     /**
@@ -39,7 +39,7 @@ class CmsController extends Controller
      */
     public function create()
     {
-        return view('cms.create');
+        return view('privecy.create');
     }
 
     /**
@@ -52,15 +52,14 @@ class CmsController extends Controller
     public function store(Request $request)
     {
         
-        $request->validate([
-         'type'=>'required|unique:cms,type',
+         $request->validate([
+         'type'=>'required|unique:privecies,type',
          'description'=>'required',
          'status'=>'required'
        ]);
         $requestData = $request->all();
-        Cm::create($requestData);
-
-        return redirect()->route('cms.index')->with('success', 'Content added!');
+        Privecy::create($requestData);
+        return redirect('privecy')->with('success', 'Privecy  policy added!');
     }
 
     /**
@@ -72,9 +71,9 @@ class CmsController extends Controller
      */
     public function show($id)
     {
-        $cm = Cm::findOrFail($id);
+        $privecy = Privecy::findOrFail($id);
 
-        return view('cms.show', compact('cm'));
+        return view('privecy.show', compact('privecy'));
     }
 
     /**
@@ -86,9 +85,9 @@ class CmsController extends Controller
      */
     public function edit($id)
     {
-        $cm = Cm::findOrFail($id);
+        $privecy = Privecy::findOrFail($id);
 
-        return view('cms.edit', compact('cm'));
+        return view('privecy.edit', compact('privecy'));
     }
 
     /**
@@ -101,17 +100,19 @@ class CmsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-         'type'=>'required|unique:cms,type,'.$id,
+        
+         $request->validate([
+         'type'=>'required|unique:privecies,type',
          'description'=>'required',
          'status'=>'required'
        ]);
+         
         $requestData = $request->all();
-            
         
-        $cm = Cm::findOrFail($id);
-        $cm->update($requestData);
-        return redirect()->route('cms.index')->with('success', 'Content updated!');
+        $privecy = Privecy::findOrFail($id);
+        $privecy->update($requestData);
+
+        return redirect('privecy')->with('success', 'Privecy policy updated!');
     }
 
     /**
@@ -123,8 +124,8 @@ class CmsController extends Controller
      */
     public function destroy($id)
     {
-        Cm::destroy($id);
+        Privecy::destroy($id);
 
-        return redirect('cms')->with('success', 'Content deleted!');
+        return redirect('privecy')->with('success', 'Privecy  policy deleted!');
     }
 }

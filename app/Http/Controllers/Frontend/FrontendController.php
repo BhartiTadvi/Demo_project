@@ -12,7 +12,8 @@ use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\EmailTemplate;
 use App\Mail\ContactMail;
-use App\Cms;
+use App\Cm;
+use App\Faqs;
 class FrontendController extends Controller
 {
     /**
@@ -176,4 +177,34 @@ class FrontendController extends Controller
        UserWishlist::destroy($id);
        return redirect('/WishList')->with('success', 'Item Removed from Wishlist');
     }
+    public function showFaq()
+    {
+      $faqs = Faqs::get();
+    
+      return view('frontend.faqs',compact('faqs'));
+    }
+    public function showPrivacyPolicy()
+    {
+      $privacyPolicy = Cm::where('id',1)->get();
+      return view('frontend.privacypolicy',compact('privacyPolicy'));
+    }
+    
+      public function showTermsOfUse()
+    {
+      $terms = Cm::where('id',2)->first();
+      return view('frontend.termsofuse',compact('terms'));
+    }
+       public function showCopyright()
+    {
+      $copyright = Cm::where('id',3)->first();
+      return view('frontend.copyright',compact('copyright'));
+    }
+
+      public function showComanyInfo()
+    {
+      $ComanyInfo = Cm::where('id',4)->first();
+      return view('frontend.companyinformation',compact('ComanyInfo'));
+    }
+    
+    
 }

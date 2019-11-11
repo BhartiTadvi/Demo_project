@@ -58,17 +58,15 @@ Route::get('/get/states/','Frontend\AddressController@getState')->name('getState
 
 //google Login
 
-Route::get('auth/google', 'Frontend\LoginController@redirectToGoogle');
-Route::get('auth/google/callback', 'Frontend\LoginController@handleGoogleCallback');
+Route::get('login/google','Frontend\LoginController@redirectToGoogle');
+Route::get('login/google/callback','Frontend\LoginController@handleGoogleCallback');
 
 //cart route
 Route::get('/cart', 'Frontend\CartController@index')->name('cart');
 Route::get('/shopping-cart-add/{id}', 'Frontend\CartController@addItem')->name('add.cart'); 
 Route::get('cart/remove/{id}', 'Frontend\CartController@removeItem')->name('cart.remove');
-
 Route::post('/cartincrementitem/','Frontend\CartController@incrementItem')->name('cart.increment');
 Route::post('/cartdecrementitem/','Frontend\CartController@decrementItem')->name('cart.decrement');
-
 Route::post('/applycoupon','Frontend\CartController@applyCoupon')->name('coupon');
 Route::post('/cancelcoupon','Frontend\CartController@cancelCoupon')->name('cancel.coupon');
 
@@ -146,12 +144,26 @@ Route::get('/order-detail/{id}', 'OrderManagementController@orderDetail')->name(
 Route::get('/edit/order/{id}', 'OrderManagementController@editOrder')->name('edit.order');
 Route::post('/update/order/{id}','OrderManagementController@updateOrder')->name('update.order');
 
-Route::resource('cms', 'CmsController');
 
 //reports
-Route::resource('report', 'ReportController');
+
 Route::get('report', 'ReportController@index')->name('report.index');
 Route::get('/customer-report', 'ReportController@showCustomer')->name('customer.index');
 Route::resource('coupon-procedure', 'CouponProcedureController');
 Route::resource('permission', 'PermissionController');
-// 'pending','processing','dispatched','delivered','cancelled'
+
+Route::get('/faqs','FaqsController@index')->name('faqs');
+Route::get('/faqs/create','FaqsController@create')->name('faqs.create');
+Route::post('/faqs/store','FaqsController@store')->name('faqs.store');
+Route::get('/faqs/show/{id}','FaqsController@show')->name('faqs.show');
+Route::get('/faqs/edit/{id}','FaqsController@edit')->name('faqs.edit');
+Route::patch('/faqs/update/{id}','FaqsController@update')->name('faqs.update');
+Route::delete('/faqs/delete/{id}','FaqsController@destroy')->name('faqs.delete');
+
+Route::get('/faqs-show','Frontend\FrontendController@showFaq')->name('show.faqs');
+Route::get('/privacy-policy','Frontend\FrontendController@showPrivacyPolicy')->name('show.privacy');
+Route::get('/termsofuse','Frontend\FrontendController@showTermsOfUse')->name('show.terms');
+Route::get('/copyright','Frontend\FrontendController@showCopyright')->name('show.copyright');
+Route::get('/company-information','Frontend\FrontendController@showComanyInfo')->name('show.comanyinformation');
+
+Route::resource('cms', 'CmsController');

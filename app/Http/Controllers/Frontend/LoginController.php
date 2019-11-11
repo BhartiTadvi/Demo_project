@@ -8,11 +8,12 @@ use Auth;
 use Cart;
 use Socialite;
 use App\User;
+use Input;
 
 class LoginController extends Controller
 { 
     use AuthenticatesUsers;
-    protected $redirectTo = '/index';
+    protected $redirectTo = '/';
     
     /** Get log in details for log in **/
      public function login(Request $request)
@@ -34,67 +35,40 @@ class LoginController extends Controller
            return back()->with('success', 'Wrong Login Details');
       }
      }
-   //  public function redirectToGoogle()
+    public function redirectToGoogle()
 
-   //  {
-   //      return Socialite::driver('google')->redirect();
-
-   //  }
-
-   //  public function handleGoogleCallback()
-   //  {
-   //      try {
-   //          $user = Socialite::driver('google')->user();
-   //          $finduser = User::where('google_id', $user->id)->first();
-
-   //       if($finduser){
-   //              Auth::login($finduser);
-            
-
-   //              return redirect()->with()->route('home_shopper');
-   //               }
-   //          else{
-   //              $newUser = User::create([
-   //                  'name' => $user->name,
-   //                  'email' => $user->email,
-   //                  'google_id'=> $user->id
-
-   //              ]);
-
-   //               Auth::login($newUser,true);
-   //              return redirect()->back();
-   //          }
-   //      } catch (Exception $e) {
-
-   //          return redirect('auth/google');
-
-   //      }
-   // }
-     public function redirectToGoogle()
     {
-         return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->redirect();
+
     }
-   
+
     public function handleGoogleCallback()
     {
-      $user = Socialite::driver('google')->user();
-      dd($user);
- 
-        
-    }
-    private function findOrCreateUser($googleUser)
-    {
-        if ($authUser = User::where('google_id', $googleUser->id)->first()) {
-            return $authUser;
-        }
-        return User::create([
-            'name' => $googleUser->name,
-            'email' => $googleUser->email,
-            'google_id' => $googleUser->id,
-            
-        ]);
-    }
+        try {
+            $user = Socialite::driver('google')->user();
+            $finduser = User::where('email',$user->email)->first();
+         if($finduser){
+                 $finduser->google_id = $user->id;
+                 $finduser->save();                  
+                 Auth::login($finduser);
+                 return redirect('/');
+                 }
+            else{
+                $newUser = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'google_id'=> $user->id
+                ]);
+                 Auth::login($newUser,true);
+                return redirect()->back();
+            }
+        } catch (Exception $e) {
 
+            return redirect('login/google');
+
+        }
+   }
+    
     /** Log out **/
     public function logout(Request $request) 
         {

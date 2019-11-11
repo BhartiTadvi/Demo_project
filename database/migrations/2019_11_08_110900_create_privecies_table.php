@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCmsTable extends Migration
+class CreatePriveciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,10 @@ class CreateCmsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cms', function (Blueprint $table) {
+        Schema::create('privecies', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('name')->nullable();
-            $table->string('title')->nullable();
-            $table->string('pagecontent')->nullable();
+            
             });
     }
 
@@ -28,6 +26,6 @@ class CreateCmsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cms');
+        Schema::drop('privecies');
     }
 }

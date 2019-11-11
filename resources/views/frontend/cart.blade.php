@@ -112,7 +112,6 @@
              <a href="{{route('checkout.test') }}">
            <input type="submit" name="checkout" class="btn btn-default check_out" value="Checkout"></a>
             </div>
-                
         </div>
       </div>
     </div>

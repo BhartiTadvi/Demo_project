@@ -12,7 +12,6 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        //
         $role=[
 	     	['name'=>"superadmin"],
 	     	['name'=>"admin"],

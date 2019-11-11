@@ -11,7 +11,7 @@
                          <div class="col-xs-12 col-sm-12 col-md-12 {{ $errors->has('name') ? 'has-error' : ''}}">
                             <div class="form-group">
                                 <label style="margin-left:2px" for="name" class="control-label">{{ 'Main Category' }}</label>
-                                <input class="form-control" name="category_name" type="text" id="name" value="{{ isset($category->name) ? $category->name : ''}}" data-parsley-required="true" >
+                                <input class="form-control" name="category_name" type="text" id="name" value="{{ isset($category->name) ? $category->name : ''}}" data-parsley-required="true">
                                  {!! $errors->first('category_name', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
