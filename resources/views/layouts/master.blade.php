@@ -49,6 +49,9 @@
            .check-error{
                   color:red;
                   }
+   .userchart{margin-left: 79px;margin-top: 6px;} 
+   .couponchart{margin-top: 20px; margin-left: -14px;} 
+   .orderchart{margin-left: -14px;margin-top: 6px;}            
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

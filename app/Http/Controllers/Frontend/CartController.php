@@ -33,7 +33,7 @@ class CartController extends Controller
      $categories = Category::where(['parent_id'=>0,'status'=>1])->get();
      $productCategory = Category::where('parent_id','!=', 0)->first();
      $product_id = $productCategory->id;
-     $productList = Product::whereHas('productCategories',function($q) use($product_id)
+     $productslist = Product::whereHas('productCategories',function($q) use($product_id)
          {
             $q->where('category_id',$product_id);
          })->with('productImage')->get();
@@ -44,9 +44,8 @@ class CartController extends Controller
      $maxprice=Product::max('price');
 
      $recommendationProduct = $products->chunk(3);
-     return view('frontend.home',[
-         'data' => Cart::content()
-       ,'sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subCategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'recommendationProduct'=>$recommendationProduct,'productlist'=>$productList]);
+     return redirect()->route('home_shopper')->with('item_success', 'Product added in cart successfully...!!');
+
      }
 
      /** Show cart details **/

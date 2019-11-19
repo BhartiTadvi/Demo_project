@@ -39,9 +39,13 @@
 	    		<div class="col-sm-4">
 	    			<div class="contact-info">
 	    				<h2 class="title text-center">Contact Info</h2>
-	    				<address class="contact-content">
-	    					{!! $contact_info[0]->pagecontent !!}
-	    					
+	    				<address>
+	    					<p>E-Shopper Inc.</p>
+							<p>JM Road near Deccan gymkhana Pune</p>
+							<p>Pune MH</p>
+							<p>Mobile: 02767- 248369</p>
+							<p>Fax: 02248369</p>
+							<p>Email: info@e-shopper.com</p>
 	    				</address>
 	    				<div class="social-networks">
 	    					<h2 class="title text-center">Social Networking</h2>

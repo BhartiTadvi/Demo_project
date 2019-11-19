@@ -79,9 +79,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
+        //$category = Category::findOrFail($id);
         return view('category.edit', compact('category'));
     }
 

@@ -16,14 +16,22 @@ class UserController extends Controller
      public function index(Request $request)
     { 
       
-      $data = User::where('id','!=',Auth::user()->id)->orderBy('id','DESC')->paginate(5);
-     
+        $keyword = $request->get('search');
+       if (!empty($keyword)) {
+        
+       $data = User::where('name', 'LIKE', "%$keyword%")->latest()->paginate(5);
+       }
+       else {
+         $data = User::where('name', 'LIKE', "%$keyword%")->orWhere('id','!=',Auth::user()->id)->latest()->paginate(5);
+      }
+      
       return view('Users.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
     /** Create User **/
     public function create()
     {
         $roles = Rolesmodel::pluck('name','name')->all();
+        // dd($roles);
         return view('Users.create',compact('roles'));
     }
 
@@ -62,7 +70,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Rolesmodel::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->first();
         return view('Users.edit',compact('user','roles','userRole'));
     }
 
@@ -78,8 +86,7 @@ class UserController extends Controller
         $name = $request->name;
         $email = $request->email;
         $image = $request->image;
-         $input = $request->all();
-
+        $input = $request->all();
          if ($request->hasFile('image')) 
         {
             $input['image'] = $request->file('image')

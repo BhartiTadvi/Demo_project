@@ -131,3 +131,9 @@ ol.progtrckr li.progtrckr-todo:before {
   -webkit-transform: scale(1.5); 
   transform: scale(1.5); 
 }
+.orderstatus{
+text-align:center;margin-top: -33px;
+    color: #fdb45e;
+    font-size: 31px;
+    font-family: cursive;
+    }

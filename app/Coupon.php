@@ -11,7 +11,7 @@ class Coupon extends Model
      *
      * @var string
      */
-    protected $table = 'coupons';
+    protected $table = 'coupon_codes';
 
     /**
     * The database primary key value.

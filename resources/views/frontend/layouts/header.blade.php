@@ -88,8 +88,6 @@
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{route('home_shopper')}}">Products</a></li>
-										
-										<li><a href="{{url('/checkout')}}">Checkout</a></li> 
 										<li><a href="{{route('cart')}}">Cart</a></li> 
 										<li> </li> 
                                     </ul>

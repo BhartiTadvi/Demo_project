@@ -41,14 +41,15 @@ class FrontendController extends Controller
         $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
         $productCategory = Category::where('parent_id','!=', 0)->first();
           $product_id = $productCategory->id;
-          $productlist = Product::whereHas('productCategories',function($q) use($product_id)
+        $productslist = Product::whereHas('productCategories',function($q) use($product_id)
          {
             $q->where('category_id',$product_id);
          })->with('productImage')->get();
+          //dd($productslist);
         $minprice=0;
         $recommendationProduct = $products->chunk(3);
         $maxprice=Product::max('price');
-        return view('frontend.home',compact('sliders','categories','subcategories','products','productCounts','product','minprice','maxprice','recommendationProduct','productlist','productlist'));
+        return view('frontend.home',compact('sliders','categories','subcategories','products','productCounts','product','minprice','maxprice','recommendationProduct','productslist'));
 
      }
     
@@ -65,20 +66,22 @@ class FrontendController extends Controller
              {
                 $q->where('category_id',$id);
              })->with('productImage')->paginate($perPage);
-        $productslist = Product::whereHas('productCategories',function($q) use($id)
+        $productCategory = Category::where('parent_id','!=', 0)->first();
+        $product_id = $productCategory->id;
+        $productslist = Product::whereHas('productCategories',function($q) use($product_id)
              {
-                $q->where('category_id',$id);
-             })->with('productImage')->first(4);
+                $q->where('category_id',$product_id);
+             })->with('productImage')->get();
         $minprice=0;
         $maxprice=Product::max('price');
         $recommendationProduct = $products->chunk(3);
-       return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'recommendationProduct'=>$recommendationProduct]);
+       return view('frontend.home',['sliders'=>$sliders,'categories'=>$categories,'subcategories'=>$subcategories,'products'=>$products,'productCounts'=>$productCounts,'minprice'=>$minprice,'maxprice'=>$maxprice,'recommendationProduct'=>$recommendationProduct,'productslist'=>$productslist]);
      }
      
     /** Get dynamic contacts info content from database**/
       public function contact()
       {
-        $contact_info = Cms::where('id',1)->get();
+        $contact_info = Cm::where('id',1)->get();
         return view('frontend.contactus',compact('contact_info'));
       }
     
@@ -151,15 +154,16 @@ class FrontendController extends Controller
     /** Store Wishlist into database**/
      public function wishList(Request $request) 
      {
-      $categories = Category::where('parent_id','=', 0)->get();
-      $subcategories = Category::with('children')->get();
-      $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
+      
+         $categories = Category::where('parent_id','=', 0)->get();
+         $subcategories = Category::with('children')->get();
+        $productCounts = Category::where('parent_id','!=', 0)->with('productCategories')->get();
       $productwish=UserWishlist::where('user_id',Auth::user()->id)
              ->where('product_id',$request->product_id)
              ->first();
-     if(isset($productwish->user_id) and isset($request->product_id))
+              if(isset($productwish->user_id) and isset($request->product_id))
      {
-       return redirect()->back()->with('flash_messaged', 'This item is already in your wishlist!');
+       return redirect()->back()->with('success', 'This item is already in your wishlist!');
      }
      else
      {
@@ -170,6 +174,7 @@ class FrontendController extends Controller
         return redirect()->back()->with('success',
                      'Item, '. $wishList->product->title.' Added to your wishlist.');
      }
+       
     }
     /** Remove Wish from Wishlist **/
     public function removeWishList($id) 

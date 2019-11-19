@@ -16,7 +16,7 @@
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                        </a>
                      </div>
-               </div>
+                 </div>
                        
                         <form method="GET" action="{{ route('cms.index')}}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">

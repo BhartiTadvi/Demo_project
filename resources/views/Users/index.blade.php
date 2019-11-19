@@ -19,6 +19,16 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
+                <form method="GET" action="{{ route('Users.index') }}"  accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
+                 <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
+                </div>
+                  <span class="">
+                  <button class="btn btn-secondary" type="submit">
+                   <i class="fa fa-search"></i>
+                  </button>
+              </span>
+             </form>
              <div class="pull-right">
           
             <a class="btn btn-success" href="{{ route('Users.create') }}"> Create New User</a>

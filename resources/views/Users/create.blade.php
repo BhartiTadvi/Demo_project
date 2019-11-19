@@ -60,7 +60,13 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Role:<span class="check-error">*</span></strong>
-            {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple','data-parsley-required'=>'true' ,'data-parsley-required-message' => 'Please select role','data-parsley-trigger'=>'change focusout')) !!}
+             <select class="form-control" name="roles[]" id="roles"data-parsley-required="true" data-parsley-required-message = "Please enter role">
+                 <option value="">Select type</option>
+                 @foreach($roles as $role)
+                 <option value="{{$role}}"> {{$role}}</option>
+                 @endforeach
+            </select>
+           
             {!! $errors->first('roles', '<span class="error-message">:message</span>') !!}
         </div>
     </div>

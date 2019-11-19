@@ -28,6 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('Roles','RoleController');
     Route::resource('Users','UserController');
+    Route::post('addToWishList', 'Frontend\FrontendController@wishList')->name('add.wishlist');
 });
 
 //admin routes
@@ -96,7 +97,7 @@ Route::get('/user/address', function () {
 //wishlist
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::post('addToWishList', 'Frontend\FrontendController@wishList')->name('add.wishlist');
+
 Route::get('/WishList', 'Frontend\FrontendController@ViewWishList');
 Route::get('/removeWishList/{id}', 'Frontend\FrontendController@removeWishList')->name('remove.wishlist');
 
@@ -122,7 +123,6 @@ Route::get('/getStatus', 'Frontend\ProfileController@getOrderStatus')->name('get
 //manage mail
 Route::get('manageMailChimp', 'Frontend\MailChimpController@manageMailChimp');
 Route::post('subscribe',['as'=>'subscribe','uses'=>'Frontend\MailChimpController@subscribe']);
-Route::post('sendCompaign',['as'=>'sendCompaign','uses'=>'Frontend\MailChimpController@sendCompaign']);
 
 Route::get('demo1',function(){
 
@@ -149,6 +149,8 @@ Route::post('/update/order/{id}','OrderManagementController@updateOrder')->name(
 
 Route::get('report', 'ReportController@index')->name('report.index');
 Route::get('/customer-report', 'ReportController@showCustomer')->name('customer.index');
+Route::get('/manage/report','ReportController@showReport')->name('report.manage');
+
 Route::resource('coupon-procedure', 'CouponProcedureController');
 Route::resource('permission', 'PermissionController');
 
@@ -167,3 +169,4 @@ Route::get('/copyright','Frontend\FrontendController@showCopyright')->name('show
 Route::get('/company-information','Frontend\FrontendController@showComanyInfo')->name('show.comanyinformation');
 
 Route::resource('cms', 'CmsController');
+

@@ -26,7 +26,16 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Rolesmodel::orderBy('id','DESC')->paginate(5);
+        
+        $keyword = $request->get('search');
+        if (!empty($keyword)) {
+            $roles = Rolesmodel::where('name', 'LIKE', "%$keyword%")
+                ->latest()->paginate(5);
+            
+        } else {
+            $roles = Rolesmodel::orderBy('id','DESC')->latest()->paginate(5);
+     }
+    
         return view('Roles.index',compact('roles'))
                ->with('i', ($request->input('page', 1) - 1) * 5);
     }

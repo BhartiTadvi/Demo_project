@@ -65,7 +65,12 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Role:</strong>
-            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple','data-parsley-required'=>'true')) !!}
+             <select class="form-control" name="roles[]" id="roles"data-parsley-required="true" data-parsley-required-message = "Please enter role">
+                 <option value="">Select type</option>
+                 @foreach($roles as $role)
+                 <option value="{{$role}}" @if($role == $userRole) selected="selected" @endif> {{$role}}</option>
+                 @endforeach
+            </select>
             {!! $errors->first('roles', '<span class="error-message">:message</span>') !!}
         </div>
     </div>

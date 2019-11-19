@@ -72,9 +72,8 @@ class AddMoneyController extends Controller
      */
     public function postPaymentWithpaypal(Request $request)
     {
-       // dd($request->all());
-        $order_id =$request->order_id;
-        Session::put('order_id',$order_id);
+       
+        // $order_id =$request->order_id;
        $this->validate($request, [
             'full_name' => 'required',
             'phone' => 'required',
@@ -97,9 +96,9 @@ class AddMoneyController extends Controller
         $states = State::get();
         $user = User::get();
         $data  =  Cart::content();
-        $address = new Address();
-        $addresses = Address::get();
-        if($address->id != 0){
+        $billingaddress = Address::where('id',$request->Billingaddressid)->get();
+        if(count($billingaddress)<1){
+            $address = new Address();
             $address->name = $request->full_name;
             $address->address1 = $request->address1;
             $address->address2 = $request->address2;
@@ -120,8 +119,11 @@ class AddMoneyController extends Controller
            $orders->discount_amount = $request->discount_amount;
            $orders->total = $request->grandtotal;
            $orders->shipping_charge = $request->shippingcost;
-            $orderId =$orders->id;
            $orders->save(); 
+           $orderId =$orders->id;
+           Session::put('order_id',$orderId);
+
+
        
         $count=count($request->product_id);
         for($i=0;$i<$count;$i++)
@@ -132,12 +134,10 @@ class AddMoneyController extends Controller
           $productOrders->quantity = $request->quantity1[$i];
           $productOrders->save();
         }
-         
-          $orderDetails = new OrderDetail();
-          $orderDetails->order_id =$orderId;
-          $orderDetails->payment_mode =$request->submit;
-          $orderDetails->save();
-            
+
+        $transactionStatus = $request->submit;
+        Session::put('transaction_status',$transactionStatus);
+
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
         
@@ -201,6 +201,7 @@ class AddMoneyController extends Controller
         /** Get the payment ID before session clear **/
         $payment_id = Session::get('paypal_payment_id');
         /** clear the session payment ID **/
+
         Session::forget('paypal_payment_id');
         if (empty(Input::get('PayerID')) || empty(Input::get('token'))) {
             \Session::put('error','Payment failed');
@@ -217,17 +218,19 @@ class AddMoneyController extends Controller
         $result = $payment->execute($execution, $this->_api_context);
         
         if ($result->getState() == 'approved') { 
-          $order_id= Session::get('order_id');
+          $order_id = Session::get('order_id');
+          $status  =  Session::get('transaction_status');
+
           $orderDetails =new OrderDetail();
           $orderDetails->order_id =$order_id;
           $orderDetails->transaction_id = $result->id;
+          $orderDetails->payment_mode =$status;
           $orderDetails->save();
-         
-            \Session::put('success','Payment success');
-            return Redirect::route('addmoney.paywithpaypal');
+          Cart::destroy();
+          return redirect()->route('user.order')->with('payment_success', 'Order has been placed successfully');
         }
-        \Session::put('error','Payment failed');
-        return Redirect::route('addmoney.paywithpaypal');
+       
+        return redirect()->route('user.account')->with('payment_success', 'Payment failed');
     }
 }
 

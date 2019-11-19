@@ -96,6 +96,8 @@
 				</div>
 				@if ($message = Session::get('success'))
 			            <p style="color:green;margin-left:200px">{{ $message }}</p>
+			            @elseif($cartMessage =Session::get('item_success'))
+			            <p style="color:green;margin-left:200px">{{ $cartMessage }}</p>
                 @endif
 				<div class="col-sm-9 padding-right">
 					 @if(count($products)=="0")
@@ -103,9 +105,8 @@
                      font-size: 20px;"> Product not found</p>
 					 @else
 					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Features Items</h2>
-        <!-- $productwish
- -->                    @foreach($products as $product)
+						<h2 class="title text-center">Features Items</h2>   <!-- $productwish-->                    
+						@foreach($products as $product)
                         @foreach($product->productImage as $image)
                         @endforeach
 						<div class="col-sm-4">
@@ -123,7 +124,7 @@
 												<p></p>
 												<a href="{{
 												route('product.details', ['id'=>$product->id])}}"id="add" class="btn btn-default" style="margin-top: -25px;color:#FE980F;"><i class="add-to-cart"></i>Product Details</a>
-												<a href="" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<a href="{{ route('add.cart', ['id'=>$product->id])}}" id="add" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
 
@@ -157,7 +158,7 @@
 						<div class="tab-content">
 							<div class="tab-pane fade active in" id="products" >
 		           
-						@foreach($productlist as $product)
+						@foreach($productslist as $product)
 						<div class="col-sm-3">
 							<div class="product-image-wrapper">
 								<div class="single-products">

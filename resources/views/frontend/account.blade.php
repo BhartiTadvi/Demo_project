@@ -14,12 +14,16 @@
         <!-- END MENU -->
       </div>
     </div>
+     @if ($message = Session::get('payment_success'))
+          <div class="success">
+              <p>{{ $message }}</p>
+          </div>
+         @endif
      <div class="col-md-9">
            <p class="trackorder">My Account</p>
       <div class="col-md-2"></div>
     <div class="profile-content col-md-6">
-
-
+    
         <form id="main-contact-form" class="contact-form row" name="contact-form" method="POST" action="{{route('change.profile',Auth::user()->id)}}">
                {{csrf_field()}}
                     <div class="form-group col-md-12">

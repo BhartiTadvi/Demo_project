@@ -102,7 +102,9 @@ class CouponController extends Controller
             'type'=>'required', 
             'discount'=>'required', 
              ]);
+
         $requestData = $request->all();
+        // dd($requestData);
         $coupon = Coupon::findOrFail($id);
         $coupon->update($requestData);
         return redirect()->route('coupon.index')->with('success', 'Coupon updated!');

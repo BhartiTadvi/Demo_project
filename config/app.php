@@ -184,6 +184,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Skovmand\Mailchimp\MailchimpServiceProvider::class,
         Unisharp\Ckeditor\ServiceProvider::class,
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
 
     ],
 
@@ -237,8 +238,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
-         'Input'     => Illuminate\Support\Facades\Input::class,
-
+        'Input'     => Illuminate\Support\Facades\Input::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 
     ],
 

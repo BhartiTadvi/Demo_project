@@ -43,7 +43,7 @@
                                     <tr class=billingaddress>
                                       <td class="address">
                                     <input type="radio" name="address" class="billing" data-id="{{$address->id}}">
-                                    <input type="hidden" name ="address_id" value="{{$address->id}}">
+                                    <input type="hidden" class="address_id" name ="address_id" value="{{$address->id}}">
                                      <input type="hidden" name ="country_id" class="country_id" value="{{$address->country_id}}">
                                      <input type="hidden" name ="state_id" class="state_id" value="{{$address->state_id}}">
                                          </td>
@@ -69,7 +69,10 @@
 			<div class="register-req">
 				<p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
 			</div><!--/register-req-->
-
+        <div class=col-md-7></div>
+            <div class="order-message" >
+              <label style="margin-left:70px"><input type="checkbox" class="shipping"> Shipping to bill address</label>
+            </div>  
 			<div class="shopper-informations">
 				<div class="row">
 					<div class="col-sm-3">
@@ -86,8 +89,8 @@
 							<div class="form-one" id="billing">
                          {{ csrf_field() }}
                    <input type="hidden" name ="user_id" value="{{Auth::user()->id}}">
-
-                   <input type="text" placeholder="Name" name="name" class="name form" data-parsley-required="true">
+                    <input type="hidden" id="Billingaddressid" name ="Billingaddressid" value="">
+                   <input type="text" placeholder="Name" id="Name" name="name" class="name form" data-parsley-required="true">
                    {!! $errors->first('name', '<span class="error-message">:message</span>') !!}
 									
 								    <input type="text" placeholder="Phone number" name="phone_number" class="phone form" data-parsley-required="true"  data-parsley-type="digits" data-parsley-minlength="10" data-parsley-maxlength="10">
@@ -96,7 +99,7 @@
             				 <input type="text" name="zip_code" placeholder="Zip / Postal Code *" class="zip form" data-parsley-required="true"  data-parsley-type="digits" data-parsley-minlength="6" data-parsley-maxlength="6">
             				 {!! $errors->first('zip_code', '<span class="error-message">:message</span>') !!}
                                   
-                      <input type="text" placeholder="city *"name="billing_city" class="city form" data-parsley-required="true">
+                      <input type="text" id="city" placeholder="city *"name="billing_city" class="city form" data-parsley-required="true">
 
 									   {!! $errors->first('billing_city', '<span class="error-message">:message</span>') !!}
 
@@ -136,7 +139,6 @@
 		          @endif
 							<div class="form-two">
 								<p id="top">Shipping Address</p>
-
 									  {{ csrf_field() }}
 							     <input type="text" class="form" placeholder="Name" name="full_name" id="fullname" data-parsley-required="true">
 							          {!! $errors->first('full_name', '<span class="error-message">:message</span>') !!}
@@ -146,7 +148,7 @@
 									<input type="text" class="form" placeholder="Zip / Postal Code *"name="zipcode" id="zipcode" data-parsley-required="true" data-parsley-type="digits" data-parsley-minlength="6" data-parsley-maxlength="6">
 									 {!! $errors->first('zipcode', '<span class="error-message">:message</span>') !!}
 									
-									<input type="text" class="form" placeholder="city *"name="city" id="city" data-parsley-required="true">
+									<input type="text" class="form" placeholder="city *"name="city" id="shippingCity" data-parsley-required="true">
 									
 									 {!! $errors->first('city', '<span class="error-message">:message</span>') !!}
 									
@@ -167,22 +169,17 @@
 									
 									<select name="state" class="state1" id="state1"data-parsley-required="true">
                     <option value="">States</option>
-									<option value="{{$states[0]->id}}"></option>
+									 <option value=""></option>
 									</select>
 									 {!! $errors->first('state', '<span class="error-message">:message</span>') !!}
 							</div>
 						</div>
 					</div>
-					<div class=col-sm-8></div>
-						<div class="order-message">
-							<label><input type="checkbox" class="shipping"> Shipping to bill address</label>
-						</div>	
 				</div>
 			</div>
 			<div class="review-payment">
 				<h2>Review & Payment</h2>
 			</div>
-
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
           <thead>
@@ -215,23 +212,21 @@
               </td>
               <td class="cart_price">
               <input type="hidden" name="price" value="{{$item->price}}">
-                <p>{{$item->price}}</p>
+                <p><i class="fa fa-inr"></i>  {{$item->price}}</p>
               </td>
               <td class="cart_quantity">
              <div class="cart_quantity_button">
-            <label class="cart_up" for="disabled">+</label><br>
+          
              <input type="hidden" name="quantity1[]" value=" {{$item->qty}}">
               <input class="cart_quantity_input" type="text" name="quantity" value="{{$item->qty}}" autocomplete="off" size="1" min="1" disabled>
-               <label class="cart_down" for="disabled">-</label><br>
                 </div>
               </td>
               <td class="cart_total">
                 <p class="cart_total_price">
-                  {{$item->price*$item->qty}}
+                 <i class="fa fa-inr"></i>   {{$item->price*$item->qty}}
                  </p>
               </td>
               <td class="cart_delete">
-              <label class="cart_up" for="disabled" style="    margin-bottom: -8px"><i class="fa fa-times"></i></label>
 
               </td>
             </tr>
@@ -243,17 +238,17 @@
 				<div class="col-sm-6">
 	          	 <div class="total_area">
 	            <ul>
-	                   <li>Cart Sub Total<span id="subTotal">{{Cart::total()}}</span>
+	                   <li>Cart Sub Total<span id="subTotal"><i class="fa fa-inr"></i>  {{Cart::total()}}</span>
                       <input type="hidden" name ="subtotal" value="{{Cart::total()}}">    
                      </li>
-               <li>Shipping Cost <span id="shippingCost">{{$total<500 ? 50 : 0}}</span>
+               <li>Shipping Cost <span id="shippingCost"><i class="fa fa-inr"></i>  {{$total<500 ? 50 : 0}}</span>
                <input type="hidden" name="discount_amount" value="{{$discountAmount}}">
                <input type="hidden" name="coupon_id" value="{{$couponId}}">
 
                 <input type="hidden" name ="shippingcost" value="{{$total<500 ? 50 : 0}}">  
                 </li>
                 <li>Total <span id="grandTotal">
-                  ${{$total}}</span>
+                  <i class="fa fa-inr"></i>  {{$total}}</span>
                    <input type="hidden" name ="grandtotal" value="{{$total}}">  
                 </li>
 	            </ul>
@@ -297,69 +292,65 @@
           var $address1 = $row.find(".address1").text(); 
           var $address2= $row.find(".address2").text(); 
           var $country= $row.find(".country_id").val();
-          var $state= $row.find(".state_id").val(); 
+          var $state= $row.find(".state_id").val();
+          var $address_id = $row.find(".address_id").val(); 
           
          if($(this).is(":checked"))
-         {
+         { 
            var name = $('.name').val($name);
            var mobileno = $('.phone').val($mobileno);
            var city = $('.city').val($city);
            var zipcode = $('.zip').val($zipcode);
            var address1 = $('.addreessline1').val($address1);
            var address2 = $('.addreessline2').val($address2);
-          
+           var billing_addressid = $('#Billingaddressid').val($address_id);
            $(".country option[value="+$country+"]").attr('selected', 'selected');
            $(".state option[value="+$state+"]").attr('selected', 'selected');
            
          }
           else{
-           var name = $('.name').val();
-           var mobileno = $('.phone').val();
-           var city = $('.city').val();
-           var zipcode = $('.zip').val();
-           var address1 = $('.addreessline1').val();
-           var address2 = $('.addreessline2').val();
-           var country =$('.country :selected').text();
-           var state = $('.state :selected').text();
+           $('.name').val('');
+           $('.phone').val('');
+           $('.city').val('');
+           $('.zip').val('');
+           $('.addreessline1').val('');
+           $('.addreessline2').val('');
+           $('.country :selected').val('');
+           $('.state :selected').val('');
            }
 
        });
-       
-
         $('.shipping').on('click', function(e) {
-
-           var shippingname = $('.name').val();
+           var shippingname = $('#Name').val();
            var shippingphone = $('.phone').val();
-           var shippingcity = $('.city').val();
+           var shippingcity = $('#city').val();
            var shippingzip = $('.zip').val();
            var shippingaddress1 = $('.addreessline1').val();
            var shippingaddress2 = $('.addreessline2').val();
            var shippingcountry = $('.country :selected').val();
            var shippingstate = $('.state :selected').val();
-
-          
-
            if($(this).is(":checked"))
            {
-           var name = $('#fullname').val(shippingname);
-           var mobileno = $('#Phone_number').val(shippingphone);
-           var city = $('#city').val(shippingcity);
-           var zipcode = $('#zipcode').val(shippingzip);
-           var address1 = $('#address1').val(shippingaddress1);
-           var address2 = $('#address2').val(shippingaddress2);
-            $(".country1 option[value="+shippingcountry+"]").attr('selected', 'selected');
-            $(".state1 option[value="+shippingstate+"]").attr('selected', 'selected');
+           $('#fullname').val(shippingname);
+           $('#Phone_number').val(shippingphone);
+           $('#shippingCity').val(shippingcity);
+           $('#zipcode').val(shippingzip);
+           $('#address1').val(shippingaddress1);
+           $('#address2').val(shippingaddress2);
+           $(".country1 option[value="+shippingcountry+"]").attr('selected', 'selected');
+           $(".state1 option[value="+shippingstate+"]").attr('selected', 'selected');
            }
            else{
-           var name = $('#fullname').val();
-           var mobileno = $('#Phone_number').val();
-           var city = $('#city').val();
-           var zipcode = $('#zipcode').val();
-           var address1 = $('#address1').val();
-           var address2 = $('#address2').val();
-           var country =$('.country1 :selected').text();
-           var state = $('.state1 :selected').text();
+           $('#fullname').val('');
+           $('#Phone_number').val('');
+           $('#shippingCity').val('');
+           $('#zipcode').val('');
+           $('#address1').val('');
+           $('#address2').val('');
+           $('.country1').val('');
+           $('#state1').val('');
            }
+           
          });
         $('#country1').on('change', function(e){
       

@@ -197,8 +197,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('report.index')}}"><i class="fa fa-circle-o"></i>Sales Report</a></li>
-            <li><a href="{{route('customer.index')}}"><i class="fa fa-circle-o"></i>Customers Report</a></li>
+            <li><a href="{{route('report.manage')}}"><i class="fa fa-circle-o"></i>Manage Report</a></li>
            </ul>
            
         </li>

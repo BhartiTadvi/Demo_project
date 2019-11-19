@@ -104,7 +104,7 @@ class ProfileController extends Controller
      public function getOrder()
     {
         $user_id= Auth::id();
-        $orders=Order::with('products','products.product','orderDetail')->where('user_orders.user_id',$user_id)->get();
+        $orders=Order::with('products','products.product','orderDetail')->where('user_orders.user_id',$user_id)->latest()->get();
         return view('frontend.order',compact('orders'));
     }
 

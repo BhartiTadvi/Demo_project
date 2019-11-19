@@ -9,6 +9,7 @@
     "type": "project",
     "require": {
         "php": ">=7.2.0",
+        "consoletvs/charts": "5.*",
         "fideloper/proxy": "^4.0",
         "gloudemans/shoppingcart": "^2.6",
         "guzzlehttp/guzzle": "~6.0",

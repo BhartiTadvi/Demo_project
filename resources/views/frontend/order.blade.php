@@ -14,6 +14,11 @@
       </div>
     </div>
     <div class="col-md-9">
+       @if ($message = Session::get('payment_success'))
+          <div class="success">
+              <p>{{ $message }}</p>
+          </div>
+         @endif
             <div class="profile-content">
                    <table class="table">
                                 <thead>

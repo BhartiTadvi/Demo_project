@@ -8,7 +8,7 @@
             </li>
             <li class="active">
               <a href="{{route('user.order')}}" class="profile1">
-              <i class="glyphicon glyphicon-home"></i>
+              <i class="fa fa-shopping-cart"></i>
                 My Order  </a>
             </li>
             <li>
@@ -18,13 +18,13 @@
             </li>
             <li>
                <a href="{{route('update.password')}}" class="profile1">
-              <i class="glyphicon glyphicon-flag"></i>
+              <i class="fa fa-key"></i>
               Change Password</a>
             </li>
             <li>
 
                <a href="{{route('myaddress')}}" class="profile1">
-              <i class="glyphicon glyphicon-flag"></i>
+              <i class="glyphicon glyphicon-home"></i>
               My address</a>
             </li>
           </ul>

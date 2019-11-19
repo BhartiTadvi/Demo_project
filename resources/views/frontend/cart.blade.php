@@ -44,7 +44,10 @@
               </td>
               <td class="cart_price" id="price{{$item->id}}" >
                 <input type="hidden" name="product_price[]" value="{{$item->price}}">
-                <p>{{$item->price}}</p>
+                <p>
+                   <i class="fa fa-inr"></i>
+                   {{$item->price}}
+                </p>
               </td>
               <td class="cart_quantity">
                <div class="cart_quantity_button">
@@ -56,12 +59,14 @@
                 </div>
               </td>
               <td class="cart_total">
-                <p class="cart_total_price" id="priceu{{$item->id}}" >
+
+                <p class="cart_total_price" id="priceu{{$item->id}}">
+                   <i class="fa fa-inr"></i>
                   {{$item->price*$item->qty}}
                  </p>
               </td>
               <td class="cart_delete">
-                <a class="cart_quantity_delete" href="{{ route('cart.remove', ['id'=>$item->rowId])}}"><i class="fa fa-times"></i></a>
+                <a class="cart_quantity_delete" href="{{ route('cart.remove', ['id'=>$item->rowId])}}"><i class="fa fa-times" style="color:grey;"></i></a>
               </td>
             </tr>
           </tbody>
@@ -99,14 +104,15 @@
           <div class="total_area">
             <ul>
              <input type="hidden" name="subTotal" value="{{$total}}">
-              <li>Cart Sub Total<span id="subTotal">{{$total}}</span></li>
+                   
+              <li>Cart Sub Total<span id="subTotal"><i class="fa fa-inr"></i>{{$total}}</span></li>
              <input type="hidden" name="ShippingCost" value="{{$total<500 ? 50 : 0}}">
-                <li>Shipping Cost <span id="shippingCost">{{$total<500 ? 50 : 0}}</span></li>
+                <li>Shipping Cost <span id="shippingCost"><i class="fa fa-inr"></i>{{$total<500 ? 50 : 0}}</span></li>
                   <input type="hidden" id="discounttype" name="discounttype">
                   <input type="hidden" id="discountvalue" name="discountvalue">
-                <li>Discount Coupon <span id="discountamount">0</span></li>
+                <li>Discount Coupon <span id="discountamount"><i class="fa fa-inr"></i>0</span></li>
            <input type="hidden" name="grandTotal" id="grandTotal1">
-                <li>Total <span id="grandTotal">
+                <li>Total <span id="grandTotal"><i class="fa fa-inr"></i>
                   {{$total<500 ? $total+50 : $total}}</span></li>
             </ul>
              <a href="{{route('checkout.test') }}">
