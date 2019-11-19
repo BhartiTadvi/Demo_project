@@ -45,7 +45,6 @@ class FrontendController extends Controller
          {
             $q->where('category_id',$product_id);
          })->with('productImage')->get();
-          //dd($productslist);
         $minprice=0;
         $recommendationProduct = $products->chunk(3);
         $maxprice=Product::max('price');

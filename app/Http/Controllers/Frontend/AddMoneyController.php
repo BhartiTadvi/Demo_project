@@ -73,7 +73,6 @@ class AddMoneyController extends Controller
     public function postPaymentWithpaypal(Request $request)
     {
        
-        // $order_id =$request->order_id;
        $this->validate($request, [
             'full_name' => 'required',
             'phone' => 'required',
@@ -122,10 +121,7 @@ class AddMoneyController extends Controller
            $orders->save(); 
            $orderId =$orders->id;
            Session::put('order_id',$orderId);
-
-
-       
-        $count=count($request->product_id);
+         $count=count($request->product_id);
         for($i=0;$i<$count;$i++)
         {
           $productOrders = new Product_Order();

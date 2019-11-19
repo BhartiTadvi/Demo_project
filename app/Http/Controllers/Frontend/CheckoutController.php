@@ -109,6 +109,7 @@ class CheckoutController extends Controller
           $states = State::get();
           $user = User::get();
           $data  =  Cart::content();
+
           $billingaddress = Address::where('id',$request->Billingaddressid)->get();
         if(count($billingaddress)<1){
                   $addresses = new Address();
@@ -134,15 +135,17 @@ class CheckoutController extends Controller
                   $address->mobileno = $request->phone_number;
                   $address->user_id = Auth::user()->id;
                   $address->save();
-                  $address->id = $addresses->id;
                 }  
+                 
                   $orders = new Order();
                   $orders->user_id  = Auth::user()->id;
-                  if($request->address_id){
-                   $orders->address_id = $request->address_id;
+                  if($request->Billingaddressid){
+                   $orders->address_id = $request->Billingaddressid;
                   }
-                     
-                  $orders->address_id = $address->id;
+                  else{
+                   $orders->address_id =$addresses->id;
+                  }
+                 
                   $orders->subtotal = $request->subtotal;
                   $orders->total = $request->grandtotal;
                   $orders->order_date = now();
@@ -170,8 +173,11 @@ class CheckoutController extends Controller
                    $orderdetails->save();
                     
                    $coupons=Coupon::where('id',$coupon_id)->first();
-                   $coupons->remaining_quantity = $coupons->remaining_quantity -1;
-                   $coupons->save();
+                   if($coupons){
+                    $coupons->remaining_quantity = $coupons->remaining_quantity -1;
+                    $coupons->save();
+                   }
+                   
                   
          $view = '<table border="1" cellpadding="10px" width="100%">
                     <thead>
